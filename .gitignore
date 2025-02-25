@@ -1,0 +1,5 @@
+.vs
+MedServicesBI/MedServicesOLTP/obj
+MedServicesBI/MedServicesOLTP/bin
+#*.dbmdl
+#*.jfm
