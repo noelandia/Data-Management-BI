@@ -76,5 +76,6 @@
   <ItemGroup>
     <PostDeploy Include="Scripts\Script.PostDeployment.sql" />
     <None Include="Scripts\medico.data.sql" />
+    <None Include="Scripts\director.data.sql" />
   </ItemGroup>
 </Project>

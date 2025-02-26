@@ -10,3 +10,4 @@ Plantilla de script posterior a la implementación
 --------------------------------------------------------------------------------------
 */
 :r .\medico.data.sql
+:r .\director.data.sql
