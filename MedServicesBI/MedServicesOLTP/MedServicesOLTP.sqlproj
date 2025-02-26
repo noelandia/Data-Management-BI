@@ -61,13 +61,23 @@
     <Folder Include="Schema\Programmability" />
     <Folder Include="Schema\Security" />
     <Folder Include="Schema\Security\Schema" />
+    <Folder Include="Scripts" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Schema\Security\Schema\servicios.sql" />
     <Build Include="Schema\Security\Schema\pacientes.sql" />
     <Build Include="Schema\Tables\director.sql" />
     <Build Include="Schema\Tables\visita_medica.sql" />
+    <Build Include="Schema\Tables\hospital.sql" />
+    <Build Include="Schema\Tables\hospital_servicio.sql" />
+    <Build Include="Schema\Tables\cama.sql" />
+    <Build Include="Schema\Tables\medico.sql" />
     <Build Include="Schema\Tables\servicio.sql" />
     <Build Include="Schema\Tables\ingreso_hospital.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <PostDeploy Include="Scripts\Script.PostDeployment.sql" />
+    <None Include="Scripts\medico.data.sql" />
+    <None Include="Scripts\director.data.sql" />
   </ItemGroup>
 </Project>
