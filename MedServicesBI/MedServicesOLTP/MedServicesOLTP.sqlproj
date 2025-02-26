@@ -72,6 +72,8 @@
     <Build Include="Schema\Tables\hospital_servicio.sql" />
     <Build Include="Schema\Tables\cama.sql" />
     <Build Include="Schema\Tables\medico.sql" />
+    <Build Include="Schema\Tables\servicio.sql" />
+    <Build Include="Schema\Tables\ingreso_hospital.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Scripts\Script.PostDeployment.sql" />
