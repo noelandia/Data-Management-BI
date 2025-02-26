@@ -9,5 +9,5 @@ Plantilla de script posterior a la implementación
                SELECT * FROM [$(TableName)]					
 --------------------------------------------------------------------------------------
 */
-:r .\medico.data.sql
-:r .\director.data.sql
+--:r .\medico.data.sql
+--:r .\director.data.sql
