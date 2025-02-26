@@ -12,6 +12,7 @@ CONSTRAINT [PK_visita_medica] PRIMARY KEY CLUSTERED
 (
 	[idVisita] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY],
+CONSTRAINT [FK_VM_Paciente] FOREIGN KEY (codHist) REFERENCES pacientes.paciente(codHist),
 CONSTRAINT [FK_VM_Hospital] FOREIGN KEY (codHospital) REFERENCES servicios.hospital(codHospital),
 CONSTRAINT [FK_VM_Servicio] FOREIGN KEY (idServicio) REFERENCES servicios.servicio(idServicio),
 CONSTRAINT [FK_VM_Medico] FOREIGN KEY (codMedico) REFERENCES servicios.medico(codMedico)
