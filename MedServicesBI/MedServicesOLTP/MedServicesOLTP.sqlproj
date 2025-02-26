@@ -65,5 +65,7 @@
   <ItemGroup>
     <Build Include="Schema\Security\Schema\servicios.sql" />
     <Build Include="Schema\Security\Schema\pacientes.sql" />
+    <Build Include="Schema\Tables\hospital.sql" />
+    <Build Include="Schema\Tables\Hospital_Servicio.sql" />
   </ItemGroup>
 </Project>
