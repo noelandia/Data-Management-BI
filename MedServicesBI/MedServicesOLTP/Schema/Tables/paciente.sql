@@ -1,5 +1,5 @@
 ﻿CREATE TABLE [pacientes].[paciente](
-	codHist INT IDENTITY(1,1) PRIMARY KEY NOT NULL,
+	codHist INT IDENTITY(1,1) NOT NULL,
 	dni VARCHAR(20) NOT NULL,
 	apPaterno VARCHAR(50),
 	apMaterno VARCHAR(50),
@@ -7,8 +7,8 @@
 	fecNacimiento DATE,
 	nroSeguro VARCHAR(30),
 	nroCelular INT,
-	CONSTRAINT AK_dni UNIQUE (dni)
+	[rowversion] [timestamp] NOT NULL,
+	CONSTRAINT AK_dni UNIQUE (dni),
+	CONSTRAINT [PK_Paciente] PRIMARY KEY (codHist)
 )
 GO
-
-
