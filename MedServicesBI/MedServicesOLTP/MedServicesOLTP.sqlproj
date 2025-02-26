@@ -61,6 +61,7 @@
     <Folder Include="Schema\Programmability" />
     <Folder Include="Schema\Security" />
     <Folder Include="Schema\Security\Schema" />
+    <Folder Include="Scripts" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Schema\Security\Schema\servicios.sql" />
@@ -71,5 +72,9 @@
     <Build Include="Schema\Tables\hospital_servicio.sql" />
     <Build Include="Schema\Tables\cama.sql" />
     <Build Include="Schema\Tables\medico.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <PostDeploy Include="Scripts\Script.PostDeployment.sql" />
+    <None Include="Scripts\medico.data.sql" />
   </ItemGroup>
 </Project>
