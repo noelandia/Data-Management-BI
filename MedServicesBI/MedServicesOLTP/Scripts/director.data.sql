@@ -1,0 +1,2 @@
+﻿INSERT INTO servicios.director(codDirector, codHospital,fecInicio, codMedico) VALUES (1, 1, '2025-02-25', 1);
+INSERT INTO servicios.director(codDirector, codHospital,fecInicio, codMedico) VALUES (2, 2, '2019-02-25', 2);
