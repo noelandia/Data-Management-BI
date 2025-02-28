@@ -8,7 +8,9 @@ Plantilla de script posterior a la implementación
  Ejemplo:      :setvar TableName miTabla							
                SELECT * FROM [$(TableName)]					
 --------------------------------------------------------------------------------------
-/*
---:r .\medico.data.sql
---:r .\director.data.sql
---:r .\hospital.data.sql
+*/
+
+INSERT INTO servicios.hospital(codHospital,nombre,ciudad,telefono) VALUES ('1','San Juan de Dios','Santa Cruz','33345789');
+INSERT INTO servicios.hospital(codHospital,nombre,ciudad,telefono) VALUES ('2','Japones','Santa Cruz','33245763');
+INSERT INTO servicios.hospital(codHospital,nombre,ciudad,telefono) VALUES ('3','Montalvo','Cochabamba','33178123');
+
