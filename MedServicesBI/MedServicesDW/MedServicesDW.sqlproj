@@ -3,16 +3,16 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <Name>MedServicesOLTP</Name>
+    <Name>MedServicesDW</Name>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectVersion>4.1</ProjectVersion>
-    <ProjectGuid>{50227e65-a2ec-4e3a-9ac0-97e5308bfe6a}</ProjectGuid>
+    <ProjectGuid>{f01485d9-1e9b-412a-83b2-7d89ee491bc9}</ProjectGuid>
     <DSP>Microsoft.Data.Tools.Schema.Sql.Sql160DatabaseSchemaProvider</DSP>
     <OutputType>Database</OutputType>
     <RootPath>
     </RootPath>
-    <RootNamespace>MedServicesOLTP</RootNamespace>
-    <AssemblyName>MedServicesOLTP</AssemblyName>
+    <RootNamespace>MedServicesDW</RootNamespace>
+    <AssemblyName>MedServicesDW</AssemblyName>
     <ModelCollation>1033, CI</ModelCollation>
     <DefaultFileStructure>BySchemaAndSchemaType</DefaultFileStructure>
     <DeployToDatabase>True</DeployToDatabase>
@@ -57,29 +57,13 @@
   <ItemGroup>
     <Folder Include="Properties" />
     <Folder Include="Schema" />
-    <Folder Include="Schema\Tables" />
     <Folder Include="Schema\Programmability" />
+    <Folder Include="Schema\Programmability\Stored Procedures" />
     <Folder Include="Schema\Security" />
     <Folder Include="Schema\Security\Schemas" />
+    <Folder Include="Schema\Tables" />
+    <Folder Include="Schema\Tables\dbo" />
+    <Folder Include="Schema\Tables\staging" />
     <Folder Include="Scripts" />
-  </ItemGroup>
-  <ItemGroup>
-    <Build Include="Schema\Security\Schemas\servicios.sql" />
-    <Build Include="Schema\Security\Schemas\pacientes.sql" />
-    <Build Include="Schema\Tables\director.sql" />
-    <Build Include="Schema\Tables\visita_medica.sql" />
-    <Build Include="Schema\Tables\hospital.sql" />
-    <Build Include="Schema\Tables\hospital_servicio.sql" />
-    <Build Include="Schema\Tables\medico.sql" />
-    <Build Include="Schema\Tables\servicio.sql" />
-    <Build Include="Schema\Tables\ingreso_hospital.sql" />
-    <Build Include="Schema\Tables\cama.sql" />
-    <Build Include="Schema\Tables\medico_servicio.sql" />
-    <Build Include="Schema\Tables\paciente.sql" />
-  </ItemGroup>
-  <ItemGroup>
-    <PostDeploy Include="Scripts\Script.PostDeployment.sql" />
-    <None Include="Scripts\medico.data.sql" />
-    <None Include="Scripts\director.data.sql" />
   </ItemGroup>
 </Project>
