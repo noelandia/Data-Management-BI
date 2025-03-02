@@ -78,8 +78,19 @@
     <Build Include="Schema\Tables\paciente.sql" />
   </ItemGroup>
   <ItemGroup>
-    <PostDeploy Include="Scripts\Script.PostDeployment.sql" />
     <None Include="Scripts\medico.data.sql" />
     <None Include="Scripts\director.data.sql" />
+    <PostDeploy Include="Scripts\injectionData.sql" />
+    <None Include="MedServicesOLTP.publish.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Scripts\hospital.data.sql" />
+    <None Include="Scripts\hospital_servicio.data.sql" />
+    <None Include="Scripts\medico_servicio.data.sql" />
+    <None Include="Scripts\cama.data.sql" />
+    <None Include="Scripts\paciente.data.sql" />
+    <None Include="Scripts\servicio.data.sql" />
+    <None Include="Scripts\visita_medica.data.sql" />
+    <None Include="Scripts\ingreso_hospital.data.sql" />
   </ItemGroup>
 </Project>
