@@ -1,30 +1,150 @@
-﻿-- Inserción de datos en la tabla ingreso_hospital
-INSERT INTO pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) 
-VALUES ('2025-01-18', '2025-01-25', 4, 203, 2, 4);
-
-INSERT INTO pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) 
-VALUES ('2025-01-20', '2025-02-05', 6, 204, 2, 6);
-
-INSERT INTO pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) 
-VALUES ('2025-01-17', '2025-01-22', 3, 105, 1, 3);
-
-INSERT INTO pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) 
-VALUES ('2025-01-16', '2025-01-20', 2, 103, 1, 2);
-
-INSERT INTO pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) 
-VALUES ('2025-01-22', '2025-01-30', 8, 602, 6, 8);
-
-INSERT INTO pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) 
-VALUES ('2025-01-23', '2025-01-28', 9, 801, 8, 9);
-
-INSERT INTO pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) 
-VALUES ('2025-01-24', '2025-02-03', 10, 403, 4, 10);
-
-INSERT INTO pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) 
-VALUES ('2025-01-25', '2025-02-01', 11, 501, 5, 1);
-
-INSERT INTO pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) 
-VALUES ('2025-01-19', NULL, 5, 402, 4, 5);
-
-INSERT INTO pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) 
-VALUES ('2025-01-26', NULL, 12, 701, 7, 2);
+﻿INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-01-18', '2025-01-25', 4, 203, 2, 4);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-01-20', '2025-02-05', 6, 204, 2, 6);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-01-17', '2025-01-22', 3, 105, 1, 3);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-01-16', '2025-01-20', 2, 103, 1, 2);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-01-22', '2025-01-30', 8, 602, 6, 8);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-01-23', '2025-01-28', 9, 801, 8, 9);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-01-24', '2025-02-03', 10, 403, 4, 10);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-01-25', '2025-02-01', 11, 501, 5, 1);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-01-19', NULL, 5, 402, 4, 5);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-01-26', NULL, 12, 701, 7, 2);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-01-12', '2025-01-17', 11, 301, 3, 2);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-01-13', '2025-01-18', 12, 401, 4, 4);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-01-14', '2025-01-19', 13, 501, 5, 1);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-01-15', '2025-01-20', 14, 601, 6, 7);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-01-16', '2025-01-21', 15, 701, 7, 2);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-01-17', '2025-01-22', 16, 801, 8, 9);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-01-18', '2025-01-23', 17, 101, 1, 1);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-01-19', '2025-01-24', 18, 201, 2, 1);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-01-20', '2025-01-25', 19, 301, 3, 2);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-01-21', '2025-01-26', 20, 401, 4, 4);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-01-22', '2025-01-27', 21, 501, 5, 1);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-01-23', '2025-01-28', 22, 601, 6, 7);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-01-24', '2025-01-29', 23, 701, 7, 2);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-01-25', '2025-01-30', 24, 801, 8, 9);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-01-26', '2025-01-31', 25, 101, 1, 1);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-01-27', NULL, 26, 201, 2, 1);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-01-28', NULL, 27, 301, 3, 2);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-01-29', NULL, 28, 401, 4, 4);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-01-30', NULL, 29, 501, 5, 1);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-01-31', '2025-02-05', 30, 601, 6, 7);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-02-01', '2025-02-06', 31, 701, 7, 2);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-02-02', '2025-02-07', 32, 801, 8, 9);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-02-03', NULL, 33, 101, 1, 1);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-02-04', '2025-02-09', 34, 201, 2, 1);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-02-05', '2025-02-10', 35, 301, 3, 2);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-02-06', NULL, 36, 401, 4, 4);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-01-07', '2025-01-12', 37, 501, 5, 1);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-01-08', NULL, 38, 601, 6, 7);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-01-09', '2025-01-14', 39, 701, 7, 2);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-01-10', '2025-01-15', 40, 801, 8, 9);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-01-11', NULL, 41, 101, 1, 1);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-01-12', '2025-01-17', 42, 201, 2, 1);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-01-13', '2025-01-18', 43, 301, 3, 2);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-01-14', NULL, 44, 401, 4, 4);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-01-15', '2025-02-20', 45, 501, 5, 1);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-02-16', '2025-02-21', 46, 601, 6, 7);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-02-17', NULL, 47, 701, 7, 2);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-02-18', NULL, 48, 801, 8, 9);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-02-19', NULL, 49, 101, 1, 1);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-02-20', NULL, 50, 201, 2, 1);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-02-21', NULL, 51, 301, 3, 2);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-01-22', NULL, 52, 401, 4, 4);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-01-23', '2025-01-28', 53, 501, 5, 1);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-01-24', '2025-01-29', 54, 601, 6, 7);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-01-25', '2025-01-30', 55, 701, 7, 2);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-01-26', '2025-02-01', 56, 801, 8, 9);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-01-27', '2025-02-02', 57, 101, 1, 1);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-01-28', '2025-02-03', 58, 201, 2, 1);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-01-29', NULL, 59, 301, 3, 2);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-01-30', NULL, 60, 401, 4, 4);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-02-01', '2025-02-06', 61, 501, 5, 1);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-02-02', '2025-02-07', 62, 601, 6, 7);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-02-03', '2025-02-08', 63, 701, 7, 2);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-02-04', '2025-02-09', 64, 801, 8, 9);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-02-05', '2025-02-10', 65, 101, 1, 1);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-01-06', '2025-01-11', 66, 201, 2, 1);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-01-07', '2025-01-12', 67, 301, 3, 2);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-01-08', NULL, 68, 401, 4, 4);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-01-09', NULL, 69, 501, 5, 1);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-01-10', NULL, 70, 601, 6, 7);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-01-11', '2025-01-16', 71, 701, 7, 2);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-01-12', '2025-02-17', 72, 801, 8, 9);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-01-13', '2025-01-18', 73, 101, 1, 1);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-02-14', '2025-02-19', 74, 201, 2, 1);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-02-15', '2025-02-20', 75, 301, 3, 2);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-02-16', '2025-02-21', 76, 401, 4, 4);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-02-17', '2025-02-22', 77, 501, 5, 1);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-02-18', '2025-02-23', 78, 601, 6, 7);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-02-19', '2025-02-24', 79, 701, 7, 2);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-02-20', NULL, 80, 801, 8, 9);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-02-21', '2025-02-26', 81, 101, 1, 1);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-02-22', '2025-02-27', 82, 201, 2, 1);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-02-23', NULL, 83, 301, 3, 2);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-02-24', '2025-03-02', 84, 401, 4, 4);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-02-25', '2025-03-03', 85, 501, 5, 1);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-02-26', '2025-03-01', 86, 601, 6, 7);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-02-27', '2025-03-01', 87, 701, 7, 2);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-02-28', '2025-03-02', 88, 801, 8, 9);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-01-29', '2025-02-03', 89, 101, 1, 1);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-01-30', '2025-02-04', 90, 201, 2, 1);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-01-31', '2025-02-05', 91, 301, 3, 2);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-01-01', NULL, 92, 401, 4, 4);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-01-02', '2025-02-07', 93, 501, 5, 1);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-02-03', '2025-02-08', 94, 601, 6, 7);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-02-04', '2025-02-09', 95, 701, 7, 2);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-02-05', '2025-02-10', 96, 801, 8, 9);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-02-06', '2025-02-11', 97, 101, 1, 1);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-02-07', '2025-02-12', 98, 201, 2, 1);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-02-08', '2025-02-13', 99, 301, 3, 2);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-02-09', '2025-02-14', 100, 401, 4, 4);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-02-10', '2025-02-15', 101, 501, 5, 1);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-02-11', '2025-02-16', 102, 601, 6, 7);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-02-12', NULL, 103, 701, 7, 2);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-02-13', '2025-02-18', 104, 801, 8, 9);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-02-14', '2025-02-19', 105, 101, 1, 1);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-02-15', '2025-02-20', 106, 201, 2, 1);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-02-16', '2025-02-21', 107, 301, 3, 2);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-02-17', '2025-02-22', 108, 401, 4, 4);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-02-18', '2025-02-23', 109, 501, 5, 1);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-02-19', NULL, 110, 601, 6, 7);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-02-20', NULL, 111, 701, 7, 2);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-02-21', NULL, 112, 801, 8, 9);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-02-22', NULL, 113, 101, 1, 1);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-02-23', NULL, 114, 201, 2, 1);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-02-24', NULL, 115, 301, 3, 2);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-02-25', NULL, 116, 401, 4, 4);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-02-26', NULL, 117, 501, 5, 1);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-02-27', NULL, 118, 601, 6, 7);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-02-28', NULL, 119, 701, 7, 2);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-01-29', NULL, 120, 801, 8, 9);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-01-30', '2025-02-05', 121, 101, 1, 1);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-01-01', '2025-01-06', 122, 201, 2, 1);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-01-02', '2025-01-07', 123, 301, 3, 2);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-01-03', '2025-01-08', 124, 401, 4, 4);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-01-04', '2025-01-09', 125, 501, 5, 1);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-02-05', '2025-02-10', 126, 601, 6, 7);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-02-06', '2025-02-11', 127, 701, 7, 2);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-02-07', NULL, 128, 801, 8, 9);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-02-08', '2025-02-13', 129, 101, 1, 1);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-02-09', '2025-02-14', 130, 201, 2, 1);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-02-10', '2025-02-15', 131, 301, 3, 2);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-02-11', '2025-02-16', 132, 401, 4, 4);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-02-12', '2025-02-17', 133, 501, 5, 1);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-02-13', '2025-02-18', 134, 601, 6, 7);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-02-14', '2025-02-19', 135, 701, 7, 2);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-02-15', '2025-02-20', 136, 801, 8, 9);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-02-16', '2025-02-21', 137, 101, 1, 1);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-02-17', '2025-02-22', 138, 201, 2, 1);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-02-18', NULL, 139, 301, 3, 2);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-02-19', NULL, 140, 401, 4, 4);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-02-20', NULL, 141, 501, 5, 1);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-02-21', NULL, 142, 601, 6, 7);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-02-22', '2025-02-27', 143, 701, 7, 2);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-02-23', '2025-02-28', 144, 801, 8, 9);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-02-24', NULL, 145, 101, 1, 1);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-02-25', NULL, 146, 201, 2, 1);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-02-26', NULL, 147, 301, 3, 2);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-02-27', NULL, 148, 401, 4, 4);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-02-28', NULL, 149, 501, 5, 1);
+INSERT pacientes.ingreso_hospital (fecIngreso, fecSalida, idVisita, codCama, codHospital, idServicio) VALUES ('2025-01-29', '2025-02-03', 150, 601, 6, 7);

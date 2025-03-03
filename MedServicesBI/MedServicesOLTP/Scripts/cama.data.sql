@@ -1,5 +1,4 @@
-﻿-- Inserción de datos en la tabla cama
-INSERT INTO servicios.cama (codCama, codHospital, idServicio, nroHabitacion, estado) VALUES (101, 1, 1, 'H101', 'Disponible');
+﻿INSERT INTO servicios.cama (codCama, codHospital, idServicio, nroHabitacion, estado) VALUES (101, 1, 1, 'H101', 'Disponible');
 INSERT INTO servicios.cama (codCama, codHospital, idServicio, nroHabitacion, estado) VALUES (102, 1, 1, 'H101', 'Disponible');
 INSERT INTO servicios.cama (codCama, codHospital, idServicio, nroHabitacion, estado) VALUES (103, 1, 2, 'H103', 'Ocupada');
 INSERT INTO servicios.cama (codCama, codHospital, idServicio, nroHabitacion, estado) VALUES (104, 1, 2, 'H104', 'Disponible');
@@ -16,8 +15,23 @@ INSERT INTO servicios.cama (codCama, codHospital, idServicio, nroHabitacion, est
 INSERT INTO servicios.cama (codCama, codHospital, idServicio, nroHabitacion, estado) VALUES (403, 4, 10, 'H403', 'Disponible');
 INSERT INTO servicios.cama (codCama, codHospital, idServicio, nroHabitacion, estado) VALUES (501, 5, 1, 'H501', 'Ocupada');
 INSERT INTO servicios.cama (codCama, codHospital, idServicio, nroHabitacion, estado) VALUES (502, 5, 6, 'H502', 'Disponible');
+INSERT INTO servicios.cama (codCama, codHospital, idServicio, nroHabitacion, estado) VALUES (503, 5, 11, 'H503', 'Disponible');
+INSERT INTO servicios.cama (codCama, codHospital, idServicio, nroHabitacion, estado) VALUES (504, 5, 11, 'H504', 'Ocupada');
+INSERT INTO servicios.cama (codCama, codHospital, idServicio, nroHabitacion, estado) VALUES (505, 5, 11, 'H505', 'Disponible');
+INSERT INTO servicios.cama (codCama, codHospital, idServicio, nroHabitacion, estado) VALUES (506, 5, 12, 'H506', 'Disponible');
+INSERT INTO servicios.cama (codCama, codHospital, idServicio, nroHabitacion, estado) VALUES (507, 5, 12, 'H507', 'Ocupada');
 INSERT INTO servicios.cama (codCama, codHospital, idServicio, nroHabitacion, estado) VALUES (601, 6, 7, 'H601', 'Ocupada');
 INSERT INTO servicios.cama (codCama, codHospital, idServicio, nroHabitacion, estado) VALUES (602, 6, 8, 'H602', 'Disponible');
+INSERT INTO servicios.cama (codCama, codHospital, idServicio, nroHabitacion, estado) VALUES (603, 6, 3, 'H603', 'Disponible');
 INSERT INTO servicios.cama (codCama, codHospital, idServicio, nroHabitacion, estado) VALUES (701, 7, 2, 'H701', 'Ocupada');
+INSERT INTO servicios.cama (codCama, codHospital, idServicio, nroHabitacion, estado) VALUES (702, 7, 4, 'H702', 'Ocupada');
+INSERT INTO servicios.cama (codCama, codHospital, idServicio, nroHabitacion, estado) VALUES (703, 7, 4, 'H703', 'Disponible');
+INSERT INTO servicios.cama (codCama, codHospital, idServicio, nroHabitacion, estado) VALUES (704, 7, 4, 'H704', 'Disponible');
+INSERT INTO servicios.cama (codCama, codHospital, idServicio, nroHabitacion, estado) VALUES (705, 7, 4, 'H705', 'Ocupada');
+INSERT INTO servicios.cama (codCama, codHospital, idServicio, nroHabitacion, estado) VALUES (706, 7, 9, 'H706', 'Disponible');
+INSERT INTO servicios.cama (codCama, codHospital, idServicio, nroHabitacion, estado) VALUES (707, 7, 9, 'H707', 'Ocupada');
 INSERT INTO servicios.cama (codCama, codHospital, idServicio, nroHabitacion, estado) VALUES (801, 8, 9, 'H801', 'Disponible');
 INSERT INTO servicios.cama (codCama, codHospital, idServicio, nroHabitacion, estado) VALUES (802, 8, 10, 'H802', 'Ocupada');
+INSERT INTO servicios.cama (codCama, codHospital, idServicio, nroHabitacion, estado) VALUES (803, 8, 1, 'H803', 'Disponible');
+INSERT INTO servicios.cama (codCama, codHospital, idServicio, nroHabitacion, estado) VALUES (804, 8, 1, 'H804', 'Ocupada');
+INSERT INTO servicios.cama (codCama, codHospital, idServicio, nroHabitacion, estado) VALUES (805, 8, 1, 'H805', 'Disponible');
