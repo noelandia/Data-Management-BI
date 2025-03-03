@@ -66,4 +66,7 @@
     <Folder Include="Schema\Tables\staging" />
     <Folder Include="Scripts" />
   </ItemGroup>
+  <ItemGroup>
+    <Build Include="Schema\Tables\dbo\dimhospital.sql" />
+  </ItemGroup>
 </Project>
