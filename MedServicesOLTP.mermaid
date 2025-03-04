@@ -1,0 +1,102 @@
+erDiagram
+    Hospital ||--o{ Hospital_Servicio : "tiene"
+    Hospital ||--o{ Director : "dirigido_por"
+    Hospital ||--o{ Visita_Medica : "atiende_en"
+    Hospital ||--o{ Cama : "contiene"
+    
+    Cama }o--o{ Ingreso_Hospital : "ocupada_en"
+    
+    Servicio ||--o{ Hospital_Servicio : "disponible_en"
+    Servicio ||--o{ Medico_Servicio : "contiene_especialistas"
+    Servicio ||--o{ Cama : "asignada_a"
+    Servicio ||--o{ Visita_Medica : "especialidad_de"
+    
+    Medico ||--o{ Medico_Servicio : "especializado_en"
+    Medico ||--o{ Director : "puede_ser"
+    Medico ||--o{ Visita_Medica : "realiza"
+    
+    Paciente ||--o{ Visita_Medica : "recibe"
+    
+    Visita_Medica ||--o{ Ingreso_Hospital : "puede_generar"
+    
+    Hospital {
+        int codHospital PK
+        varchar nombre
+        varchar ciudad
+        int telefono
+    }
+    
+    Servicio {
+        int idServicio PK
+        varchar nombre
+        varchar acronimo
+        varchar comentario
+    }
+    
+    Hospital_Servicio {
+        int codHospital PK,FK
+        int idServicio PK,FK
+        int cant_cama
+    }
+    
+    Medico {
+        int codMedico PK
+        varchar dni
+        varchar apPaterno
+        varchar apMaterno
+        varchar nombres
+        date fechaNacimiento
+    }
+    
+    Medico_Servicio {
+        int codMedico PK,FK
+        int idServicio PK,FK
+    }
+    
+    Director {
+        int codDirector PK
+        int codHospital PK,FK
+        date fecInicio
+        date fecFin
+        int codMedico FK
+    }
+    
+    Paciente {
+        int codHist PK
+        varchar dni
+        varchar apPaterno
+        varchar apMaterno
+        varchar nombres
+        date fecNacimiento
+        varchar nroSeguroSocial
+        int nroCelular
+    }
+    
+    Visita_Medica {
+        int idVisita PK
+        datetime fechaHora
+        varchar diagnostico
+        varchar tratamiento
+        int codHist FK
+        int codHospital FK
+        int idServicio FK
+        int codMedico FK
+    }
+    
+    Cama {
+        int codCama PK
+        int codHospital PK,FK
+        int idServicio PK,FK
+        varchar nroHabitacion
+        varchar estado
+    }
+    
+    Ingreso_Hospital {
+        int idIngreso PK
+        date fecIngreso
+        date fecSalida
+        int idVisita FK
+        int codCama FK
+        int codHospital FK
+        int idServicio FK
+    }

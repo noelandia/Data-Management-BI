@@ -1,0 +1,73 @@
+erDiagram
+    %% Configuramos las tablas de hechos en el centro
+    FactIngresoHospitalario ||--o{ DimHospital : ""
+    FactIngresoHospitalario ||--o{ DimServicio : ""
+    FactIngresoHospitalario ||--o{ DimPaciente : ""
+    
+    FactVisitaMedica ||--o{ DimHospital : ""
+    FactVisitaMedica ||--o{ DimServicio : ""
+    FactVisitaMedica ||--o{ DimMedico : ""
+    FactVisitaMedica ||--o{ DimPaciente : ""
+    
+    DimHospital {
+        int codHospital PK
+        varchar nombre
+        varchar ciudad
+        int telefono
+        int codDirector
+        date fecIniDirector
+        date fecFinDirector
+    }
+    
+    DimServicio {
+        int idServicio PK
+        varchar nombre
+        varchar acronimo
+        varchar comentario
+    }
+    
+    DimMedico {
+        int codMedico PK
+        varchar dni
+        varchar apPaterno
+        varchar apMaterno
+        varchar nombres
+        date fechaNacimiento
+        int codDirector
+    }
+    
+    DimPaciente {
+        int codHist PK
+        varchar dni
+        varchar apPaterno
+        varchar apMaterno
+        varchar nombres
+        date fechaNacimiento
+        varchar nroSeguridadSocial
+        int nroCelular
+    }
+    
+    FactIngresoHospitalario {
+        int idIngreso PK
+        date fechaIngreso
+        date fechaSalida
+        int idVisita FK
+        int codCama
+        int codHospital FK
+        int idServicio FK
+        varchar estadoCama
+        varchar nroHabitacion
+        int codMedico FK
+        int codHist FK
+    }
+    
+    FactVisitaMedica {
+        int idVisita PK
+        datetime fechaHora
+        varchar diagnostico
+        varchar tratamiento
+        int codHist FK
+        int codHospital FK
+        int idServicio FK
+        int codMedico FK
+    }
