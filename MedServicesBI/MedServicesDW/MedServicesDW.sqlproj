@@ -68,5 +68,8 @@
   </ItemGroup>
   <ItemGroup>
     <Build Include="Schema\Tables\dbo\dimhospital.sql" />
+    <Build Include="Schema\Tables\dbo\dimmedico.sql" />
+    <Build Include="Schema\Tables\dbo\dimpaciente.sql" />
+    <Build Include="Schema\Tables\dbo\dimdate.sql" />
   </ItemGroup>
 </Project>
