@@ -71,5 +71,7 @@
     <Build Include="Schema\Tables\dbo\dimmedico.sql" />
     <Build Include="Schema\Tables\dbo\dimpaciente.sql" />
     <Build Include="Schema\Tables\dbo\dimdate.sql" />
+    <Build Include="Schema\Tables\dbo\FactIngresoHospitalario.sql" />
+    <Build Include="Schema\Tables\dbo\FactVisitaMedica.sql" />
   </ItemGroup>
 </Project>
