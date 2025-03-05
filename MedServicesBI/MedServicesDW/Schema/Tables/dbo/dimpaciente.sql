@@ -1,4 +1,4 @@
-﻿CREATE TABLE [dbo].[dimpaciente](
+﻿CREATE TABLE [dbo].[DimPaciente](
 	codHistSK INT IDENTITY(1,1) NOT NULL,
 	codHist INT NOT NULL,
 	dni VARCHAR(20) NOT NULL,
@@ -8,6 +8,6 @@
 	fecNacimiento DATE,
 	nroSeguro VARCHAR(30),
 	nroCelular INT,
-	CONSTRAINT [PK_dimpaciente] PRIMARY KEY (codHistSK)
+	CONSTRAINT [PK_DimPaciente] PRIMARY KEY (codHistSK)
 )
 GO
