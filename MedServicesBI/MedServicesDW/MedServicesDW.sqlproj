@@ -67,6 +67,12 @@
     <Folder Include="Scripts" />
   </ItemGroup>
   <ItemGroup>
-    <Build Include="Schema\Tables\dbo\dimservicio.sql" />
+    <Build Include="Schema\Tables\dbo\DimHospital.sql" />
+    <Build Include="Schema\Tables\dbo\DimMedico.sql" />
+    <Build Include="Schema\Tables\dbo\DimPaciente.sql" />
+    <Build Include="Schema\Tables\dbo\DimDate.sql" />
+    <Build Include="Schema\Tables\dbo\FactIngresoHospitalario.sql" />
+    <Build Include="Schema\Tables\dbo\FactVisitaMedica.sql" />
+    <Build Include="Schema\Tables\dbo\DimServicio.sql" />
   </ItemGroup>
 </Project>
