@@ -76,6 +76,8 @@
     <Build Include="Schema\Tables\cama.sql" />
     <Build Include="Schema\Tables\medico_servicio.sql" />
     <Build Include="Schema\Tables\paciente.sql" />
+    <Build Include="Schema\Programmability\hospital.sql" />
+    <Build Include="Schema\Programmability\hospital_servicio.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Scripts\medico.data.sql" />
