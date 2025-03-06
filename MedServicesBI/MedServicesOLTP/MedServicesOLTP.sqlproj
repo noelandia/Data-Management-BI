@@ -62,6 +62,7 @@
     <Folder Include="Schema\Security" />
     <Folder Include="Schema\Security\Schemas" />
     <Folder Include="Scripts" />
+    <Folder Include="Schema\Programmability\Stored Procedures" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Schema\Security\Schemas\servicios.sql" />
@@ -76,6 +77,9 @@
     <Build Include="Schema\Tables\cama.sql" />
     <Build Include="Schema\Tables\medico_servicio.sql" />
     <Build Include="Schema\Tables\paciente.sql" />
+    <Build Include="Schema\Programmability\Stored Procedures\GetDatabaseRowVersion.sql" />
+    <Build Include="Schema\Programmability\Stored Procedures\GetDirectorChangesByRowVersion.sql" />
+    <Build Include="Schema\Programmability\Stored Procedures\GetVisitaMedicaChangesByRowVersion.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Scripts\medico.data.sql" />
