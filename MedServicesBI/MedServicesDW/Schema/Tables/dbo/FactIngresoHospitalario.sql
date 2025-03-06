@@ -23,7 +23,6 @@
 	CONSTRAINT [FK_FactIngresoHospital_FactVisitaMedica] FOREIGN KEY ([idVisitaSK])
 	REFERENCES [dbo].[FactVisitaMedica]([idVisitaSK]),
 
-	
 	CONSTRAINT [FK_FactIngresoHospital_DimServicio] FOREIGN KEY ([idServicioSK])
 	REFERENCES [dbo].[DimServicio]([idServicioSK]),
 
