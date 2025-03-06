@@ -1,5 +1,5 @@
 ﻿
-CREATE PROCEDURE [dbo].[GethospitalChangesByRowVersion]
+CREATE PROCEDURE [dbo].[GethospitalChangesByRowVersion] ----creacion del procedimiento almacenado Hospital
 (
    @startRow BIGINT,
    @endRow  BIGINT 

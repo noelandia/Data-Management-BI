@@ -1,5 +1,5 @@
 ﻿
-CREATE PROCEDURE [dbo].[GetVisitaMedicaChangesByRowVersion]
+CREATE PROCEDURE [dbo].[Gethospital_servicioChangesByRowVersion]
 (
    @startRow BIGINT,
    @endRow  BIGINT 
