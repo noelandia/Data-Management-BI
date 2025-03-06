@@ -10,7 +10,7 @@ BEGIN
 		   idServicio,
 		   cant_cama
 		  
-	  FROM hospital_servicio.servicio
+	  FROM hospital_servicio.servicio	
 	 WHERE rowversion > CONVERT(ROWVERSION, @startRow) 
 	   AND rowversion <= CONVERT(ROWVERSION,@endRow)
 END
