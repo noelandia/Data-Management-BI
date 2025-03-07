@@ -75,10 +75,14 @@
     <Build Include="Schema\Tables\dbo\FactVisitaMedica.sql" />
     <Build Include="Schema\Tables\dbo\DimServicio.sql" />
     <Build Include="Schema\Programmability\Stored Procedures\DW_MergeDimPaciente.sql" />
-    <Build Include="Schema\Tables\staging\paciente.sql" />
+    <Build Include="Schema\Tables\staging\staging.Paciente.sql" />
     <Build Include="Schema\Security\Schemas\staging.sql" />
     <Build Include="Schema\Tables\dbo\PackageConfig.sql" />
     <Build Include="Schema\Programmability\Stored Procedures\GetLastPackageRowVersion.sql" />
     <Build Include="Schema\Programmability\Stored Procedures\UpdateLastPackageRowVersion.sql" />
+    <Build Include="Schema\Tables\staging\staging.VisitaMedica.sql" />
+    <Build Include="Schema\Programmability\Stored Procedures\DW_MergeFactVisitaMedica.sql" />
+    <Build Include="Schema\Tables\staging\medico.sql" />
+    <Build Include="Schema\Programmability\Stored Procedures\DW_MergeDimMedico.sql" />
   </ItemGroup>
 </Project>
