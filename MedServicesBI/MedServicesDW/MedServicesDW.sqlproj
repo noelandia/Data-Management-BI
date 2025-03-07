@@ -67,11 +67,18 @@
     <Folder Include="Scripts" />
   </ItemGroup>
   <ItemGroup>
-    <Build Include="Schema\Tables\dbo\dimhospital.sql" />
-    <Build Include="Schema\Tables\dbo\dimmedico.sql" />
-    <Build Include="Schema\Tables\dbo\dimpaciente.sql" />
-    <Build Include="Schema\Tables\dbo\dimdate.sql" />
+    <Build Include="Schema\Tables\dbo\DimHospital.sql" />
+    <Build Include="Schema\Tables\dbo\DimMedico.sql" />
+    <Build Include="Schema\Tables\dbo\DimPaciente.sql" />
+    <Build Include="Schema\Tables\dbo\DimDate.sql" />
     <Build Include="Schema\Tables\dbo\FactIngresoHospitalario.sql" />
     <Build Include="Schema\Tables\dbo\FactVisitaMedica.sql" />
+    <Build Include="Schema\Tables\dbo\DimServicio.sql" />
+    <Build Include="Schema\Programmability\Stored Procedures\DW_MergeDimPaciente.sql" />
+    <Build Include="Schema\Tables\staging\paciente.sql" />
+    <Build Include="Schema\Security\Schemas\staging.sql" />
+    <Build Include="Schema\Tables\dbo\PackageConfig.sql" />
+    <Build Include="Schema\Programmability\Stored Procedures\GetLastPackageRowVersion.sql" />
+    <Build Include="Schema\Programmability\Stored Procedures\UpdateLastPackageRowVersion.sql" />
   </ItemGroup>
 </Project>

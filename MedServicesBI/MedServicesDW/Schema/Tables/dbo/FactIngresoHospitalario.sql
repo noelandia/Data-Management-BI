@@ -1,36 +1,36 @@
 ﻿CREATE TABLE [dbo].[FactIngresoHospitalario]
 (
-	[idIngreso] [int] IDENTITY(1,1) NOT NULL,
+	[idIngresoSK] [int] IDENTITY(1,1) NOT NULL,
+	[idIngreso] [int] NOT NULL,
 	[fechaIngreso] [date] NOT NULL, 	--atributos
 	[fechaSalida][date] NULL, 	--atributos
-	[idVisita] [int] NOT NULL, -- fk a FAcVisitaMEdica --Claves foraneas hacia las dimensiones
 	[codCama][int] NOT NULL,
-	[codHospital] [int] NOT NULL, -- FK a dimHospital --Claves foraneas hacia las dimensiones
-	[idServicio] [int] NOT NULL, --FK a dimservicio --Claves foraneas hacia las dimensiones
 	[estadoCama][varchar](20) NULL,
 	[nroHabitacion][varchar](6) NULL,
-	[codMedico][int] NOT NULL, --Claves foraneas hacia las dimensiones
-	[codHist] [int] NOT NULL, -- fk a dimPaciente
+	[idVisitaSK] [int] NOT NULL, -- fk a FAcVisitaMEdica --Claves foraneas hacia las dimensiones
+	[codHospitalSK] [int] NOT NULL, -- FK a dimHospital --Claves foraneas hacia las dimensiones
+	[idServicioSK] [int] NOT NULL, --FK a dimservicio --Claves foraneas hacia las dimensiones
+	[codMedicoSK][int] NOT NULL, --Claves foraneas hacia las dimensiones
+	[codHistSK] [int] NOT NULL, -- fk a dimPaciente
 	
-	CONSTRAINT [PK_fact_ingreso_hospital] PRIMARY KEY CLUSTERED (idIngreso ASC)
+	CONSTRAINT [PK_FactIngresoHospital] PRIMARY KEY CLUSTERED (idIngresoSK ASC)
 	WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, 
            ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY],
 
-	CONSTRAINT [FK_fact_ingreso_hospital_dimhospital] FOREIGN KEY ([codHospital]) 
-        REFERENCES [dbo].[dimhospital]([codHospital]),
+	CONSTRAINT [FK_FactIngresoHospital_DimHospital] FOREIGN KEY ([codHospitalSK]) 
+        REFERENCES [dbo].[DimHospital]([codHospitalSK]),
 
-	CONSTRAINT [FK_fact_ingreso_hospital_fact_visita_medica] FOREIGN KEY ([idVisita])
-	REFERENCES [dbo].[FactVisitaMedica]([idVisita]),
+	CONSTRAINT [FK_FactIngresoHospital_FactVisitaMedica] FOREIGN KEY ([idVisitaSK])
+	REFERENCES [dbo].[FactVisitaMedica]([idVisitaSK]),
 
-	
-	CONSTRAINT [FK_fact_ingreso_hospital_dimServicio] FOREIGN KEY ([idServicio])
-	REFERENCES [dbo].[dimServicio]([idServicio]),
+	CONSTRAINT [FK_FactIngresoHospital_DimServicio] FOREIGN KEY ([idServicioSK])
+	REFERENCES [dbo].[DimServicio]([idServicioSK]),
 
-	CONSTRAINT [FK_fact_ingreso_hospital_dimMedico] FOREIGN KEY ([codMedico])
-	REFERENCES [dbo].[dimHospital]([codMedico]),
+	CONSTRAINT [FK_FactIngresoHospital_DimMedico] FOREIGN KEY ([codMedicoSK])
+	REFERENCES [dbo].[DimMedico]([codMedicoSK]),
 
-	CONSTRAINT [FK_fact_ingreso_hospital_dimPaciente] FOREIGN KEY ([codHist])
-	REFERENCES [dbo].[dimPaciente]([codHist])
+	CONSTRAINT [FK_FactIngresoHospital_DimPaciente] FOREIGN KEY ([codHistSK])
+	REFERENCES [dbo].[DimPaciente]([codHistSK])
 		
 		
 		) ON [PRIMARY]
