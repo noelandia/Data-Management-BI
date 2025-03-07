@@ -74,5 +74,6 @@
     <Build Include="Schema\Tables\dbo\FactIngresoHospitalario.sql" />
     <Build Include="Schema\Tables\dbo\FactVisitaMedica.sql" />
     <Build Include="Schema\Tables\dbo\DimServicio.sql" />
+    <Build Include="Schema\Programmability\Stored Procedures\DW_MergeDimHospital.sql" />
   </ItemGroup>
 </Project>
