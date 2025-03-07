@@ -79,6 +79,8 @@
     <Build Include="Schema\Tables\paciente.sql" />
     <Build Include="Schema\Programmability\Stored Procedures\GetDatabaseRowVersion.sql" />
     <Build Include="Schema\Programmability\Stored Procedures\GetVisitaMedicaChangesByRowVersion.sql" />
+    <Build Include="Schema\Programmability\Stored Procedures\GetMedicoChangesByRowVersion.sql" />
+    <Build Include="Schema\Programmability\Stored Procedures\GetCamaChangesByRowVersion.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Scripts\medico.data.sql" />

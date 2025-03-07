@@ -82,5 +82,7 @@
     <Build Include="Schema\Programmability\Stored Procedures\UpdateLastPackageRowVersion.sql" />
     <Build Include="Schema\Tables\staging\staging.VisitaMedica.sql" />
     <Build Include="Schema\Programmability\Stored Procedures\DW_MergeFactVisitaMedica.sql" />
+    <Build Include="Schema\Tables\staging\medico.sql" />
+    <Build Include="Schema\Programmability\Stored Procedures\DW_MergeDimMedico.sql" />
   </ItemGroup>
 </Project>
