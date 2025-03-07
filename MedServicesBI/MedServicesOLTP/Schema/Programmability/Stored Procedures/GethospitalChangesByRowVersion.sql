@@ -14,7 +14,7 @@ BEGIN
            d.fecInicio,
            d.fecFin,
            d.codMedico
-		 
+
 		   FROM servicios.hospital h 
            INNER JOIN servicios.director d ON h.codHospital = d.codHospital
            WHERE h.rowversion > CONVERT(ROWVERSION, @startRow)
@@ -22,5 +22,4 @@ BEGIN
            END
            GO
 
-      
 
