@@ -78,7 +78,6 @@
     <Build Include="Schema\Tables\medico_servicio.sql" />
     <Build Include="Schema\Tables\paciente.sql" />
     <Build Include="Schema\Programmability\Stored Procedures\GetDatabaseRowVersion.sql" />
-    <Build Include="Schema\Programmability\Stored Procedures\GetDirectorChangesByRowVersion.sql" />
     <Build Include="Schema\Programmability\Stored Procedures\GetVisitaMedicaChangesByRowVersion.sql" />
   </ItemGroup>
   <ItemGroup>
