@@ -12,11 +12,11 @@
   <DataSourceViews />
   <DeploymentModelSpecificContent>
     <Manifest>
-      <SSIS:Project SSIS:ProtectionLevel="EncryptSensitiveWithUserKey" xmlns:SSIS="www.microsoft.com/SqlServer/SSIS">
+      <SSIS:Project SSIS:ProtectionLevel="EncryptSensitiveWithPassword" xmlns:SSIS="www.microsoft.com/SqlServer/SSIS">
         <SSIS:Properties>
           <SSIS:Property SSIS:Name="ID">{18b7561a-9177-43b2-a4f7-e165e98b526f}</SSIS:Property>
           <SSIS:Property SSIS:Name="Name">MedServicesETL</SSIS:Property>
-          <SSIS:Property SSIS:Name="VersionMajor">1</SSIS:Property>
+          <SSIS:Property SSIS:Name="VersionMajor">0</SSIS:Property>
           <SSIS:Property SSIS:Name="VersionMinor">0</SSIS:Property>
           <SSIS:Property SSIS:Name="VersionBuild">0</SSIS:Property>
           <SSIS:Property SSIS:Name="VersionComments">
@@ -26,7 +26,7 @@
           <SSIS:Property SSIS:Name="CreatorComputerName">NOE</SSIS:Property>
           <SSIS:Property SSIS:Name="Description">
           </SSIS:Property>
-          <SSIS:Property SSIS:Name="PasswordVerifier" SSIS:Sensitive="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAiT/PIRk/O0ypdE4kUgPq+QAAAAACAAAAAAAQZgAAAAEAACAAAACgosMD5f0DfbpBdv0qELRs7+EhfWBv2Lc0Y3LYDo679QAAAAAOgAAAAAIAACAAAABLzfaEjxOv+oS4C/MZvSdbpwVupPRFV+pwO0eT9Vh0ipAAAABnTNv6klMzB7oCb2/Mh2kYrOmatvhyQpLgaGkqm/E0m2LOyt2quvFXCZ1LK+Mw5VW+b2hW2FXcb/L2zSVIrtkljoaQYyHfXOSq+fai82SAW2wSxnGgSwosFu9ds/k9DQwaDnrDaDnUPX5L7RmgkStFVpl6BKxrq+V9o8DSbYvLUdFEzmk6kDWw13nUxflzQOZAAAAAxh3zCfQ6vUgkQ1D/YKeJOwI8iKTRXUWMKXFx/nNsrAuZgo6oBU+GaUAMlyrOZcelWpSnjf+itwzOUh1tL9+QKQ==</SSIS:Property>
+          <SSIS:Property SSIS:Name="PasswordVerifier" SSIS:Sensitive="1" SSIS:Salt="KNMEpnLonzM=" SSIS:IV="M8N48THr1QpH0ukMiVxBlQ==" SSIS:Algorithm="http://www.w3.org/2001/04/xmlenc#aes256-cbc">aUb6ySXS985SQpyxVyU6jmaUiP1uwAAcLF6ZMje9pXgSZUDeFfua9aJPnyiy4pZPPYXfsypckUlLdH4XHYMOjx4PVdUcDMnKztTNYQP/zwRY1/a0ejm0HKKyl3cMGP07UNHs7rYVAb683Frsu9W0TPkvNUSGakUfyAedjByv82BOIroN+5TBmSoAunHTn1KQ</SSIS:Property>
           <SSIS:Property SSIS:Name="FormatVersion">1</SSIS:Property>
         </SSIS:Properties>
         <SSIS:Packages />
@@ -56,7 +56,13 @@
         <LinkedAzureSSISIR />
         <LinkedAzureStorage />
         <RemoteExecutionFolder />
-        <ParameterConfigurationValues />
+        <ParameterConfigurationValues>
+          <ConfigurationSetting>
+            <Id>LastModifiedTime</Id>
+            <Name>LastModifiedTime</Name>
+            <Value xsi:type="xsd:dateTime">2025-03-07T13:34:09.973665Z</Value>
+          </ConfigurationSetting>
+        </ParameterConfigurationValues>
       </Options>
     </Configuration>
   </Configurations>
