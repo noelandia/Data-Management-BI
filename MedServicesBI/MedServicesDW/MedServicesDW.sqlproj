@@ -86,5 +86,6 @@
     <Build Include="Schema\Tables\staging\medico.sql" />
 	<Build Include="Schema\Tables\staging\IngresoHospital.sql" />
     <Build Include="Schema\Programmability\Stored Procedures\DW_MergeDimMedico.sql" />
+    <Build Include="Schema\Programmability\Stored Procedures\DW_MergeDimHospital.sql" />
   </ItemGroup>
 </Project>
