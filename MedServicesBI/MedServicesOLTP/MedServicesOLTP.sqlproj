@@ -83,7 +83,6 @@
     <Build Include="Schema\Programmability\Stored Procedures\GetIngresoHospitalChangesByRowVersion.sql" />
     <Build Include="Schema\Programmability\Stored Procedures\GetServicioChangesByRowVersion.sql" />
     <Build Include="Schema\Programmability\Stored Procedures\GethospitalChangesByRowVersion.sql" />
-    <Build Include="Schema\Programmability\Stored Procedures\Procedure1.sql" />
     <Build Include="Schema\Programmability\Stored Procedures\GetPacienteChangesByRowVersion.sql" />
   </ItemGroup>
   <ItemGroup>
