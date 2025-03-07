@@ -11,7 +11,9 @@ BEGIN
 	   ,[fechainidir]     = sc.[fechainidir]
 	   ,[fechafindir]   = sc.[fechafindir]
  	   FROM [dbo].[DimHospital]        dc
-	   INNER JOIN [staging].[director] sc ON (dc.[codHospitalSK]=sc.[codHospitalSK])
+	   INNER JOIN [staging].[hospital] sc on  (dc.[codHospitalSK]=sc.[codHospitalSK]) 
+	   AND dc.codHospital= sc.codHospital
+	  
 END
 GO
 

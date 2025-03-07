@@ -82,10 +82,11 @@
     <Build Include="Schema\Programmability\Stored Procedures\UpdateLastPackageRowVersion.sql" />
     <Build Include="Schema\Tables\staging\staging.VisitaMedica.sql" />
     <Build Include="Schema\Programmability\Stored Procedures\DW_MergeFactVisitaMedica.sql" />
-	<Build Include="Schema\Programmability\Stored Procedures\DW_MergeFactIngresoHospitalario.sql" />
+    <Build Include="Schema\Programmability\Stored Procedures\DW_MergeFactIngresoHospitalario.sql" />
     <Build Include="Schema\Tables\staging\medico.sql" />
-	<Build Include="Schema\Tables\staging\IngresoHospital.sql" />
+    <Build Include="Schema\Tables\staging\IngresoHospital.sql" />
     <Build Include="Schema\Programmability\Stored Procedures\DW_MergeDimMedico.sql" />
     <Build Include="Schema\Programmability\Stored Procedures\DW_MergeDimHospital.sql" />
+    <Build Include="Schema\Tables\staging\hospital.sql" />
   </ItemGroup>
 </Project>
