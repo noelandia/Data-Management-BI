@@ -80,5 +80,7 @@
     <Build Include="Schema\Tables\dbo\PackageConfig.sql" />
     <Build Include="Schema\Programmability\Stored Procedures\GetLastPackageRowVersion.sql" />
     <Build Include="Schema\Programmability\Stored Procedures\UpdateLastPackageRowVersion.sql" />
+    <Build Include="Schema\Tables\staging\medico.sql" />
+    <Build Include="Schema\Programmability\Stored Procedures\DW_MergeDimMedico.sql" />
   </ItemGroup>
 </Project>
