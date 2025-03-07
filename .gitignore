@@ -3,5 +3,7 @@ MedServicesBI/MedServicesOLTP/obj
 MedServicesBI/MedServicesOLTP/bin
 MedServicesBI/MedServicesDW/obj
 MedServicesBI/MedServicesDW/bin
+MedServicesBI/MedServicesETL/bin/
+MedServicesBI/MedServicesETL/obj/
 *.dbmdl
 *.jfm
