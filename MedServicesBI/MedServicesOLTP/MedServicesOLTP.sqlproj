@@ -80,6 +80,8 @@
     <Build Include="Schema\Programmability\Stored Procedures\GetDatabaseRowVersion.sql" />
     <Build Include="Schema\Programmability\Stored Procedures\GetDirectorChangesByRowVersion.sql" />
     <Build Include="Schema\Programmability\Stored Procedures\GetVisitaMedicaChangesByRowVersion.sql" />
+    <Build Include="Schema\Programmability\Stored Procedures\GetMedicoServicioChangesByRowVersion.sql" />
+    <Build Include="Schema\Programmability\Stored Procedures\GetPacienteChangesByRowVersion.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Scripts\medico.data.sql" />
