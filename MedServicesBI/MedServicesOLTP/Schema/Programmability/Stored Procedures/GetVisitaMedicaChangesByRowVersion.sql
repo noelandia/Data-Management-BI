@@ -12,7 +12,17 @@ BEGIN
 		   vm.codHist,
 		   vm.codHospital,
 		   vm.idServicio,
-		   vm.codMedico
+		   vm.codMedico,
+		   fechaHoraDateKey = CONVERT(INT,
+							(CONVERT(CHAR(4),DATEPART(YEAR,vm.[fechaHora]))
+						  + CASE 
+								WHEN DATEPART(MONTH,vm.[fechaHora]) < 10 THEN '0' + CONVERT(CHAR(1),DATEPART(MONTH,vm.[fechaHora]))
+								ELSE + CONVERT(CHAR(2),DATEPART(MONTH,vm.[fechaHora]))
+							END
+						  + CASE 
+								WHEN DATEPART(DAY,vm.[fechaHora]) < 10 THEN '0' + CONVERT(CHAR(1),DATEPART(DAY,vm.[fechaHora]))
+								ELSE + CONVERT(CHAR(2),DATEPART(DAY,vm.[fechaHora]))
+							END))
 	  FROM pacientes.visita_medica vm
 	 INNER JOIN pacientes.paciente pa ON vm.codHist = pa.codHist
 	 INNER JOIN servicios.hospital ho ON vm.codHospital = ho.codHospital

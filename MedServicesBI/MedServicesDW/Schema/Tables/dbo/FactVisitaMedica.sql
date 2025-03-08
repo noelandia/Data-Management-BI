@@ -9,6 +9,7 @@
     [codHospitalSK] [int] NOT NULL,
     [idServicioSK] [int] NOT NULL,
     [codMedicoSK] [int] NOT NULL,
+    [fechaHoraDateKey] [int] NOT NULL, --Clave foránea DimDate
     
     CONSTRAINT [PK_FactVisitaMedica] PRIMARY KEY CLUSTERED 
     (
@@ -27,6 +28,9 @@
 
     CONSTRAINT [FK_FactVisitaMedica_DimMedico] FOREIGN KEY ([codMedicoSK]) 
        	REFERENCES [dbo].[DimMedico]([codMedicoSK]),
+
+    CONSTRAINT [FK_DimDate_FechaHora] FOREIGN KEY ([fechaHoraDateKey]) 
+       	REFERENCES [dbo].[DimDate]([DateKey])
     
 ) ON [PRIMARY]
 GO
