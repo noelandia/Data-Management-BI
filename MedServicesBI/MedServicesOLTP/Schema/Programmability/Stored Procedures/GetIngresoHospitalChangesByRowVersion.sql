@@ -16,7 +16,27 @@ BEGIN
         cm.estado,
         cm.nroHabitacion,
         vm.codMedico,
-        vm.codHist
+        vm.codHist,
+        ingresoDateKey = CONVERT(INT,
+							(CONVERT(CHAR(4),DATEPART(YEAR,ih.[fecIngreso]))
+						  + CASE 
+								WHEN DATEPART(MONTH,ih.[fecIngreso]) < 10 THEN '0' + CONVERT(CHAR(1),DATEPART(MONTH,ih.[fecIngreso]))
+								ELSE + CONVERT(CHAR(2),DATEPART(MONTH,ih.[fecIngreso]))
+							END
+						  + CASE 
+								WHEN DATEPART(DAY,ih.[fecIngreso]) < 10 THEN '0' + CONVERT(CHAR(1),DATEPART(DAY,ih.[fecIngreso]))
+								ELSE + CONVERT(CHAR(2),DATEPART(DAY,ih.[fecIngreso]))
+							END)),
+		salidaDateKey = CONVERT(INT,
+							(CONVERT(CHAR(4),DATEPART(YEAR,ih.[fecSalida]))
+						  + CASE 
+								WHEN DATEPART(MONTH,ih.[fecSalida]) < 10 THEN '0' + CONVERT(CHAR(1),DATEPART(MONTH,ih.[fecSalida]))
+								ELSE + CONVERT(CHAR(2),DATEPART(MONTH,ih.[fecSalida]))
+							END
+						  + CASE 
+								WHEN DATEPART(DAY,ih.[fecSalida]) < 10 THEN '0' + CONVERT(CHAR(1),DATEPART(DAY,ih.[fecSalida]))
+								ELSE + CONVERT(CHAR(2),DATEPART(DAY,ih.[fecSalida]))
+							END))
     FROM pacientes.ingreso_hospital ih
     INNER JOIN pacientes.visita_medica vm ON ih.idVisita = vm.idVisita
     INNER JOIN servicios.cama cm 

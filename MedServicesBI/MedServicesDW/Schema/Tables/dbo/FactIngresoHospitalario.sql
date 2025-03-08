@@ -12,6 +12,8 @@
 	[idServicioSK] [int] NOT NULL, --FK a dimservicio --Claves foraneas hacia las dimensiones
 	[codMedicoSK][int] NOT NULL, --Claves foraneas hacia las dimensiones
 	[codHistSK] [int] NOT NULL, -- fk a dimPaciente
+	[ingresoDateKey] [int] NOT NULL, --Clave foránea DimDate
+	[salidaDateKey] [int] NOT NULL, --Clave foránea DimDate
 	
 	CONSTRAINT [PK_FactIngresoHospital] PRIMARY KEY CLUSTERED (idIngresoSK ASC)
 	WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, 
@@ -30,7 +32,13 @@
 	REFERENCES [dbo].[DimMedico]([codMedicoSK]),
 
 	CONSTRAINT [FK_FactIngresoHospital_DimPaciente] FOREIGN KEY ([codHistSK])
-	REFERENCES [dbo].[DimPaciente]([codHistSK])
+	REFERENCES [dbo].[DimPaciente]([codHistSK]),
+
+	CONSTRAINT [FK_DimDate_FechaIngreso] FOREIGN KEY ([ingresoDateKey])
+	REFERENCES [dbo].[DimDate]([DateKey]),
+
+	CONSTRAINT [FK_DimDate_FechaSalida] FOREIGN KEY ([salidaDateKey])
+	REFERENCES [dbo].[DimDate]([DateKey])
 		
 		
 		) ON [PRIMARY]
