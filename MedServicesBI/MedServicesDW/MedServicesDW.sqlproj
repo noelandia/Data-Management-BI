@@ -83,12 +83,18 @@
     <Build Include="Schema\Tables\staging\staging.VisitaMedica.sql" />
     <Build Include="Schema\Programmability\Stored Procedures\DW_MergeFactVisitaMedica.sql" />
     <Build Include="Schema\Programmability\Stored Procedures\DW_MergeFactIngresoHospitalario.sql" />
-    <Build Include="Schema\Tables\staging\medico.sql" />
+    <Build Include="Schema\Tables\staging\staging.Medico.sql" />
     <Build Include="Schema\Tables\staging\IngresoHospital.sql" />
     <Build Include="Schema\Programmability\Stored Procedures\DW_MergeDimMedico.sql" />
     <Build Include="Schema\Programmability\Stored Procedures\DW_MergeDimHospital.sql" />
     <Build Include="Schema\Tables\staging\hospital.sql" />
     <Build Include="Schema\Tables\staging\servicio.sql" />
     <Build Include="Schema\Programmability\Stored Procedures\DW_MergeDimServicio.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <PostDeploy Include="Scripts\Script.PostDeployment.sql" />
+    <None Include="Scripts\DimDate.data.sql" />
+    <None Include="Scripts\PackageConfig.data.sql" />
+    <None Include="Scripts\PatchDimDate.data.sql" />
   </ItemGroup>
 </Project>
