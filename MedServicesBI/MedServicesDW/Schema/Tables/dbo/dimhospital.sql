@@ -5,9 +5,7 @@
 	[nombre] [varchar](50) NOT NULL,
 	[ciudad] [varchar](20) NOT NULL,
 	[telefono] [int],
-	[coddirector] [int]  NULL,
-	[fechainidir] [date] NULL,
-	[fechafindir] [date] NULL,
+	[codDirector] [int]  NULL,
 	CONSTRAINT [PK_DimHospital] PRIMARY KEY ([codHospitalSK])
 )
 GO
