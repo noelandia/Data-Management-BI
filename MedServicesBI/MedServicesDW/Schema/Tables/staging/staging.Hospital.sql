@@ -6,7 +6,8 @@
 	[nombre] [varchar](50) NOT NULL,
 	[ciudad] [varchar](20) NOT NULL,
 	[telefono] [int],
-	[codDirector] [int]  NULL
-	
+	[codDirector] [int]  NULL,
+	[fecInicioDir] [date] NULL,
+	[fecFinDir] [date] NULL
 	)
 GO

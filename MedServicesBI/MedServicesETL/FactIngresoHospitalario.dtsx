@@ -1,0 +1,2628 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="3/8/2025 4:15:22 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="ALF-MINIPC"
+  DTS:CreatorName="ALF-MINIPC\carlo"
+  DTS:DTSID="{AF1AC47B-07D4-480A-B613-945C665D000A}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="16.0.5685.0"
+  DTS:LocaleID="2058"
+  DTS:ObjectName="FactIngresoHospitalario"
+  DTS:PackageType="5"
+  DTS:ProtectionLevel="2"
+  DTS:VersionBuild="46"
+  DTS:VersionGUID="{AF82B3D2-120C-4C57-BC58-7A5C2787AC30}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[Source.MedServicesOLTP]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{5010DDA6-407F-407A-B75F-3C26F9414C02}"
+      DTS:ObjectName="Source.MedServicesOLTP">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=localhost;Initial Catalog=MedServicesOLTP;Provider=MSOLEDBSQL.1;Integrated Security=SSPI;Auto Translate=False;Application Name=SSIS-Package1-{5010DDA6-407F-407A-B75F-3C26F9414C02}localhost.MedServices;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[Target.MedServicesDW]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{D20F5B80-6683-4358-96EC-5E6CF13078D7}"
+      DTS:ObjectName="Target.MedServicesDW">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=localhost;Initial Catalog=MedServicesDW;Provider=MSOLEDBSQL.1;Integrated Security=SSPI;Auto Translate=False;Application Name=SSIS-Package1-{D20F5B80-6683-4358-96EC-5E6CF13078D7}localhost.MedServicesDW;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{2A6CE3D0-028C-4025-8F29-0CF1FC2732AD}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="dbts">
+      <DTS:VariableValue
+        DTS:DataType="20">0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{28D29EB6-2133-4100-9BDE-E5E9D8ABEAFF}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="lastRowVersion">
+      <DTS:VariableValue
+        DTS:DataType="20">0</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Clean-up stagging"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{52560685-C811-4B39-BEC5-5CF7BD542890}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Clean-up stagging"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{D20F5B80-6683-4358-96EC-5E6CF13078D7}"
+          SQLTask:SqlStatementSource="TRUNCATE TABLE staging.IngresoHospital" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Get Database RowVersion"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{3366F77E-B299-4735-B636-1EC7627FFCAE}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Get Database RowVersion"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{5010DDA6-407F-407A-B75F-3C26F9414C02}"
+          SQLTask:SqlStatementSource="EXEC [dbo].[GetDatabaseRowVersion]"
+          SQLTask:ResultType="ResultSetType_SingleRow" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ResultBinding
+            SQLTask:ResultName="DBTS"
+            SQLTask:DtsVariableName="User::dbts" />
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Get LastRowVersion"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{03A04787-CAC6-4C37-9D79-3F1F32C79EF2}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Get LastRowVersion"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{D20F5B80-6683-4358-96EC-5E6CF13078D7}"
+          SQLTask:SqlStatementSource="EXEC [dbo].[GetLastPackageRowVersion] @tableName = 'Ingresos'"
+          SQLTask:ResultType="ResultSetType_SingleRow" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ResultBinding
+            SQLTask:ResultName="LastRowVersion"
+            SQLTask:DtsVariableName="User::lastRowVersion" />
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Load IngresoHospital"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{1D051AE1-7C7C-46AB-AA45-EEE9574ACDA7}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Load IngresoHospital"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Load IngresoHospital\Get Ingresos"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="Get Ingresos"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">EXEC [dbo].[GetIngresoHospitalChangesByRowVersion] @startRow = ?, @endRow = ?</property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping">"@startRow:Input",{28D29EB6-2133-4100-9BDE-E5E9D8ABEAFF};"@endRow:Input",{2A6CE3D0-028C-4025-8F29-0CF1FC2732AD};</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load IngresoHospital\Get Ingresos.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[Source.MedServicesOLTP]"
+                  connectionManagerRefId="Package.ConnectionManagers[Source.MedServicesOLTP]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Load IngresoHospital\Get Ingresos.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load IngresoHospital\Get Ingresos.Outputs[OLE DB Source Output].Columns[idIngreso]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load IngresoHospital\Get Ingresos.Outputs[OLE DB Source Output].ExternalColumns[idIngreso]"
+                      lineageId="Package\Load IngresoHospital\Get Ingresos.Outputs[OLE DB Source Output].Columns[idIngreso]"
+                      name="idIngreso"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load IngresoHospital\Get Ingresos.Outputs[OLE DB Source Output].Columns[fecIngreso]"
+                      dataType="dbDate"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load IngresoHospital\Get Ingresos.Outputs[OLE DB Source Output].ExternalColumns[fecIngreso]"
+                      lineageId="Package\Load IngresoHospital\Get Ingresos.Outputs[OLE DB Source Output].Columns[fecIngreso]"
+                      name="fecIngreso"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load IngresoHospital\Get Ingresos.Outputs[OLE DB Source Output].Columns[fecSalida]"
+                      dataType="dbDate"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load IngresoHospital\Get Ingresos.Outputs[OLE DB Source Output].ExternalColumns[fecSalida]"
+                      lineageId="Package\Load IngresoHospital\Get Ingresos.Outputs[OLE DB Source Output].Columns[fecSalida]"
+                      name="fecSalida"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load IngresoHospital\Get Ingresos.Outputs[OLE DB Source Output].Columns[idVisita]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load IngresoHospital\Get Ingresos.Outputs[OLE DB Source Output].ExternalColumns[idVisita]"
+                      lineageId="Package\Load IngresoHospital\Get Ingresos.Outputs[OLE DB Source Output].Columns[idVisita]"
+                      name="idVisita"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load IngresoHospital\Get Ingresos.Outputs[OLE DB Source Output].Columns[codCama]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load IngresoHospital\Get Ingresos.Outputs[OLE DB Source Output].ExternalColumns[codCama]"
+                      lineageId="Package\Load IngresoHospital\Get Ingresos.Outputs[OLE DB Source Output].Columns[codCama]"
+                      name="codCama"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load IngresoHospital\Get Ingresos.Outputs[OLE DB Source Output].Columns[codHospital]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load IngresoHospital\Get Ingresos.Outputs[OLE DB Source Output].ExternalColumns[codHospital]"
+                      lineageId="Package\Load IngresoHospital\Get Ingresos.Outputs[OLE DB Source Output].Columns[codHospital]"
+                      name="codHospital"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load IngresoHospital\Get Ingresos.Outputs[OLE DB Source Output].Columns[idServicio]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load IngresoHospital\Get Ingresos.Outputs[OLE DB Source Output].ExternalColumns[idServicio]"
+                      lineageId="Package\Load IngresoHospital\Get Ingresos.Outputs[OLE DB Source Output].Columns[idServicio]"
+                      name="idServicio"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load IngresoHospital\Get Ingresos.Outputs[OLE DB Source Output].Columns[estado]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load IngresoHospital\Get Ingresos.Outputs[OLE DB Source Output].ExternalColumns[estado]"
+                      length="20"
+                      lineageId="Package\Load IngresoHospital\Get Ingresos.Outputs[OLE DB Source Output].Columns[estado]"
+                      name="estado"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load IngresoHospital\Get Ingresos.Outputs[OLE DB Source Output].Columns[nroHabitacion]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load IngresoHospital\Get Ingresos.Outputs[OLE DB Source Output].ExternalColumns[nroHabitacion]"
+                      length="6"
+                      lineageId="Package\Load IngresoHospital\Get Ingresos.Outputs[OLE DB Source Output].Columns[nroHabitacion]"
+                      name="nroHabitacion"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load IngresoHospital\Get Ingresos.Outputs[OLE DB Source Output].Columns[codMedico]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load IngresoHospital\Get Ingresos.Outputs[OLE DB Source Output].ExternalColumns[codMedico]"
+                      lineageId="Package\Load IngresoHospital\Get Ingresos.Outputs[OLE DB Source Output].Columns[codMedico]"
+                      name="codMedico"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load IngresoHospital\Get Ingresos.Outputs[OLE DB Source Output].Columns[codHist]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load IngresoHospital\Get Ingresos.Outputs[OLE DB Source Output].ExternalColumns[codHist]"
+                      lineageId="Package\Load IngresoHospital\Get Ingresos.Outputs[OLE DB Source Output].Columns[codHist]"
+                      name="codHist"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load IngresoHospital\Get Ingresos.Outputs[OLE DB Source Output].Columns[ingresoDateKey]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load IngresoHospital\Get Ingresos.Outputs[OLE DB Source Output].ExternalColumns[ingresoDateKey]"
+                      lineageId="Package\Load IngresoHospital\Get Ingresos.Outputs[OLE DB Source Output].Columns[ingresoDateKey]"
+                      name="ingresoDateKey"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load IngresoHospital\Get Ingresos.Outputs[OLE DB Source Output].Columns[salidaDateKey]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load IngresoHospital\Get Ingresos.Outputs[OLE DB Source Output].ExternalColumns[salidaDateKey]"
+                      lineageId="Package\Load IngresoHospital\Get Ingresos.Outputs[OLE DB Source Output].Columns[salidaDateKey]"
+                      name="salidaDateKey"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Load IngresoHospital\Get Ingresos.Outputs[OLE DB Source Output].ExternalColumns[idIngreso]"
+                      dataType="i4"
+                      name="idIngreso" />
+                    <externalMetadataColumn
+                      refId="Package\Load IngresoHospital\Get Ingresos.Outputs[OLE DB Source Output].ExternalColumns[fecIngreso]"
+                      dataType="dbDate"
+                      name="fecIngreso" />
+                    <externalMetadataColumn
+                      refId="Package\Load IngresoHospital\Get Ingresos.Outputs[OLE DB Source Output].ExternalColumns[fecSalida]"
+                      dataType="dbDate"
+                      name="fecSalida" />
+                    <externalMetadataColumn
+                      refId="Package\Load IngresoHospital\Get Ingresos.Outputs[OLE DB Source Output].ExternalColumns[idVisita]"
+                      dataType="i4"
+                      name="idVisita" />
+                    <externalMetadataColumn
+                      refId="Package\Load IngresoHospital\Get Ingresos.Outputs[OLE DB Source Output].ExternalColumns[codCama]"
+                      dataType="i4"
+                      name="codCama" />
+                    <externalMetadataColumn
+                      refId="Package\Load IngresoHospital\Get Ingresos.Outputs[OLE DB Source Output].ExternalColumns[codHospital]"
+                      dataType="i4"
+                      name="codHospital" />
+                    <externalMetadataColumn
+                      refId="Package\Load IngresoHospital\Get Ingresos.Outputs[OLE DB Source Output].ExternalColumns[idServicio]"
+                      dataType="i4"
+                      name="idServicio" />
+                    <externalMetadataColumn
+                      refId="Package\Load IngresoHospital\Get Ingresos.Outputs[OLE DB Source Output].ExternalColumns[estado]"
+                      codePage="1252"
+                      dataType="str"
+                      length="20"
+                      name="estado" />
+                    <externalMetadataColumn
+                      refId="Package\Load IngresoHospital\Get Ingresos.Outputs[OLE DB Source Output].ExternalColumns[nroHabitacion]"
+                      codePage="1252"
+                      dataType="str"
+                      length="6"
+                      name="nroHabitacion" />
+                    <externalMetadataColumn
+                      refId="Package\Load IngresoHospital\Get Ingresos.Outputs[OLE DB Source Output].ExternalColumns[codMedico]"
+                      dataType="i4"
+                      name="codMedico" />
+                    <externalMetadataColumn
+                      refId="Package\Load IngresoHospital\Get Ingresos.Outputs[OLE DB Source Output].ExternalColumns[codHist]"
+                      dataType="i4"
+                      name="codHist" />
+                    <externalMetadataColumn
+                      refId="Package\Load IngresoHospital\Get Ingresos.Outputs[OLE DB Source Output].ExternalColumns[ingresoDateKey]"
+                      dataType="i4"
+                      name="ingresoDateKey" />
+                    <externalMetadataColumn
+                      refId="Package\Load IngresoHospital\Get Ingresos.Outputs[OLE DB Source Output].ExternalColumns[salidaDateKey]"
+                      dataType="i4"
+                      name="salidaDateKey" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Load IngresoHospital\Get Ingresos.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load IngresoHospital\Get Ingresos.Outputs[OLE DB Source Error Output].Columns[idIngreso]"
+                      dataType="i4"
+                      lineageId="Package\Load IngresoHospital\Get Ingresos.Outputs[OLE DB Source Error Output].Columns[idIngreso]"
+                      name="idIngreso" />
+                    <outputColumn
+                      refId="Package\Load IngresoHospital\Get Ingresos.Outputs[OLE DB Source Error Output].Columns[fecIngreso]"
+                      dataType="dbDate"
+                      lineageId="Package\Load IngresoHospital\Get Ingresos.Outputs[OLE DB Source Error Output].Columns[fecIngreso]"
+                      name="fecIngreso" />
+                    <outputColumn
+                      refId="Package\Load IngresoHospital\Get Ingresos.Outputs[OLE DB Source Error Output].Columns[fecSalida]"
+                      dataType="dbDate"
+                      lineageId="Package\Load IngresoHospital\Get Ingresos.Outputs[OLE DB Source Error Output].Columns[fecSalida]"
+                      name="fecSalida" />
+                    <outputColumn
+                      refId="Package\Load IngresoHospital\Get Ingresos.Outputs[OLE DB Source Error Output].Columns[idVisita]"
+                      dataType="i4"
+                      lineageId="Package\Load IngresoHospital\Get Ingresos.Outputs[OLE DB Source Error Output].Columns[idVisita]"
+                      name="idVisita" />
+                    <outputColumn
+                      refId="Package\Load IngresoHospital\Get Ingresos.Outputs[OLE DB Source Error Output].Columns[codCama]"
+                      dataType="i4"
+                      lineageId="Package\Load IngresoHospital\Get Ingresos.Outputs[OLE DB Source Error Output].Columns[codCama]"
+                      name="codCama" />
+                    <outputColumn
+                      refId="Package\Load IngresoHospital\Get Ingresos.Outputs[OLE DB Source Error Output].Columns[codHospital]"
+                      dataType="i4"
+                      lineageId="Package\Load IngresoHospital\Get Ingresos.Outputs[OLE DB Source Error Output].Columns[codHospital]"
+                      name="codHospital" />
+                    <outputColumn
+                      refId="Package\Load IngresoHospital\Get Ingresos.Outputs[OLE DB Source Error Output].Columns[idServicio]"
+                      dataType="i4"
+                      lineageId="Package\Load IngresoHospital\Get Ingresos.Outputs[OLE DB Source Error Output].Columns[idServicio]"
+                      name="idServicio" />
+                    <outputColumn
+                      refId="Package\Load IngresoHospital\Get Ingresos.Outputs[OLE DB Source Error Output].Columns[estado]"
+                      codePage="1252"
+                      dataType="str"
+                      length="20"
+                      lineageId="Package\Load IngresoHospital\Get Ingresos.Outputs[OLE DB Source Error Output].Columns[estado]"
+                      name="estado" />
+                    <outputColumn
+                      refId="Package\Load IngresoHospital\Get Ingresos.Outputs[OLE DB Source Error Output].Columns[nroHabitacion]"
+                      codePage="1252"
+                      dataType="str"
+                      length="6"
+                      lineageId="Package\Load IngresoHospital\Get Ingresos.Outputs[OLE DB Source Error Output].Columns[nroHabitacion]"
+                      name="nroHabitacion" />
+                    <outputColumn
+                      refId="Package\Load IngresoHospital\Get Ingresos.Outputs[OLE DB Source Error Output].Columns[codMedico]"
+                      dataType="i4"
+                      lineageId="Package\Load IngresoHospital\Get Ingresos.Outputs[OLE DB Source Error Output].Columns[codMedico]"
+                      name="codMedico" />
+                    <outputColumn
+                      refId="Package\Load IngresoHospital\Get Ingresos.Outputs[OLE DB Source Error Output].Columns[codHist]"
+                      dataType="i4"
+                      lineageId="Package\Load IngresoHospital\Get Ingresos.Outputs[OLE DB Source Error Output].Columns[codHist]"
+                      name="codHist" />
+                    <outputColumn
+                      refId="Package\Load IngresoHospital\Get Ingresos.Outputs[OLE DB Source Error Output].Columns[ingresoDateKey]"
+                      dataType="i4"
+                      lineageId="Package\Load IngresoHospital\Get Ingresos.Outputs[OLE DB Source Error Output].Columns[ingresoDateKey]"
+                      name="ingresoDateKey" />
+                    <outputColumn
+                      refId="Package\Load IngresoHospital\Get Ingresos.Outputs[OLE DB Source Error Output].Columns[salidaDateKey]"
+                      dataType="i4"
+                      lineageId="Package\Load IngresoHospital\Get Ingresos.Outputs[OLE DB Source Error Output].Columns[salidaDateKey]"
+                      name="salidaDateKey" />
+                    <outputColumn
+                      refId="Package\Load IngresoHospital\Get Ingresos.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load IngresoHospital\Get Ingresos.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load IngresoHospital\Get Ingresos.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load IngresoHospital\Get Ingresos.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load IngresoHospital\Load Ingresos"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="Destino de OLE DB;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;4"
+              description="Destino de OLE DB"
+              name="Load Ingresos"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="Número de segundos antes de que se agote el tiempo de espera de un comando. Un valor de 0 indica un tiempo de espera infinito."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica el nombre del objeto de base de datos usado para abrir un conjunto de filas."
+                  name="OpenRowset">[dbo].[FactIngresoHospitalario]</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica la variable que contiene el nombre del objeto de base de datos usado para abrir un conjunto de filas."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="Comando SQL para ejecutar."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica la página de códigos de columna para utilizar cuando la información de página de códigos no está disponible en el origen de datos."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Fuerza el uso del valor de la propiedad DefaultCodePage al describir datos de caracteres."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica el modo utilizado para obtener acceso a la base de datos."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indica si los valores proporcionados para columnas de identidad se van a copiar al destino. Si es False, los valores de las columnas de identidad se generan automáticamente en el destino. Solo se aplica si está activada la carga rápida."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indica si las columnas que contienen NULL tendrán NULL insertado en el destino. Si es False, las columnas que contienen NULL tendrán sus valores predeterminados insertados en el destino. Solo se aplica si está activada la carga rápida."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica opciones para usar con la carga rápida. Solo se aplica si está activada la carga rápida."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica cuándo se emiten confirmaciones durante la inserción de datos. El valor 0 especifica que se emitirá una confirmación al final de la inserción de datos. Solo se aplica si está activada la carga rápida."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load IngresoHospital\Load Ingresos.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[Target.MedServicesDW]"
+                  connectionManagerRefId="Package.ConnectionManagers[Target.MedServicesDW]"
+                  description="La conexión de tiempo de ejecución OLE DB usada para obtener acceso a la base de datos."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Load IngresoHospital\Load Ingresos.Inputs[Entrada de destino de OLE DB]"
+                  errorOrTruncationOperation="Insertar"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="Entrada de destino de OLE DB">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Load IngresoHospital\Load Ingresos.Inputs[Entrada de destino de OLE DB].Columns[idIngreso]"
+                      cachedDataType="i4"
+                      cachedName="idIngreso"
+                      externalMetadataColumnId="Package\Load IngresoHospital\Load Ingresos.Inputs[Entrada de destino de OLE DB].ExternalColumns[idIngreso]"
+                      lineageId="Package\Load IngresoHospital\Get Ingresos.Outputs[OLE DB Source Output].Columns[idIngreso]" />
+                    <inputColumn
+                      refId="Package\Load IngresoHospital\Load Ingresos.Inputs[Entrada de destino de OLE DB].Columns[codCama]"
+                      cachedDataType="i4"
+                      cachedName="codCama"
+                      externalMetadataColumnId="Package\Load IngresoHospital\Load Ingresos.Inputs[Entrada de destino de OLE DB].ExternalColumns[codCama]"
+                      lineageId="Package\Load IngresoHospital\Get Ingresos.Outputs[OLE DB Source Output].Columns[codCama]" />
+                    <inputColumn
+                      refId="Package\Load IngresoHospital\Load Ingresos.Inputs[Entrada de destino de OLE DB].Columns[nroHabitacion]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="6"
+                      cachedName="nroHabitacion"
+                      externalMetadataColumnId="Package\Load IngresoHospital\Load Ingresos.Inputs[Entrada de destino de OLE DB].ExternalColumns[nroHabitacion]"
+                      lineageId="Package\Load IngresoHospital\Get Ingresos.Outputs[OLE DB Source Output].Columns[nroHabitacion]" />
+                    <inputColumn
+                      refId="Package\Load IngresoHospital\Load Ingresos.Inputs[Entrada de destino de OLE DB].Columns[ingresoDateKey]"
+                      cachedDataType="i4"
+                      cachedName="ingresoDateKey"
+                      externalMetadataColumnId="Package\Load IngresoHospital\Load Ingresos.Inputs[Entrada de destino de OLE DB].ExternalColumns[ingresoDateKey]"
+                      lineageId="Package\Load IngresoHospital\Get Ingresos.Outputs[OLE DB Source Output].Columns[ingresoDateKey]" />
+                    <inputColumn
+                      refId="Package\Load IngresoHospital\Load Ingresos.Inputs[Entrada de destino de OLE DB].Columns[salidaDateKey]"
+                      cachedDataType="i4"
+                      cachedName="salidaDateKey"
+                      externalMetadataColumnId="Package\Load IngresoHospital\Load Ingresos.Inputs[Entrada de destino de OLE DB].ExternalColumns[salidaDateKey]"
+                      lineageId="Package\Load IngresoHospital\Get Ingresos.Outputs[OLE DB Source Output].Columns[salidaDateKey]" />
+                    <inputColumn
+                      refId="Package\Load IngresoHospital\Load Ingresos.Inputs[Entrada de destino de OLE DB].Columns[idVisitaSK]"
+                      cachedDataType="i4"
+                      cachedName="idVisitaSK"
+                      externalMetadataColumnId="Package\Load IngresoHospital\Load Ingresos.Inputs[Entrada de destino de OLE DB].ExternalColumns[idVisitaSK]"
+                      lineageId="Package\Load IngresoHospital\Lookup Visita.Outputs[Salida de entradas coincidentes de búsqueda].Columns[idVisitaSK]" />
+                    <inputColumn
+                      refId="Package\Load IngresoHospital\Load Ingresos.Inputs[Entrada de destino de OLE DB].Columns[codHospitalSK]"
+                      cachedDataType="i4"
+                      cachedName="codHospitalSK"
+                      externalMetadataColumnId="Package\Load IngresoHospital\Load Ingresos.Inputs[Entrada de destino de OLE DB].ExternalColumns[codHospitalSK]"
+                      lineageId="Package\Load IngresoHospital\Lookup Hospital.Outputs[Salida de entradas coincidentes de búsqueda].Columns[codHospitalSK]" />
+                    <inputColumn
+                      refId="Package\Load IngresoHospital\Load Ingresos.Inputs[Entrada de destino de OLE DB].Columns[idServicioSK]"
+                      cachedDataType="i4"
+                      cachedName="idServicioSK"
+                      externalMetadataColumnId="Package\Load IngresoHospital\Load Ingresos.Inputs[Entrada de destino de OLE DB].ExternalColumns[idServicioSK]"
+                      lineageId="Package\Load IngresoHospital\Lookup Servicio.Outputs[Salida de entradas coincidentes de búsqueda].Columns[idServicioSK]" />
+                    <inputColumn
+                      refId="Package\Load IngresoHospital\Load Ingresos.Inputs[Entrada de destino de OLE DB].Columns[codMedicoSK]"
+                      cachedDataType="i4"
+                      cachedName="codMedicoSK"
+                      externalMetadataColumnId="Package\Load IngresoHospital\Load Ingresos.Inputs[Entrada de destino de OLE DB].ExternalColumns[codMedicoSK]"
+                      lineageId="Package\Load IngresoHospital\Lookup Medico.Outputs[Salida de entradas coincidentes de búsqueda].Columns[codMedicoSK]" />
+                    <inputColumn
+                      refId="Package\Load IngresoHospital\Load Ingresos.Inputs[Entrada de destino de OLE DB].Columns[codHistSK]"
+                      cachedDataType="i4"
+                      cachedName="codHistSK"
+                      externalMetadataColumnId="Package\Load IngresoHospital\Load Ingresos.Inputs[Entrada de destino de OLE DB].ExternalColumns[codHistSK]"
+                      lineageId="Package\Load IngresoHospital\Lookup Paciente.Outputs[Salida de entradas coincidentes de búsqueda].Columns[codHistSK]" />
+                    <inputColumn
+                      refId="Package\Load IngresoHospital\Load Ingresos.Inputs[Entrada de destino de OLE DB].Columns[fecIngreso]"
+                      cachedDataType="dbDate"
+                      cachedName="fecIngreso"
+                      externalMetadataColumnId="Package\Load IngresoHospital\Load Ingresos.Inputs[Entrada de destino de OLE DB].ExternalColumns[fechaIngreso]"
+                      lineageId="Package\Load IngresoHospital\Get Ingresos.Outputs[OLE DB Source Output].Columns[fecIngreso]" />
+                    <inputColumn
+                      refId="Package\Load IngresoHospital\Load Ingresos.Inputs[Entrada de destino de OLE DB].Columns[fecSalida]"
+                      cachedDataType="dbDate"
+                      cachedName="fecSalida"
+                      externalMetadataColumnId="Package\Load IngresoHospital\Load Ingresos.Inputs[Entrada de destino de OLE DB].ExternalColumns[fechaSalida]"
+                      lineageId="Package\Load IngresoHospital\Get Ingresos.Outputs[OLE DB Source Output].Columns[fecSalida]" />
+                    <inputColumn
+                      refId="Package\Load IngresoHospital\Load Ingresos.Inputs[Entrada de destino de OLE DB].Columns[estado]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="20"
+                      cachedName="estado"
+                      externalMetadataColumnId="Package\Load IngresoHospital\Load Ingresos.Inputs[Entrada de destino de OLE DB].ExternalColumns[estadoCama]"
+                      lineageId="Package\Load IngresoHospital\Get Ingresos.Outputs[OLE DB Source Output].Columns[estado]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Load IngresoHospital\Load Ingresos.Inputs[Entrada de destino de OLE DB].ExternalColumns[idIngresoSK]"
+                      dataType="i4"
+                      name="idIngresoSK" />
+                    <externalMetadataColumn
+                      refId="Package\Load IngresoHospital\Load Ingresos.Inputs[Entrada de destino de OLE DB].ExternalColumns[idIngreso]"
+                      dataType="i4"
+                      name="idIngreso" />
+                    <externalMetadataColumn
+                      refId="Package\Load IngresoHospital\Load Ingresos.Inputs[Entrada de destino de OLE DB].ExternalColumns[fechaIngreso]"
+                      dataType="dbDate"
+                      name="fechaIngreso" />
+                    <externalMetadataColumn
+                      refId="Package\Load IngresoHospital\Load Ingresos.Inputs[Entrada de destino de OLE DB].ExternalColumns[fechaSalida]"
+                      dataType="dbDate"
+                      name="fechaSalida" />
+                    <externalMetadataColumn
+                      refId="Package\Load IngresoHospital\Load Ingresos.Inputs[Entrada de destino de OLE DB].ExternalColumns[codCama]"
+                      dataType="i4"
+                      name="codCama" />
+                    <externalMetadataColumn
+                      refId="Package\Load IngresoHospital\Load Ingresos.Inputs[Entrada de destino de OLE DB].ExternalColumns[estadoCama]"
+                      codePage="1252"
+                      dataType="str"
+                      length="20"
+                      name="estadoCama" />
+                    <externalMetadataColumn
+                      refId="Package\Load IngresoHospital\Load Ingresos.Inputs[Entrada de destino de OLE DB].ExternalColumns[nroHabitacion]"
+                      codePage="1252"
+                      dataType="str"
+                      length="6"
+                      name="nroHabitacion" />
+                    <externalMetadataColumn
+                      refId="Package\Load IngresoHospital\Load Ingresos.Inputs[Entrada de destino de OLE DB].ExternalColumns[idVisitaSK]"
+                      dataType="i4"
+                      name="idVisitaSK" />
+                    <externalMetadataColumn
+                      refId="Package\Load IngresoHospital\Load Ingresos.Inputs[Entrada de destino de OLE DB].ExternalColumns[codHospitalSK]"
+                      dataType="i4"
+                      name="codHospitalSK" />
+                    <externalMetadataColumn
+                      refId="Package\Load IngresoHospital\Load Ingresos.Inputs[Entrada de destino de OLE DB].ExternalColumns[idServicioSK]"
+                      dataType="i4"
+                      name="idServicioSK" />
+                    <externalMetadataColumn
+                      refId="Package\Load IngresoHospital\Load Ingresos.Inputs[Entrada de destino de OLE DB].ExternalColumns[codMedicoSK]"
+                      dataType="i4"
+                      name="codMedicoSK" />
+                    <externalMetadataColumn
+                      refId="Package\Load IngresoHospital\Load Ingresos.Inputs[Entrada de destino de OLE DB].ExternalColumns[codHistSK]"
+                      dataType="i4"
+                      name="codHistSK" />
+                    <externalMetadataColumn
+                      refId="Package\Load IngresoHospital\Load Ingresos.Inputs[Entrada de destino de OLE DB].ExternalColumns[ingresoDateKey]"
+                      dataType="i4"
+                      name="ingresoDateKey" />
+                    <externalMetadataColumn
+                      refId="Package\Load IngresoHospital\Load Ingresos.Inputs[Entrada de destino de OLE DB].ExternalColumns[salidaDateKey]"
+                      dataType="i4"
+                      name="salidaDateKey" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Load IngresoHospital\Load Ingresos.Outputs[Salida de error de destino de OLE DB]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Salida de error de destino de OLE DB"
+                  synchronousInputId="Package\Load IngresoHospital\Load Ingresos.Inputs[Entrada de destino de OLE DB]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load IngresoHospital\Load Ingresos.Outputs[Salida de error de destino de OLE DB].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load IngresoHospital\Load Ingresos.Outputs[Salida de error de destino de OLE DB].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load IngresoHospital\Load Ingresos.Outputs[Salida de error de destino de OLE DB].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load IngresoHospital\Load Ingresos.Outputs[Salida de error de destino de OLE DB].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load IngresoHospital\Load Staging"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="Destino de OLE DB;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;4"
+              description="Destino de OLE DB"
+              name="Load Staging"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="Número de segundos antes de que se agote el tiempo de espera de un comando. Un valor de 0 indica un tiempo de espera infinito."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica el nombre del objeto de base de datos usado para abrir un conjunto de filas."
+                  name="OpenRowset">[staging].[IngresoHospital]</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica la variable que contiene el nombre del objeto de base de datos usado para abrir un conjunto de filas."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="Comando SQL para ejecutar."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica la página de códigos de columna para utilizar cuando la información de página de códigos no está disponible en el origen de datos."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Fuerza el uso del valor de la propiedad DefaultCodePage al describir datos de caracteres."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica el modo utilizado para obtener acceso a la base de datos."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indica si los valores proporcionados para columnas de identidad se van a copiar al destino. Si es False, los valores de las columnas de identidad se generan automáticamente en el destino. Solo se aplica si está activada la carga rápida."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indica si las columnas que contienen NULL tendrán NULL insertado en el destino. Si es False, las columnas que contienen NULL tendrán sus valores predeterminados insertados en el destino. Solo se aplica si está activada la carga rápida."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica opciones para usar con la carga rápida. Solo se aplica si está activada la carga rápida."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica cuándo se emiten confirmaciones durante la inserción de datos. El valor 0 especifica que se emitirá una confirmación al final de la inserción de datos. Solo se aplica si está activada la carga rápida."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load IngresoHospital\Load Staging.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[Target.MedServicesDW]"
+                  connectionManagerRefId="Package.ConnectionManagers[Target.MedServicesDW]"
+                  description="La conexión de tiempo de ejecución OLE DB usada para obtener acceso a la base de datos."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Load IngresoHospital\Load Staging.Inputs[Entrada de destino de OLE DB]"
+                  errorOrTruncationOperation="Insertar"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="Entrada de destino de OLE DB">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Load IngresoHospital\Load Staging.Inputs[Entrada de destino de OLE DB].Columns[idIngreso]"
+                      cachedDataType="i4"
+                      cachedName="idIngreso"
+                      externalMetadataColumnId="Package\Load IngresoHospital\Load Staging.Inputs[Entrada de destino de OLE DB].ExternalColumns[idIngreso]"
+                      lineageId="Package\Load IngresoHospital\Get Ingresos.Outputs[OLE DB Source Output].Columns[idIngreso]" />
+                    <inputColumn
+                      refId="Package\Load IngresoHospital\Load Staging.Inputs[Entrada de destino de OLE DB].Columns[codCama]"
+                      cachedDataType="i4"
+                      cachedName="codCama"
+                      externalMetadataColumnId="Package\Load IngresoHospital\Load Staging.Inputs[Entrada de destino de OLE DB].ExternalColumns[codCama]"
+                      lineageId="Package\Load IngresoHospital\Get Ingresos.Outputs[OLE DB Source Output].Columns[codCama]" />
+                    <inputColumn
+                      refId="Package\Load IngresoHospital\Load Staging.Inputs[Entrada de destino de OLE DB].Columns[nroHabitacion]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="6"
+                      cachedName="nroHabitacion"
+                      externalMetadataColumnId="Package\Load IngresoHospital\Load Staging.Inputs[Entrada de destino de OLE DB].ExternalColumns[nroHabitacion]"
+                      lineageId="Package\Load IngresoHospital\Get Ingresos.Outputs[OLE DB Source Output].Columns[nroHabitacion]" />
+                    <inputColumn
+                      refId="Package\Load IngresoHospital\Load Staging.Inputs[Entrada de destino de OLE DB].Columns[ingresoDateKey]"
+                      cachedDataType="i4"
+                      cachedName="ingresoDateKey"
+                      externalMetadataColumnId="Package\Load IngresoHospital\Load Staging.Inputs[Entrada de destino de OLE DB].ExternalColumns[ingresoDateKey]"
+                      lineageId="Package\Load IngresoHospital\Get Ingresos.Outputs[OLE DB Source Output].Columns[ingresoDateKey]" />
+                    <inputColumn
+                      refId="Package\Load IngresoHospital\Load Staging.Inputs[Entrada de destino de OLE DB].Columns[salidaDateKey]"
+                      cachedDataType="i4"
+                      cachedName="salidaDateKey"
+                      externalMetadataColumnId="Package\Load IngresoHospital\Load Staging.Inputs[Entrada de destino de OLE DB].ExternalColumns[salidaDateKey]"
+                      lineageId="Package\Load IngresoHospital\Get Ingresos.Outputs[OLE DB Source Output].Columns[salidaDateKey]" />
+                    <inputColumn
+                      refId="Package\Load IngresoHospital\Load Staging.Inputs[Entrada de destino de OLE DB].Columns[idVisitaSK]"
+                      cachedDataType="i4"
+                      cachedName="idVisitaSK"
+                      externalMetadataColumnId="Package\Load IngresoHospital\Load Staging.Inputs[Entrada de destino de OLE DB].ExternalColumns[idVisitaSK]"
+                      lineageId="Package\Load IngresoHospital\Lookup Visita.Outputs[Salida de entradas coincidentes de búsqueda].Columns[idVisitaSK]" />
+                    <inputColumn
+                      refId="Package\Load IngresoHospital\Load Staging.Inputs[Entrada de destino de OLE DB].Columns[codHospitalSK]"
+                      cachedDataType="i4"
+                      cachedName="codHospitalSK"
+                      externalMetadataColumnId="Package\Load IngresoHospital\Load Staging.Inputs[Entrada de destino de OLE DB].ExternalColumns[codHospitalSK]"
+                      lineageId="Package\Load IngresoHospital\Lookup Hospital.Outputs[Salida de entradas coincidentes de búsqueda].Columns[codHospitalSK]" />
+                    <inputColumn
+                      refId="Package\Load IngresoHospital\Load Staging.Inputs[Entrada de destino de OLE DB].Columns[idServicioSK]"
+                      cachedDataType="i4"
+                      cachedName="idServicioSK"
+                      externalMetadataColumnId="Package\Load IngresoHospital\Load Staging.Inputs[Entrada de destino de OLE DB].ExternalColumns[idServicioSK]"
+                      lineageId="Package\Load IngresoHospital\Lookup Servicio.Outputs[Salida de entradas coincidentes de búsqueda].Columns[idServicioSK]" />
+                    <inputColumn
+                      refId="Package\Load IngresoHospital\Load Staging.Inputs[Entrada de destino de OLE DB].Columns[codMedicoSK]"
+                      cachedDataType="i4"
+                      cachedName="codMedicoSK"
+                      externalMetadataColumnId="Package\Load IngresoHospital\Load Staging.Inputs[Entrada de destino de OLE DB].ExternalColumns[codMedicoSK]"
+                      lineageId="Package\Load IngresoHospital\Lookup Medico.Outputs[Salida de entradas coincidentes de búsqueda].Columns[codMedicoSK]" />
+                    <inputColumn
+                      refId="Package\Load IngresoHospital\Load Staging.Inputs[Entrada de destino de OLE DB].Columns[codHistSK]"
+                      cachedDataType="i4"
+                      cachedName="codHistSK"
+                      externalMetadataColumnId="Package\Load IngresoHospital\Load Staging.Inputs[Entrada de destino de OLE DB].ExternalColumns[codHistSK]"
+                      lineageId="Package\Load IngresoHospital\Lookup Paciente.Outputs[Salida de entradas coincidentes de búsqueda].Columns[codHistSK]" />
+                    <inputColumn
+                      refId="Package\Load IngresoHospital\Load Staging.Inputs[Entrada de destino de OLE DB].Columns[idIngresoSK]"
+                      cachedDataType="i4"
+                      cachedName="idIngresoSK"
+                      externalMetadataColumnId="Package\Load IngresoHospital\Load Staging.Inputs[Entrada de destino de OLE DB].ExternalColumns[idIngresoSK]"
+                      lineageId="Package\Load IngresoHospital\Lookup Ingresos.Outputs[Salida de entradas coincidentes de búsqueda].Columns[idIngresoSK]" />
+                    <inputColumn
+                      refId="Package\Load IngresoHospital\Load Staging.Inputs[Entrada de destino de OLE DB].Columns[fecIngreso]"
+                      cachedDataType="dbDate"
+                      cachedName="fecIngreso"
+                      externalMetadataColumnId="Package\Load IngresoHospital\Load Staging.Inputs[Entrada de destino de OLE DB].ExternalColumns[fechaIngreso]"
+                      lineageId="Package\Load IngresoHospital\Get Ingresos.Outputs[OLE DB Source Output].Columns[fecIngreso]" />
+                    <inputColumn
+                      refId="Package\Load IngresoHospital\Load Staging.Inputs[Entrada de destino de OLE DB].Columns[fecSalida]"
+                      cachedDataType="dbDate"
+                      cachedName="fecSalida"
+                      externalMetadataColumnId="Package\Load IngresoHospital\Load Staging.Inputs[Entrada de destino de OLE DB].ExternalColumns[fechaSalida]"
+                      lineageId="Package\Load IngresoHospital\Get Ingresos.Outputs[OLE DB Source Output].Columns[fecSalida]" />
+                    <inputColumn
+                      refId="Package\Load IngresoHospital\Load Staging.Inputs[Entrada de destino de OLE DB].Columns[estado]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="20"
+                      cachedName="estado"
+                      externalMetadataColumnId="Package\Load IngresoHospital\Load Staging.Inputs[Entrada de destino de OLE DB].ExternalColumns[estadoCama]"
+                      lineageId="Package\Load IngresoHospital\Get Ingresos.Outputs[OLE DB Source Output].Columns[estado]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Load IngresoHospital\Load Staging.Inputs[Entrada de destino de OLE DB].ExternalColumns[idIngresoSK]"
+                      dataType="i4"
+                      name="idIngresoSK" />
+                    <externalMetadataColumn
+                      refId="Package\Load IngresoHospital\Load Staging.Inputs[Entrada de destino de OLE DB].ExternalColumns[idIngreso]"
+                      dataType="i4"
+                      name="idIngreso" />
+                    <externalMetadataColumn
+                      refId="Package\Load IngresoHospital\Load Staging.Inputs[Entrada de destino de OLE DB].ExternalColumns[fechaIngreso]"
+                      dataType="dbDate"
+                      name="fechaIngreso" />
+                    <externalMetadataColumn
+                      refId="Package\Load IngresoHospital\Load Staging.Inputs[Entrada de destino de OLE DB].ExternalColumns[fechaSalida]"
+                      dataType="dbDate"
+                      name="fechaSalida" />
+                    <externalMetadataColumn
+                      refId="Package\Load IngresoHospital\Load Staging.Inputs[Entrada de destino de OLE DB].ExternalColumns[codCama]"
+                      dataType="i4"
+                      name="codCama" />
+                    <externalMetadataColumn
+                      refId="Package\Load IngresoHospital\Load Staging.Inputs[Entrada de destino de OLE DB].ExternalColumns[estadoCama]"
+                      codePage="1252"
+                      dataType="str"
+                      length="20"
+                      name="estadoCama" />
+                    <externalMetadataColumn
+                      refId="Package\Load IngresoHospital\Load Staging.Inputs[Entrada de destino de OLE DB].ExternalColumns[nroHabitacion]"
+                      codePage="1252"
+                      dataType="str"
+                      length="6"
+                      name="nroHabitacion" />
+                    <externalMetadataColumn
+                      refId="Package\Load IngresoHospital\Load Staging.Inputs[Entrada de destino de OLE DB].ExternalColumns[idVisitaSK]"
+                      dataType="i4"
+                      name="idVisitaSK" />
+                    <externalMetadataColumn
+                      refId="Package\Load IngresoHospital\Load Staging.Inputs[Entrada de destino de OLE DB].ExternalColumns[codHospitalSK]"
+                      dataType="i4"
+                      name="codHospitalSK" />
+                    <externalMetadataColumn
+                      refId="Package\Load IngresoHospital\Load Staging.Inputs[Entrada de destino de OLE DB].ExternalColumns[idServicioSK]"
+                      dataType="i4"
+                      name="idServicioSK" />
+                    <externalMetadataColumn
+                      refId="Package\Load IngresoHospital\Load Staging.Inputs[Entrada de destino de OLE DB].ExternalColumns[codMedicoSK]"
+                      dataType="i4"
+                      name="codMedicoSK" />
+                    <externalMetadataColumn
+                      refId="Package\Load IngresoHospital\Load Staging.Inputs[Entrada de destino de OLE DB].ExternalColumns[codHistSK]"
+                      dataType="i4"
+                      name="codHistSK" />
+                    <externalMetadataColumn
+                      refId="Package\Load IngresoHospital\Load Staging.Inputs[Entrada de destino de OLE DB].ExternalColumns[ingresoDateKey]"
+                      dataType="i4"
+                      name="ingresoDateKey" />
+                    <externalMetadataColumn
+                      refId="Package\Load IngresoHospital\Load Staging.Inputs[Entrada de destino de OLE DB].ExternalColumns[salidaDateKey]"
+                      dataType="i4"
+                      name="salidaDateKey" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Load IngresoHospital\Load Staging.Outputs[Salida de error de destino de OLE DB]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Salida de error de destino de OLE DB"
+                  synchronousInputId="Package\Load IngresoHospital\Load Staging.Inputs[Entrada de destino de OLE DB]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load IngresoHospital\Load Staging.Outputs[Salida de error de destino de OLE DB].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load IngresoHospital\Load Staging.Outputs[Salida de error de destino de OLE DB].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load IngresoHospital\Load Staging.Outputs[Salida de error de destino de OLE DB].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load IngresoHospital\Load Staging.Outputs[Salida de error de destino de OLE DB].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load IngresoHospital\Lookup Hospital"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Búsqueda;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;6"
+              description="Combina columnas adicionales con el flujo de datos mediante la búsqueda de valores en una tabla. Por ejemplo, se combina la columna 'id. de empleado' con la tabla de empleados para obtener la 'fecha de contratación' y 'el nombre de empleado'. Se recomienda esta transformación cuando hay suficiente espacio en memoria para la tabla de búsqueda."
+              name="Lookup Hospital"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Especifica la instrucción SQL que genera la tabla de búsqueda."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from [dbo].[DimHospital]</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica una instrucción SQL que usa parámetros para generar la tabla de búsqueda."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (select * from [dbo].[DimHospital]) [refTable]
+where [refTable].[codHospital] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica el tipo de conexión utilizado para tener acceso al conjunto de datos de referencia."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica el tipo de caché de la tabla de búsqueda."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica cómo la transformación de búsquedas trata las filas sin entradas coincidentes en el conjunto de datos de referencia."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica el porcentaje de la caché asignado a las filas sin entradas coincidentes en el conjunto de datos de referencia."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Uso de memoria máximo para la caché de referencia en una plataforma de 32 bits."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Uso de memoria máximo para la caché de referencia en una plataforma de 64 bits."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indica si se debe hacer referencia a metadatos en formato XML."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="codHospitalSK" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="codHospital" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="nombre" dataType="DT_STR" length="50" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="ciudad" dataType="DT_STR" length="20" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="telefono" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="codDirector" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="fecInicioDir" dataType="DT_DBDATE" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="fecFinDir" dataType="DT_DBDATE" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Especifica la lista de identificadores de linaje que están asignados a los parámetros que usa la instrucción SQL de la propiedad SQLCommand. Las entradas de la lista están separadas por puntos y comas."
+                  name="ParameterMap">#{Package\Load IngresoHospital\Get Ingresos.Outputs[OLE DB Source Output].Columns[codHospital]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica la página de códigos de columna para utilizar cuando la información de página de códigos no está disponible en el origen de datos."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determina si las claves duplicadas de los datos de referencia se deben tratar como errores cuando se usa el modo de caché."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load IngresoHospital\Lookup Hospital.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[Target.MedServicesDW]"
+                  connectionManagerRefId="Package.ConnectionManagers[Target.MedServicesDW]"
+                  description="Administrador de conexiones utilizado para obtener acceso a los datos de búsqueda."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Load IngresoHospital\Lookup Hospital.Inputs[Entrada de búsqueda]"
+                  name="Entrada de búsqueda">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Load IngresoHospital\Lookup Hospital.Inputs[Entrada de búsqueda].Columns[codHospital]"
+                      cachedDataType="i4"
+                      cachedName="codHospital"
+                      lineageId="Package\Load IngresoHospital\Get Ingresos.Outputs[OLE DB Source Output].Columns[codHospital]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Especifica la columna de la tabla de referencia con la que se combina una columna."
+                          name="JoinToReferenceColumn">codHospital</property>
+                        <property
+                          dataType="System.Null"
+                          description="Especifica la columna de la tabla de referencia de la que se copia una columna."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Load IngresoHospital\Lookup Hospital.Outputs[Salida de entradas coincidentes de búsqueda]"
+                  errorOrTruncationOperation="Búsqueda"
+                  errorRowDisposition="FailComponent"
+                  exclusionGroup="1"
+                  name="Salida de entradas coincidentes de búsqueda"
+                  synchronousInputId="Package\Load IngresoHospital\Lookup Hospital.Inputs[Entrada de búsqueda]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load IngresoHospital\Lookup Hospital.Outputs[Salida de entradas coincidentes de búsqueda].Columns[codHospitalSK]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Copiar columna"
+                      lineageId="Package\Load IngresoHospital\Lookup Hospital.Outputs[Salida de entradas coincidentes de búsqueda].Columns[codHospitalSK]"
+                      name="codHospitalSK"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Especifica la columna de la tabla de referencia de la que se copia una columna."
+                          name="CopyFromReferenceColumn">codHospitalSK</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Load IngresoHospital\Lookup Hospital.Outputs[Salida de entradas no coincidentes de búsqueda]"
+                  description="Salida de búsqueda que trata las filas sin entradas coincidentes en el conjunto de datos de referencia. Utilice esta salida cuando la propiedad NoMatchBehavior esté establecida en 'Enviar las filas sin entradas coincidentes a la salida de entradas no coincidentes'."
+                  exclusionGroup="1"
+                  name="Salida de entradas no coincidentes de búsqueda"
+                  synchronousInputId="Package\Load IngresoHospital\Lookup Hospital.Inputs[Entrada de búsqueda]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Load IngresoHospital\Lookup Hospital.Outputs[Salida de error de búsqueda]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Salida de error de búsqueda"
+                  synchronousInputId="Package\Load IngresoHospital\Lookup Hospital.Inputs[Entrada de búsqueda]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load IngresoHospital\Lookup Hospital.Outputs[Salida de error de búsqueda].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load IngresoHospital\Lookup Hospital.Outputs[Salida de error de búsqueda].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load IngresoHospital\Lookup Hospital.Outputs[Salida de error de búsqueda].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load IngresoHospital\Lookup Hospital.Outputs[Salida de error de búsqueda].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load IngresoHospital\Lookup Ingresos"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Búsqueda;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;6"
+              description="Combina columnas adicionales con el flujo de datos mediante la búsqueda de valores en una tabla. Por ejemplo, se combina la columna 'id. de empleado' con la tabla de empleados para obtener la 'fecha de contratación' y 'el nombre de empleado'. Se recomienda esta transformación cuando hay suficiente espacio en memoria para la tabla de búsqueda."
+              name="Lookup Ingresos"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Especifica la instrucción SQL que genera la tabla de búsqueda."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from [dbo].[FactIngresoHospitalario]</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica una instrucción SQL que usa parámetros para generar la tabla de búsqueda."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (select * from [dbo].[FactIngresoHospitalario]) [refTable]
+where [refTable].[idIngreso] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica el tipo de conexión utilizado para tener acceso al conjunto de datos de referencia."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica el tipo de caché de la tabla de búsqueda."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica cómo la transformación de búsquedas trata las filas sin entradas coincidentes en el conjunto de datos de referencia."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">1</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica el porcentaje de la caché asignado a las filas sin entradas coincidentes en el conjunto de datos de referencia."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Uso de memoria máximo para la caché de referencia en una plataforma de 32 bits."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Uso de memoria máximo para la caché de referencia en una plataforma de 64 bits."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indica si se debe hacer referencia a metadatos en formato XML."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="idIngresoSK" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="idIngreso" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="fechaIngreso" dataType="DT_DBDATE" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="fechaSalida" dataType="DT_DBDATE" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="codCama" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="estadoCama" dataType="DT_STR" length="20" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="nroHabitacion" dataType="DT_STR" length="6" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="idVisitaSK" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="codHospitalSK" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="idServicioSK" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="codMedicoSK" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="codHistSK" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="ingresoDateKey" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="salidaDateKey" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Especifica la lista de identificadores de linaje que están asignados a los parámetros que usa la instrucción SQL de la propiedad SQLCommand. Las entradas de la lista están separadas por puntos y comas."
+                  name="ParameterMap">#{Package\Load IngresoHospital\Get Ingresos.Outputs[OLE DB Source Output].Columns[idIngreso]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica la página de códigos de columna para utilizar cuando la información de página de códigos no está disponible en el origen de datos."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determina si las claves duplicadas de los datos de referencia se deben tratar como errores cuando se usa el modo de caché."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load IngresoHospital\Lookup Ingresos.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[Target.MedServicesDW]"
+                  connectionManagerRefId="Package.ConnectionManagers[Target.MedServicesDW]"
+                  description="Administrador de conexiones utilizado para obtener acceso a los datos de búsqueda."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Load IngresoHospital\Lookup Ingresos.Inputs[Entrada de búsqueda]"
+                  name="Entrada de búsqueda">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Load IngresoHospital\Lookup Ingresos.Inputs[Entrada de búsqueda].Columns[idIngreso]"
+                      cachedDataType="i4"
+                      cachedName="idIngreso"
+                      lineageId="Package\Load IngresoHospital\Get Ingresos.Outputs[OLE DB Source Output].Columns[idIngreso]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Especifica la columna de la tabla de referencia con la que se combina una columna."
+                          name="JoinToReferenceColumn">idIngreso</property>
+                        <property
+                          dataType="System.Null"
+                          description="Especifica la columna de la tabla de referencia de la que se copia una columna."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Load IngresoHospital\Lookup Ingresos.Outputs[Salida de entradas coincidentes de búsqueda]"
+                  errorOrTruncationOperation="Búsqueda"
+                  exclusionGroup="1"
+                  name="Salida de entradas coincidentes de búsqueda"
+                  synchronousInputId="Package\Load IngresoHospital\Lookup Ingresos.Inputs[Entrada de búsqueda]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load IngresoHospital\Lookup Ingresos.Outputs[Salida de entradas coincidentes de búsqueda].Columns[idIngresoSK]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Copiar columna"
+                      lineageId="Package\Load IngresoHospital\Lookup Ingresos.Outputs[Salida de entradas coincidentes de búsqueda].Columns[idIngresoSK]"
+                      name="idIngresoSK"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Especifica la columna de la tabla de referencia de la que se copia una columna."
+                          name="CopyFromReferenceColumn">idIngresoSK</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Load IngresoHospital\Lookup Ingresos.Outputs[Salida de entradas no coincidentes de búsqueda]"
+                  description="Salida de búsqueda que trata las filas sin entradas coincidentes en el conjunto de datos de referencia. Utilice esta salida cuando la propiedad NoMatchBehavior esté establecida en 'Enviar las filas sin entradas coincidentes a la salida de entradas no coincidentes'."
+                  exclusionGroup="1"
+                  name="Salida de entradas no coincidentes de búsqueda"
+                  synchronousInputId="Package\Load IngresoHospital\Lookup Ingresos.Inputs[Entrada de búsqueda]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Load IngresoHospital\Lookup Ingresos.Outputs[Salida de error de búsqueda]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Salida de error de búsqueda"
+                  synchronousInputId="Package\Load IngresoHospital\Lookup Ingresos.Inputs[Entrada de búsqueda]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load IngresoHospital\Lookup Ingresos.Outputs[Salida de error de búsqueda].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load IngresoHospital\Lookup Ingresos.Outputs[Salida de error de búsqueda].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load IngresoHospital\Lookup Ingresos.Outputs[Salida de error de búsqueda].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load IngresoHospital\Lookup Ingresos.Outputs[Salida de error de búsqueda].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load IngresoHospital\Lookup Medico"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Búsqueda;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;6"
+              description="Combina columnas adicionales con el flujo de datos mediante la búsqueda de valores en una tabla. Por ejemplo, se combina la columna 'id. de empleado' con la tabla de empleados para obtener la 'fecha de contratación' y 'el nombre de empleado'. Se recomienda esta transformación cuando hay suficiente espacio en memoria para la tabla de búsqueda."
+              name="Lookup Medico"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Especifica la instrucción SQL que genera la tabla de búsqueda."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from [dbo].[DimMedico]</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica una instrucción SQL que usa parámetros para generar la tabla de búsqueda."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (select * from [dbo].[DimMedico]) [refTable]
+where [refTable].[codMedico] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica el tipo de conexión utilizado para tener acceso al conjunto de datos de referencia."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica el tipo de caché de la tabla de búsqueda."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica cómo la transformación de búsquedas trata las filas sin entradas coincidentes en el conjunto de datos de referencia."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica el porcentaje de la caché asignado a las filas sin entradas coincidentes en el conjunto de datos de referencia."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Uso de memoria máximo para la caché de referencia en una plataforma de 32 bits."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Uso de memoria máximo para la caché de referencia en una plataforma de 64 bits."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indica si se debe hacer referencia a metadatos en formato XML."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="codMedicoSK" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="codMedico" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="dni" dataType="DT_STR" length="20" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="apPaterno" dataType="DT_STR" length="50" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="apMaterno" dataType="DT_STR" length="50" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="nombres" dataType="DT_STR" length="50" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="fechaNacimiento" dataType="DT_DBDATE" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="codDirector" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Especifica la lista de identificadores de linaje que están asignados a los parámetros que usa la instrucción SQL de la propiedad SQLCommand. Las entradas de la lista están separadas por puntos y comas."
+                  name="ParameterMap">#{Package\Load IngresoHospital\Get Ingresos.Outputs[OLE DB Source Output].Columns[codMedico]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica la página de códigos de columna para utilizar cuando la información de página de códigos no está disponible en el origen de datos."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determina si las claves duplicadas de los datos de referencia se deben tratar como errores cuando se usa el modo de caché."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load IngresoHospital\Lookup Medico.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[Target.MedServicesDW]"
+                  connectionManagerRefId="Package.ConnectionManagers[Target.MedServicesDW]"
+                  description="Administrador de conexiones utilizado para obtener acceso a los datos de búsqueda."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Load IngresoHospital\Lookup Medico.Inputs[Entrada de búsqueda]"
+                  name="Entrada de búsqueda">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Load IngresoHospital\Lookup Medico.Inputs[Entrada de búsqueda].Columns[codMedico]"
+                      cachedDataType="i4"
+                      cachedName="codMedico"
+                      lineageId="Package\Load IngresoHospital\Get Ingresos.Outputs[OLE DB Source Output].Columns[codMedico]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Especifica la columna de la tabla de referencia con la que se combina una columna."
+                          name="JoinToReferenceColumn">codMedico</property>
+                        <property
+                          dataType="System.Null"
+                          description="Especifica la columna de la tabla de referencia de la que se copia una columna."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Load IngresoHospital\Lookup Medico.Outputs[Salida de entradas coincidentes de búsqueda]"
+                  errorOrTruncationOperation="Búsqueda"
+                  errorRowDisposition="FailComponent"
+                  exclusionGroup="1"
+                  name="Salida de entradas coincidentes de búsqueda"
+                  synchronousInputId="Package\Load IngresoHospital\Lookup Medico.Inputs[Entrada de búsqueda]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load IngresoHospital\Lookup Medico.Outputs[Salida de entradas coincidentes de búsqueda].Columns[codMedicoSK]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Copiar columna"
+                      lineageId="Package\Load IngresoHospital\Lookup Medico.Outputs[Salida de entradas coincidentes de búsqueda].Columns[codMedicoSK]"
+                      name="codMedicoSK"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Especifica la columna de la tabla de referencia de la que se copia una columna."
+                          name="CopyFromReferenceColumn">codMedicoSK</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Load IngresoHospital\Lookup Medico.Outputs[Salida de entradas no coincidentes de búsqueda]"
+                  description="Salida de búsqueda que trata las filas sin entradas coincidentes en el conjunto de datos de referencia. Utilice esta salida cuando la propiedad NoMatchBehavior esté establecida en 'Enviar las filas sin entradas coincidentes a la salida de entradas no coincidentes'."
+                  exclusionGroup="1"
+                  name="Salida de entradas no coincidentes de búsqueda"
+                  synchronousInputId="Package\Load IngresoHospital\Lookup Medico.Inputs[Entrada de búsqueda]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Load IngresoHospital\Lookup Medico.Outputs[Salida de error de búsqueda]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Salida de error de búsqueda"
+                  synchronousInputId="Package\Load IngresoHospital\Lookup Medico.Inputs[Entrada de búsqueda]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load IngresoHospital\Lookup Medico.Outputs[Salida de error de búsqueda].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load IngresoHospital\Lookup Medico.Outputs[Salida de error de búsqueda].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load IngresoHospital\Lookup Medico.Outputs[Salida de error de búsqueda].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load IngresoHospital\Lookup Medico.Outputs[Salida de error de búsqueda].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load IngresoHospital\Lookup Paciente"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Búsqueda;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;6"
+              description="Combina columnas adicionales con el flujo de datos mediante la búsqueda de valores en una tabla. Por ejemplo, se combina la columna 'id. de empleado' con la tabla de empleados para obtener la 'fecha de contratación' y 'el nombre de empleado'. Se recomienda esta transformación cuando hay suficiente espacio en memoria para la tabla de búsqueda."
+              name="Lookup Paciente"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Especifica la instrucción SQL que genera la tabla de búsqueda."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from [dbo].[DimPaciente]</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica una instrucción SQL que usa parámetros para generar la tabla de búsqueda."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (select * from [dbo].[DimPaciente]) [refTable]
+where [refTable].[codHist] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica el tipo de conexión utilizado para tener acceso al conjunto de datos de referencia."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica el tipo de caché de la tabla de búsqueda."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica cómo la transformación de búsquedas trata las filas sin entradas coincidentes en el conjunto de datos de referencia."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica el porcentaje de la caché asignado a las filas sin entradas coincidentes en el conjunto de datos de referencia."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Uso de memoria máximo para la caché de referencia en una plataforma de 32 bits."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Uso de memoria máximo para la caché de referencia en una plataforma de 64 bits."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indica si se debe hacer referencia a metadatos en formato XML."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="codHistSK" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="codHist" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="dni" dataType="DT_STR" length="20" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="apPaterno" dataType="DT_STR" length="50" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="apMaterno" dataType="DT_STR" length="50" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="nombres" dataType="DT_STR" length="50" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="fecNacimiento" dataType="DT_DBDATE" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="nroSeguro" dataType="DT_STR" length="30" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="nroCelular" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Especifica la lista de identificadores de linaje que están asignados a los parámetros que usa la instrucción SQL de la propiedad SQLCommand. Las entradas de la lista están separadas por puntos y comas."
+                  name="ParameterMap">#{Package\Load IngresoHospital\Get Ingresos.Outputs[OLE DB Source Output].Columns[codHist]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica la página de códigos de columna para utilizar cuando la información de página de códigos no está disponible en el origen de datos."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determina si las claves duplicadas de los datos de referencia se deben tratar como errores cuando se usa el modo de caché."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load IngresoHospital\Lookup Paciente.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[Target.MedServicesDW]"
+                  connectionManagerRefId="Package.ConnectionManagers[Target.MedServicesDW]"
+                  description="Administrador de conexiones utilizado para obtener acceso a los datos de búsqueda."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Load IngresoHospital\Lookup Paciente.Inputs[Entrada de búsqueda]"
+                  name="Entrada de búsqueda">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Load IngresoHospital\Lookup Paciente.Inputs[Entrada de búsqueda].Columns[codHist]"
+                      cachedDataType="i4"
+                      cachedName="codHist"
+                      lineageId="Package\Load IngresoHospital\Get Ingresos.Outputs[OLE DB Source Output].Columns[codHist]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Especifica la columna de la tabla de referencia con la que se combina una columna."
+                          name="JoinToReferenceColumn">codHist</property>
+                        <property
+                          dataType="System.Null"
+                          description="Especifica la columna de la tabla de referencia de la que se copia una columna."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Load IngresoHospital\Lookup Paciente.Outputs[Salida de entradas coincidentes de búsqueda]"
+                  errorOrTruncationOperation="Búsqueda"
+                  errorRowDisposition="FailComponent"
+                  exclusionGroup="1"
+                  name="Salida de entradas coincidentes de búsqueda"
+                  synchronousInputId="Package\Load IngresoHospital\Lookup Paciente.Inputs[Entrada de búsqueda]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load IngresoHospital\Lookup Paciente.Outputs[Salida de entradas coincidentes de búsqueda].Columns[codHistSK]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Copiar columna"
+                      lineageId="Package\Load IngresoHospital\Lookup Paciente.Outputs[Salida de entradas coincidentes de búsqueda].Columns[codHistSK]"
+                      name="codHistSK"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Especifica la columna de la tabla de referencia de la que se copia una columna."
+                          name="CopyFromReferenceColumn">codHistSK</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Load IngresoHospital\Lookup Paciente.Outputs[Salida de entradas no coincidentes de búsqueda]"
+                  description="Salida de búsqueda que trata las filas sin entradas coincidentes en el conjunto de datos de referencia. Utilice esta salida cuando la propiedad NoMatchBehavior esté establecida en 'Enviar las filas sin entradas coincidentes a la salida de entradas no coincidentes'."
+                  exclusionGroup="1"
+                  name="Salida de entradas no coincidentes de búsqueda"
+                  synchronousInputId="Package\Load IngresoHospital\Lookup Paciente.Inputs[Entrada de búsqueda]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Load IngresoHospital\Lookup Paciente.Outputs[Salida de error de búsqueda]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Salida de error de búsqueda"
+                  synchronousInputId="Package\Load IngresoHospital\Lookup Paciente.Inputs[Entrada de búsqueda]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load IngresoHospital\Lookup Paciente.Outputs[Salida de error de búsqueda].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load IngresoHospital\Lookup Paciente.Outputs[Salida de error de búsqueda].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load IngresoHospital\Lookup Paciente.Outputs[Salida de error de búsqueda].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load IngresoHospital\Lookup Paciente.Outputs[Salida de error de búsqueda].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load IngresoHospital\Lookup Servicio"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Búsqueda;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;6"
+              description="Combina columnas adicionales con el flujo de datos mediante la búsqueda de valores en una tabla. Por ejemplo, se combina la columna 'id. de empleado' con la tabla de empleados para obtener la 'fecha de contratación' y 'el nombre de empleado'. Se recomienda esta transformación cuando hay suficiente espacio en memoria para la tabla de búsqueda."
+              name="Lookup Servicio"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Especifica la instrucción SQL que genera la tabla de búsqueda."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from [dbo].[DimServicio]</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica una instrucción SQL que usa parámetros para generar la tabla de búsqueda."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (select * from [dbo].[DimServicio]) [refTable]
+where [refTable].[idServicio] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica el tipo de conexión utilizado para tener acceso al conjunto de datos de referencia."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica el tipo de caché de la tabla de búsqueda."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica cómo la transformación de búsquedas trata las filas sin entradas coincidentes en el conjunto de datos de referencia."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica el porcentaje de la caché asignado a las filas sin entradas coincidentes en el conjunto de datos de referencia."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Uso de memoria máximo para la caché de referencia en una plataforma de 32 bits."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Uso de memoria máximo para la caché de referencia en una plataforma de 64 bits."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indica si se debe hacer referencia a metadatos en formato XML."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="idServicioSK" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="idServicio" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="nombre" dataType="DT_WSTR" length="200" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="acronimo" dataType="DT_WSTR" length="50" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="comentario" dataType="DT_WSTR" length="1000" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Especifica la lista de identificadores de linaje que están asignados a los parámetros que usa la instrucción SQL de la propiedad SQLCommand. Las entradas de la lista están separadas por puntos y comas."
+                  name="ParameterMap">#{Package\Load IngresoHospital\Get Ingresos.Outputs[OLE DB Source Output].Columns[idServicio]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica la página de códigos de columna para utilizar cuando la información de página de códigos no está disponible en el origen de datos."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determina si las claves duplicadas de los datos de referencia se deben tratar como errores cuando se usa el modo de caché."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load IngresoHospital\Lookup Servicio.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[Target.MedServicesDW]"
+                  connectionManagerRefId="Package.ConnectionManagers[Target.MedServicesDW]"
+                  description="Administrador de conexiones utilizado para obtener acceso a los datos de búsqueda."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Load IngresoHospital\Lookup Servicio.Inputs[Entrada de búsqueda]"
+                  name="Entrada de búsqueda">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Load IngresoHospital\Lookup Servicio.Inputs[Entrada de búsqueda].Columns[idServicio]"
+                      cachedDataType="i4"
+                      cachedName="idServicio"
+                      lineageId="Package\Load IngresoHospital\Get Ingresos.Outputs[OLE DB Source Output].Columns[idServicio]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Especifica la columna de la tabla de referencia con la que se combina una columna."
+                          name="JoinToReferenceColumn">idServicio</property>
+                        <property
+                          dataType="System.Null"
+                          description="Especifica la columna de la tabla de referencia de la que se copia una columna."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Load IngresoHospital\Lookup Servicio.Outputs[Salida de entradas coincidentes de búsqueda]"
+                  errorOrTruncationOperation="Búsqueda"
+                  errorRowDisposition="FailComponent"
+                  exclusionGroup="1"
+                  name="Salida de entradas coincidentes de búsqueda"
+                  synchronousInputId="Package\Load IngresoHospital\Lookup Servicio.Inputs[Entrada de búsqueda]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load IngresoHospital\Lookup Servicio.Outputs[Salida de entradas coincidentes de búsqueda].Columns[idServicioSK]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Copiar columna"
+                      lineageId="Package\Load IngresoHospital\Lookup Servicio.Outputs[Salida de entradas coincidentes de búsqueda].Columns[idServicioSK]"
+                      name="idServicioSK"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Especifica la columna de la tabla de referencia de la que se copia una columna."
+                          name="CopyFromReferenceColumn">idServicioSK</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Load IngresoHospital\Lookup Servicio.Outputs[Salida de entradas no coincidentes de búsqueda]"
+                  description="Salida de búsqueda que trata las filas sin entradas coincidentes en el conjunto de datos de referencia. Utilice esta salida cuando la propiedad NoMatchBehavior esté establecida en 'Enviar las filas sin entradas coincidentes a la salida de entradas no coincidentes'."
+                  exclusionGroup="1"
+                  name="Salida de entradas no coincidentes de búsqueda"
+                  synchronousInputId="Package\Load IngresoHospital\Lookup Servicio.Inputs[Entrada de búsqueda]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Load IngresoHospital\Lookup Servicio.Outputs[Salida de error de búsqueda]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Salida de error de búsqueda"
+                  synchronousInputId="Package\Load IngresoHospital\Lookup Servicio.Inputs[Entrada de búsqueda]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load IngresoHospital\Lookup Servicio.Outputs[Salida de error de búsqueda].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load IngresoHospital\Lookup Servicio.Outputs[Salida de error de búsqueda].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load IngresoHospital\Lookup Servicio.Outputs[Salida de error de búsqueda].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load IngresoHospital\Lookup Servicio.Outputs[Salida de error de búsqueda].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load IngresoHospital\Lookup Visita"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Búsqueda;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;6"
+              description="Combina columnas adicionales con el flujo de datos mediante la búsqueda de valores en una tabla. Por ejemplo, se combina la columna 'id. de empleado' con la tabla de empleados para obtener la 'fecha de contratación' y 'el nombre de empleado'. Se recomienda esta transformación cuando hay suficiente espacio en memoria para la tabla de búsqueda."
+              name="Lookup Visita"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Especifica la instrucción SQL que genera la tabla de búsqueda."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from [dbo].[FactVisitaMedica]</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica una instrucción SQL que usa parámetros para generar la tabla de búsqueda."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (select * from [dbo].[FactVisitaMedica]) [refTable]
+where [refTable].[idVisita] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica el tipo de conexión utilizado para tener acceso al conjunto de datos de referencia."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica el tipo de caché de la tabla de búsqueda."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica cómo la transformación de búsquedas trata las filas sin entradas coincidentes en el conjunto de datos de referencia."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica el porcentaje de la caché asignado a las filas sin entradas coincidentes en el conjunto de datos de referencia."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Uso de memoria máximo para la caché de referencia en una plataforma de 32 bits."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Uso de memoria máximo para la caché de referencia en una plataforma de 64 bits."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indica si se debe hacer referencia a metadatos en formato XML."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="idVisitaSK" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="idVisita" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="fechaHora" dataType="DT_DBTIMESTAMP2" length="0" precision="0" scale="7" codePage="0"/&gt;&lt;referenceColumn name="diagnostico" dataType="DT_STR" length="1000" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="tratamiento" dataType="DT_STR" length="2000" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="codHistSK" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="codHospitalSK" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="idServicioSK" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="codMedicoSK" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="fechaHoraDateKey" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Especifica la lista de identificadores de linaje que están asignados a los parámetros que usa la instrucción SQL de la propiedad SQLCommand. Las entradas de la lista están separadas por puntos y comas."
+                  name="ParameterMap">#{Package\Load IngresoHospital\Get Ingresos.Outputs[OLE DB Source Output].Columns[idVisita]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica la página de códigos de columna para utilizar cuando la información de página de códigos no está disponible en el origen de datos."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determina si las claves duplicadas de los datos de referencia se deben tratar como errores cuando se usa el modo de caché."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load IngresoHospital\Lookup Visita.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[Target.MedServicesDW]"
+                  connectionManagerRefId="Package.ConnectionManagers[Target.MedServicesDW]"
+                  description="Administrador de conexiones utilizado para obtener acceso a los datos de búsqueda."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Load IngresoHospital\Lookup Visita.Inputs[Entrada de búsqueda]"
+                  name="Entrada de búsqueda">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Load IngresoHospital\Lookup Visita.Inputs[Entrada de búsqueda].Columns[idVisita]"
+                      cachedDataType="i4"
+                      cachedName="idVisita"
+                      lineageId="Package\Load IngresoHospital\Get Ingresos.Outputs[OLE DB Source Output].Columns[idVisita]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Especifica la columna de la tabla de referencia con la que se combina una columna."
+                          name="JoinToReferenceColumn">idVisita</property>
+                        <property
+                          dataType="System.Null"
+                          description="Especifica la columna de la tabla de referencia de la que se copia una columna."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Load IngresoHospital\Lookup Visita.Outputs[Salida de entradas coincidentes de búsqueda]"
+                  errorOrTruncationOperation="Búsqueda"
+                  errorRowDisposition="FailComponent"
+                  exclusionGroup="1"
+                  name="Salida de entradas coincidentes de búsqueda"
+                  synchronousInputId="Package\Load IngresoHospital\Lookup Visita.Inputs[Entrada de búsqueda]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load IngresoHospital\Lookup Visita.Outputs[Salida de entradas coincidentes de búsqueda].Columns[idVisitaSK]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Copiar columna"
+                      lineageId="Package\Load IngresoHospital\Lookup Visita.Outputs[Salida de entradas coincidentes de búsqueda].Columns[idVisitaSK]"
+                      name="idVisitaSK"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Especifica la columna de la tabla de referencia de la que se copia una columna."
+                          name="CopyFromReferenceColumn">idVisitaSK</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Load IngresoHospital\Lookup Visita.Outputs[Salida de entradas no coincidentes de búsqueda]"
+                  description="Salida de búsqueda que trata las filas sin entradas coincidentes en el conjunto de datos de referencia. Utilice esta salida cuando la propiedad NoMatchBehavior esté establecida en 'Enviar las filas sin entradas coincidentes a la salida de entradas no coincidentes'."
+                  exclusionGroup="1"
+                  name="Salida de entradas no coincidentes de búsqueda"
+                  synchronousInputId="Package\Load IngresoHospital\Lookup Visita.Inputs[Entrada de búsqueda]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Load IngresoHospital\Lookup Visita.Outputs[Salida de error de búsqueda]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Salida de error de búsqueda"
+                  synchronousInputId="Package\Load IngresoHospital\Lookup Visita.Inputs[Entrada de búsqueda]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load IngresoHospital\Lookup Visita.Outputs[Salida de error de búsqueda].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load IngresoHospital\Lookup Visita.Outputs[Salida de error de búsqueda].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load IngresoHospital\Lookup Visita.Outputs[Salida de error de búsqueda].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load IngresoHospital\Lookup Visita.Outputs[Salida de error de búsqueda].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Load IngresoHospital.Paths[OLE DB Source Output]"
+              endId="Package\Load IngresoHospital\Lookup Visita.Inputs[Entrada de búsqueda]"
+              name="OLE DB Source Output"
+              startId="Package\Load IngresoHospital\Get Ingresos.Outputs[OLE DB Source Output]" />
+            <path
+              refId="Package\Load IngresoHospital.Paths[Salida de entradas coincidentes de búsqueda]"
+              endId="Package\Load IngresoHospital\Lookup Hospital.Inputs[Entrada de búsqueda]"
+              name="Salida de entradas coincidentes de búsqueda"
+              startId="Package\Load IngresoHospital\Lookup Visita.Outputs[Salida de entradas coincidentes de búsqueda]" />
+            <path
+              refId="Package\Load IngresoHospital.Paths[Salida de entradas coincidentes de búsqueda1]"
+              endId="Package\Load IngresoHospital\Lookup Servicio.Inputs[Entrada de búsqueda]"
+              name="Salida de entradas coincidentes de búsqueda"
+              startId="Package\Load IngresoHospital\Lookup Hospital.Outputs[Salida de entradas coincidentes de búsqueda]" />
+            <path
+              refId="Package\Load IngresoHospital.Paths[Salida de entradas coincidentes de búsqueda2]"
+              endId="Package\Load IngresoHospital\Lookup Medico.Inputs[Entrada de búsqueda]"
+              name="Salida de entradas coincidentes de búsqueda"
+              startId="Package\Load IngresoHospital\Lookup Servicio.Outputs[Salida de entradas coincidentes de búsqueda]" />
+            <path
+              refId="Package\Load IngresoHospital.Paths[Salida de entradas coincidentes de búsqueda3]"
+              endId="Package\Load IngresoHospital\Lookup Paciente.Inputs[Entrada de búsqueda]"
+              name="Salida de entradas coincidentes de búsqueda"
+              startId="Package\Load IngresoHospital\Lookup Medico.Outputs[Salida de entradas coincidentes de búsqueda]" />
+            <path
+              refId="Package\Load IngresoHospital.Paths[Salida de entradas coincidentes de búsqueda4]"
+              endId="Package\Load IngresoHospital\Lookup Ingresos.Inputs[Entrada de búsqueda]"
+              name="Salida de entradas coincidentes de búsqueda"
+              startId="Package\Load IngresoHospital\Lookup Paciente.Outputs[Salida de entradas coincidentes de búsqueda]" />
+            <path
+              refId="Package\Load IngresoHospital.Paths[Salida de entradas coincidentes de búsqueda5]"
+              endId="Package\Load IngresoHospital\Load Staging.Inputs[Entrada de destino de OLE DB]"
+              name="Salida de entradas coincidentes de búsqueda"
+              startId="Package\Load IngresoHospital\Lookup Ingresos.Outputs[Salida de entradas coincidentes de búsqueda]" />
+            <path
+              refId="Package\Load IngresoHospital.Paths[Salida de entradas no coincidentes de búsqueda]"
+              endId="Package\Load IngresoHospital\Load Ingresos.Inputs[Entrada de destino de OLE DB]"
+              name="Salida de entradas no coincidentes de búsqueda"
+              startId="Package\Load IngresoHospital\Lookup Ingresos.Outputs[Salida de entradas no coincidentes de búsqueda]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Sync Staging"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{08B709F9-CF0C-4C29-9F11-2515C9669B23}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Sync Staging"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{D20F5B80-6683-4358-96EC-5E6CF13078D7}"
+          SQLTask:SqlStatementSource="EXEC [dbo].[DW_MergeFactIngresoHospitalario]" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\UpdateLastPackage"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{4F9E05E3-FDFB-457E-BAA5-924E0E7DBDDA}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="UpdateLastPackage"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{D20F5B80-6683-4358-96EC-5E6CF13078D7}"
+          SQLTask:SqlStatementSource="EXEC [dbo].[UpdateLastPackageRowVersion] @tableName = 'Ingresos', @lastRowVersion = ?" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="0"
+            SQLTask:DtsVariableName="User::dbts"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{407025F1-28BE-47A3-A756-31431EA9EAA0}"
+      DTS:From="Package\Get Database RowVersion"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\Get LastRowVersion" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{E67FDF5A-BE7C-4CF0-84C9-57E472B552E5}"
+      DTS:From="Package\Get LastRowVersion"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 1"
+      DTS:To="Package\Clean-up stagging" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 2]"
+      DTS:CreationName=""
+      DTS:DTSID="{4F6140B7-EB69-4C15-AB94-65C8F31C988C}"
+      DTS:From="Package\Clean-up stagging"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 2"
+      DTS:To="Package\Load IngresoHospital" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 3]"
+      DTS:CreationName=""
+      DTS:DTSID="{5293D430-4C30-46F3-A740-53920D471694}"
+      DTS:From="Package\Load IngresoHospital"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 3"
+      DTS:To="Package\Sync Staging" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 4]"
+      DTS:CreationName=""
+      DTS:DTSID="{41D57DAD-A925-4CF2-BF2F-492274DF249C}"
+      DTS:From="Package\Sync Staging"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 4"
+      DTS:To="Package\UpdateLastPackage" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--Esta sección CDATA contiene la información de diseño del paquete. Esta sección incluye información como, por ejemplo, las coordenadas (x,y), el ancho y el alto.-->
+<!--Si edita manualmente esta sección y comete un error, puede eliminarlo. -->
+<!--El paquete podrá cargarse normalmente, pero se perderá la información de diseño anterior y el diseñador reorganizará los elementos automáticamente en la superficie de diseño.-->
+<Objects
+  Version="8">
+  <!--Cada uno de los nodos siguientes contiene propiedades que no afectan al comportamiento en tiempo de ejecución.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="168,42"
+          Id="Package\Clean-up stagging"
+          TopLeft="386,150" />
+        <NodeLayout
+          Size="144,42"
+          Id="Package\Sync Staging"
+          TopLeft="399,298" />
+        <NodeLayout
+          Size="209,42"
+          Id="Package\Get Database RowVersion"
+          TopLeft="371,12" />
+        <NodeLayout
+          Size="180,42"
+          Id="Package\Get LastRowVersion"
+          TopLeft="379,80" />
+        <NodeLayout
+          Size="183,42"
+          Id="Package\Load IngresoHospital"
+          TopLeft="382,226" />
+        <NodeLayout
+          Size="178,42"
+          Id="Package\UpdateLastPackage"
+          TopLeft="387,373" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="472.25,54">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,26"
+              Start="0,0"
+              End="0,18.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,18.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 1]"
+          TopLeft="469.5,122">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,28"
+              Start="0,0"
+              End="0,20.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,20.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 2]"
+          TopLeft="471.75,192">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,34"
+              Start="0,0"
+              End="0,26.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,26.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 3]"
+          TopLeft="472.25,268">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,30"
+              Start="0,0"
+              End="0,22.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,22.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 4]"
+          TopLeft="473.5,340">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,33"
+              Start="0,0"
+              End="0,25.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,25.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Load IngresoHospital">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="32" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="142,42"
+          Id="Package\Load IngresoHospital\Get Ingresos"
+          TopLeft="216,13" />
+        <NodeLayout
+          Size="145,42"
+          Id="Package\Load IngresoHospital\Lookup Visita"
+          TopLeft="427,14" />
+        <EdgeLayout
+          Id="Package\Load IngresoHospital.Paths[OLE DB Source Output]"
+          TopLeft="358,34.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="69,0"
+              Start="0,0"
+              End="61.5,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="61.5,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="158,42"
+          Id="Package\Load IngresoHospital\Lookup Hospital"
+          TopLeft="420,88" />
+        <EdgeLayout
+          Id="Package\Load IngresoHospital.Paths[Salida de entradas coincidentes de búsqueda]"
+          TopLeft="499.25,56">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,32"
+              Start="0,0"
+              End="0,24.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,24.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-99.8190234375,6.15234375,199.638046875,12.1953125"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="157,42"
+          Id="Package\Load IngresoHospital\Lookup Servicio"
+          TopLeft="423,165" />
+        <EdgeLayout
+          Id="Package\Load IngresoHospital.Paths[Salida de entradas coincidentes de búsqueda1]"
+          TopLeft="500.25,130">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,35"
+              Start="0,0"
+              End="0,27.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,27.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-99.8190234375,7.65234375,199.638046875,12.1953125"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="154,42"
+          Id="Package\Load IngresoHospital\Lookup Medico"
+          TopLeft="427,239" />
+        <NodeLayout
+          Size="161,42"
+          Id="Package\Load IngresoHospital\Lookup Paciente"
+          TopLeft="428,310" />
+        <EdgeLayout
+          Id="Package\Load IngresoHospital.Paths[Salida de entradas coincidentes de búsqueda2]"
+          TopLeft="502.75,207">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,32"
+              Start="0,0"
+              End="0,24.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,24.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-99.8190234375,6.15234375,199.638046875,12.1953125"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Load IngresoHospital.Paths[Salida de entradas coincidentes de búsqueda3]"
+          TopLeft="506.25,281">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,29"
+              Start="0,0"
+              End="0,21.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,21.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-99.8190234375,4.65234375,199.638046875,12.1953125"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="144,42"
+          Id="Package\Load IngresoHospital\Load Staging"
+          TopLeft="286,463" />
+        <NodeLayout
+          Size="149,42"
+          Id="Package\Load IngresoHospital\Load Ingresos"
+          TopLeft="568,475" />
+        <NodeLayout
+          Size="160,42"
+          Id="Package\Load IngresoHospital\Lookup Ingresos"
+          TopLeft="422,378" />
+        <EdgeLayout
+          Id="Package\Load IngresoHospital.Paths[Salida de entradas coincidentes de búsqueda4]"
+          TopLeft="505.25,352">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,26"
+              Start="0,0"
+              End="0,18.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,18.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-99.8190234375,3.15234375,199.638046875,12.1953125"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Load IngresoHospital.Paths[Salida de entradas coincidentes de búsqueda5]"
+          TopLeft="502,420">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-144,43"
+              Start="0,0"
+              End="-144,35.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,17.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,17.5"
+                    Point2="0,21.5"
+                    Point3="-4,21.5" />
+                  <mssgle:LineSegment
+                    End="-140,21.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-140,21.5"
+                    Point2="-144,21.5"
+                    Point3="-144,25.5" />
+                  <mssgle:LineSegment
+                    End="-144,35.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-171.8190234375,26.5,199.638046875,12.1953125"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Load IngresoHospital.Paths[Salida de entradas no coincidentes de búsqueda]"
+          TopLeft="527.333333333333,420">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="115.166666666667,55"
+              Start="0,0"
+              End="115.166666666667,47.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,18.3267326732673" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,18.3267326732673"
+                    Point2="0,22.3267326732673"
+                    Point3="4,22.3267326732673" />
+                  <mssgle:LineSegment
+                    End="111.166666666667,22.3267326732673" />
+                  <mssgle:CubicBezierSegment
+                    Point1="111.166666666667,22.3267326732673"
+                    Point2="115.166666666667,22.3267326732673"
+                    Point3="115.166666666667,26.3267326732673" />
+                  <mssgle:LineSegment
+                    End="115.166666666667,47.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-49.3056901041667,27.3267326732673,213.778046875,12.1953125"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load IngresoHospital\Get Ingresos">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load IngresoHospital\Lookup Visita">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:boolean">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[dbo].[FactVisitaMedica]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:int">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load IngresoHospital\Lookup Hospital">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:boolean">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[dbo].[DimHospital]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:int">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load IngresoHospital\Lookup Servicio">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:boolean">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[dbo].[DimServicio]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:int">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load IngresoHospital\Lookup Medico">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:boolean">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[dbo].[DimMedico]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:int">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load IngresoHospital\Lookup Paciente">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:boolean">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[dbo].[DimPaciente]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:int">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load IngresoHospital\Load Staging">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load IngresoHospital\Load Ingresos">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load IngresoHospital\Lookup Ingresos">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:boolean">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[dbo].[FactIngresoHospitalario]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:int">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

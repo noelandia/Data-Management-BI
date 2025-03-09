@@ -1,0 +1,1358 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="3/8/2025 5:31:04 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="VM-WINDOWS11"
+  DTS:CreatorName="VM-WINDOWS11\sis_r"
+  DTS:DTSID="{BBB7531D-B460-4BBD-8283-145190595214}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="16.0.5685.0"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="Package1"
+  DTS:PackageType="5"
+  DTS:ProtectionLevel="2"
+  DTS:VersionBuild="29"
+  DTS:VersionGUID="{45EC78E3-C3E3-4C5B-8DAA-867315C7B4F5}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[Source.MedServicesOLTP]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{901CC4B1-D24E-4D2B-AB8D-EB08E21F4F81}"
+      DTS:ObjectName="Source.MedServicesOLTP">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=localhost;Initial Catalog=MedServicesOLTP;Provider=MSOLEDBSQL.1;Integrated Security=SSPI;Application Name=SSIS-Package1-{901CC4B1-D24E-4D2B-AB8D-EB08E21F4F81}localhost.MedServicesOLTP;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[Target.MedServicesDW]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{D43339EF-45C0-4514-98A5-AA2CFE492A83}"
+      DTS:ObjectName="Target.MedServicesDW">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=localhost;Initial Catalog=MedServicesDW;Provider=MSOLEDBSQL.1;Integrated Security=SSPI;Application Name=SSIS-Package1-{D43339EF-45C0-4514-98A5-AA2CFE492A83}localhost.MedServicesDW;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{EC8961A1-5CA4-4DA6-AB80-F0D1A8509CA0}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="dbts">
+      <DTS:VariableValue
+        DTS:DataType="20">0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{C142A953-E471-471D-ADAC-C35332E8E0C0}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="lastRowVersion">
+      <DTS:VariableValue
+        DTS:DataType="20">0</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Clean-up staging"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{D8F3046E-B8B0-456A-B36E-AE3FBF309F40}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Clean-up staging"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{D43339EF-45C0-4514-98A5-AA2CFE492A83}"
+          SQLTask:SqlStatementSource="TRUNCATE TABLE staging.medico;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Get Database RowVersion"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{23E57BA7-86D4-45B3-BFE8-314CAA2C617E}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Get Database RowVersion"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{901CC4B1-D24E-4D2B-AB8D-EB08E21F4F81}"
+          SQLTask:SqlStatementSource="execute [dbo].[GetDatabaseRowVersion]"
+          SQLTask:ResultType="ResultSetType_SingleRow" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ResultBinding
+            SQLTask:ResultName="DBTS"
+            SQLTask:DtsVariableName="User::dbts" />
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Get LastRowVersion"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{24BBD768-06E0-4876-98BF-60A8E2D00535}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Get LastRowVersion"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{D43339EF-45C0-4514-98A5-AA2CFE492A83}"
+          SQLTask:SqlStatementSource="execute [dbo].[GetLastPackageRowVersion] @tableName = 'Medico'"
+          SQLTask:ResultType="ResultSetType_SingleRow" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ResultBinding
+            SQLTask:ResultName="LastRowVersion"
+            SQLTask:DtsVariableName="User::lastRowVersion" />
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Load Medico"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{C06AE265-EE32-4B7B-A622-2719BBB0BBE4}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Load Medico"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Load Medico\Get Medicos"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="Get Medicos"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">EXECUTE [dbo].[GetMedicoChangesByRowVersion] @startRow = ?, @endRow = ?</property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping">"@startRow:Input",{C142A953-E471-471D-ADAC-C35332E8E0C0};"@endRow:Input",{EC8961A1-5CA4-4DA6-AB80-F0D1A8509CA0};</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load Medico\Get Medicos.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[Source.MedServicesOLTP]"
+                  connectionManagerRefId="Package.ConnectionManagers[Source.MedServicesOLTP]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Load Medico\Get Medicos.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Medico\Get Medicos.Outputs[OLE DB Source Output].Columns[codMedico]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Medico\Get Medicos.Outputs[OLE DB Source Output].ExternalColumns[codMedico]"
+                      lineageId="Package\Load Medico\Get Medicos.Outputs[OLE DB Source Output].Columns[codMedico]"
+                      name="codMedico"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Medico\Get Medicos.Outputs[OLE DB Source Output].Columns[dni]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Medico\Get Medicos.Outputs[OLE DB Source Output].ExternalColumns[dni]"
+                      length="20"
+                      lineageId="Package\Load Medico\Get Medicos.Outputs[OLE DB Source Output].Columns[dni]"
+                      name="dni"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Medico\Get Medicos.Outputs[OLE DB Source Output].Columns[apPaterno]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Medico\Get Medicos.Outputs[OLE DB Source Output].ExternalColumns[apPaterno]"
+                      length="50"
+                      lineageId="Package\Load Medico\Get Medicos.Outputs[OLE DB Source Output].Columns[apPaterno]"
+                      name="apPaterno"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Medico\Get Medicos.Outputs[OLE DB Source Output].Columns[apMaterno]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Medico\Get Medicos.Outputs[OLE DB Source Output].ExternalColumns[apMaterno]"
+                      length="50"
+                      lineageId="Package\Load Medico\Get Medicos.Outputs[OLE DB Source Output].Columns[apMaterno]"
+                      name="apMaterno"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Medico\Get Medicos.Outputs[OLE DB Source Output].Columns[nombres]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Medico\Get Medicos.Outputs[OLE DB Source Output].ExternalColumns[nombres]"
+                      length="50"
+                      lineageId="Package\Load Medico\Get Medicos.Outputs[OLE DB Source Output].Columns[nombres]"
+                      name="nombres"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Medico\Get Medicos.Outputs[OLE DB Source Output].Columns[fechaNacimiento]"
+                      dataType="dbDate"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Medico\Get Medicos.Outputs[OLE DB Source Output].ExternalColumns[fechaNacimiento]"
+                      lineageId="Package\Load Medico\Get Medicos.Outputs[OLE DB Source Output].Columns[fechaNacimiento]"
+                      name="fechaNacimiento"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Medico\Get Medicos.Outputs[OLE DB Source Output].Columns[codDirector]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Medico\Get Medicos.Outputs[OLE DB Source Output].ExternalColumns[codDirector]"
+                      lineageId="Package\Load Medico\Get Medicos.Outputs[OLE DB Source Output].Columns[codDirector]"
+                      name="codDirector"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Load Medico\Get Medicos.Outputs[OLE DB Source Output].ExternalColumns[codMedico]"
+                      dataType="i4"
+                      name="codMedico" />
+                    <externalMetadataColumn
+                      refId="Package\Load Medico\Get Medicos.Outputs[OLE DB Source Output].ExternalColumns[dni]"
+                      codePage="1252"
+                      dataType="str"
+                      length="20"
+                      name="dni" />
+                    <externalMetadataColumn
+                      refId="Package\Load Medico\Get Medicos.Outputs[OLE DB Source Output].ExternalColumns[apPaterno]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="apPaterno" />
+                    <externalMetadataColumn
+                      refId="Package\Load Medico\Get Medicos.Outputs[OLE DB Source Output].ExternalColumns[apMaterno]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="apMaterno" />
+                    <externalMetadataColumn
+                      refId="Package\Load Medico\Get Medicos.Outputs[OLE DB Source Output].ExternalColumns[nombres]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="nombres" />
+                    <externalMetadataColumn
+                      refId="Package\Load Medico\Get Medicos.Outputs[OLE DB Source Output].ExternalColumns[fechaNacimiento]"
+                      dataType="dbDate"
+                      name="fechaNacimiento" />
+                    <externalMetadataColumn
+                      refId="Package\Load Medico\Get Medicos.Outputs[OLE DB Source Output].ExternalColumns[codDirector]"
+                      dataType="i4"
+                      name="codDirector" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Load Medico\Get Medicos.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Medico\Get Medicos.Outputs[OLE DB Source Error Output].Columns[codMedico]"
+                      dataType="i4"
+                      lineageId="Package\Load Medico\Get Medicos.Outputs[OLE DB Source Error Output].Columns[codMedico]"
+                      name="codMedico" />
+                    <outputColumn
+                      refId="Package\Load Medico\Get Medicos.Outputs[OLE DB Source Error Output].Columns[dni]"
+                      codePage="1252"
+                      dataType="str"
+                      length="20"
+                      lineageId="Package\Load Medico\Get Medicos.Outputs[OLE DB Source Error Output].Columns[dni]"
+                      name="dni" />
+                    <outputColumn
+                      refId="Package\Load Medico\Get Medicos.Outputs[OLE DB Source Error Output].Columns[apPaterno]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\Load Medico\Get Medicos.Outputs[OLE DB Source Error Output].Columns[apPaterno]"
+                      name="apPaterno" />
+                    <outputColumn
+                      refId="Package\Load Medico\Get Medicos.Outputs[OLE DB Source Error Output].Columns[apMaterno]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\Load Medico\Get Medicos.Outputs[OLE DB Source Error Output].Columns[apMaterno]"
+                      name="apMaterno" />
+                    <outputColumn
+                      refId="Package\Load Medico\Get Medicos.Outputs[OLE DB Source Error Output].Columns[nombres]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\Load Medico\Get Medicos.Outputs[OLE DB Source Error Output].Columns[nombres]"
+                      name="nombres" />
+                    <outputColumn
+                      refId="Package\Load Medico\Get Medicos.Outputs[OLE DB Source Error Output].Columns[fechaNacimiento]"
+                      dataType="dbDate"
+                      lineageId="Package\Load Medico\Get Medicos.Outputs[OLE DB Source Error Output].Columns[fechaNacimiento]"
+                      name="fechaNacimiento" />
+                    <outputColumn
+                      refId="Package\Load Medico\Get Medicos.Outputs[OLE DB Source Error Output].Columns[codDirector]"
+                      dataType="i4"
+                      lineageId="Package\Load Medico\Get Medicos.Outputs[OLE DB Source Error Output].Columns[codDirector]"
+                      name="codDirector" />
+                    <outputColumn
+                      refId="Package\Load Medico\Get Medicos.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load Medico\Get Medicos.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load Medico\Get Medicos.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load Medico\Get Medicos.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load Medico\Load Medico"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="Load Medico"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[DimMedico]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load Medico\Load Medico.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[Target.MedServicesDW]"
+                  connectionManagerRefId="Package.ConnectionManagers[Target.MedServicesDW]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Load Medico\Load Medico.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Load Medico\Load Medico.Inputs[OLE DB Destination Input].Columns[codMedico]"
+                      cachedDataType="i4"
+                      cachedName="codMedico"
+                      externalMetadataColumnId="Package\Load Medico\Load Medico.Inputs[OLE DB Destination Input].ExternalColumns[codMedico]"
+                      lineageId="Package\Load Medico\Get Medicos.Outputs[OLE DB Source Output].Columns[codMedico]" />
+                    <inputColumn
+                      refId="Package\Load Medico\Load Medico.Inputs[OLE DB Destination Input].Columns[dni]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="20"
+                      cachedName="dni"
+                      externalMetadataColumnId="Package\Load Medico\Load Medico.Inputs[OLE DB Destination Input].ExternalColumns[dni]"
+                      lineageId="Package\Load Medico\Get Medicos.Outputs[OLE DB Source Output].Columns[dni]" />
+                    <inputColumn
+                      refId="Package\Load Medico\Load Medico.Inputs[OLE DB Destination Input].Columns[apPaterno]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="apPaterno"
+                      externalMetadataColumnId="Package\Load Medico\Load Medico.Inputs[OLE DB Destination Input].ExternalColumns[apPaterno]"
+                      lineageId="Package\Load Medico\Get Medicos.Outputs[OLE DB Source Output].Columns[apPaterno]" />
+                    <inputColumn
+                      refId="Package\Load Medico\Load Medico.Inputs[OLE DB Destination Input].Columns[apMaterno]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="apMaterno"
+                      externalMetadataColumnId="Package\Load Medico\Load Medico.Inputs[OLE DB Destination Input].ExternalColumns[apMaterno]"
+                      lineageId="Package\Load Medico\Get Medicos.Outputs[OLE DB Source Output].Columns[apMaterno]" />
+                    <inputColumn
+                      refId="Package\Load Medico\Load Medico.Inputs[OLE DB Destination Input].Columns[nombres]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="nombres"
+                      externalMetadataColumnId="Package\Load Medico\Load Medico.Inputs[OLE DB Destination Input].ExternalColumns[nombres]"
+                      lineageId="Package\Load Medico\Get Medicos.Outputs[OLE DB Source Output].Columns[nombres]" />
+                    <inputColumn
+                      refId="Package\Load Medico\Load Medico.Inputs[OLE DB Destination Input].Columns[fechaNacimiento]"
+                      cachedDataType="dbDate"
+                      cachedName="fechaNacimiento"
+                      externalMetadataColumnId="Package\Load Medico\Load Medico.Inputs[OLE DB Destination Input].ExternalColumns[fechaNacimiento]"
+                      lineageId="Package\Load Medico\Get Medicos.Outputs[OLE DB Source Output].Columns[fechaNacimiento]" />
+                    <inputColumn
+                      refId="Package\Load Medico\Load Medico.Inputs[OLE DB Destination Input].Columns[codDirector]"
+                      cachedDataType="i4"
+                      cachedName="codDirector"
+                      externalMetadataColumnId="Package\Load Medico\Load Medico.Inputs[OLE DB Destination Input].ExternalColumns[codDirector]"
+                      lineageId="Package\Load Medico\Get Medicos.Outputs[OLE DB Source Output].Columns[codDirector]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Load Medico\Load Medico.Inputs[OLE DB Destination Input].ExternalColumns[codMedicoSK]"
+                      dataType="i4"
+                      name="codMedicoSK" />
+                    <externalMetadataColumn
+                      refId="Package\Load Medico\Load Medico.Inputs[OLE DB Destination Input].ExternalColumns[codMedico]"
+                      dataType="i4"
+                      name="codMedico" />
+                    <externalMetadataColumn
+                      refId="Package\Load Medico\Load Medico.Inputs[OLE DB Destination Input].ExternalColumns[dni]"
+                      codePage="1252"
+                      dataType="str"
+                      length="20"
+                      name="dni" />
+                    <externalMetadataColumn
+                      refId="Package\Load Medico\Load Medico.Inputs[OLE DB Destination Input].ExternalColumns[apPaterno]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="apPaterno" />
+                    <externalMetadataColumn
+                      refId="Package\Load Medico\Load Medico.Inputs[OLE DB Destination Input].ExternalColumns[apMaterno]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="apMaterno" />
+                    <externalMetadataColumn
+                      refId="Package\Load Medico\Load Medico.Inputs[OLE DB Destination Input].ExternalColumns[nombres]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="nombres" />
+                    <externalMetadataColumn
+                      refId="Package\Load Medico\Load Medico.Inputs[OLE DB Destination Input].ExternalColumns[fechaNacimiento]"
+                      dataType="dbDate"
+                      name="fechaNacimiento" />
+                    <externalMetadataColumn
+                      refId="Package\Load Medico\Load Medico.Inputs[OLE DB Destination Input].ExternalColumns[codDirector]"
+                      dataType="i4"
+                      name="codDirector" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Load Medico\Load Medico.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Load Medico\Load Medico.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Medico\Load Medico.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load Medico\Load Medico.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load Medico\Load Medico.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load Medico\Load Medico.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load Medico\Load staging"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="Load staging"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[staging].[medico]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load Medico\Load staging.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[Target.MedServicesDW]"
+                  connectionManagerRefId="Package.ConnectionManagers[Target.MedServicesDW]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Load Medico\Load staging.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Load Medico\Load staging.Inputs[OLE DB Destination Input].Columns[codMedico]"
+                      cachedDataType="i4"
+                      cachedName="codMedico"
+                      externalMetadataColumnId="Package\Load Medico\Load staging.Inputs[OLE DB Destination Input].ExternalColumns[codMedico]"
+                      lineageId="Package\Load Medico\Get Medicos.Outputs[OLE DB Source Output].Columns[codMedico]" />
+                    <inputColumn
+                      refId="Package\Load Medico\Load staging.Inputs[OLE DB Destination Input].Columns[dni]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="20"
+                      cachedName="dni"
+                      externalMetadataColumnId="Package\Load Medico\Load staging.Inputs[OLE DB Destination Input].ExternalColumns[dni]"
+                      lineageId="Package\Load Medico\Get Medicos.Outputs[OLE DB Source Output].Columns[dni]" />
+                    <inputColumn
+                      refId="Package\Load Medico\Load staging.Inputs[OLE DB Destination Input].Columns[apPaterno]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="apPaterno"
+                      externalMetadataColumnId="Package\Load Medico\Load staging.Inputs[OLE DB Destination Input].ExternalColumns[apPaterno]"
+                      lineageId="Package\Load Medico\Get Medicos.Outputs[OLE DB Source Output].Columns[apPaterno]" />
+                    <inputColumn
+                      refId="Package\Load Medico\Load staging.Inputs[OLE DB Destination Input].Columns[apMaterno]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="apMaterno"
+                      externalMetadataColumnId="Package\Load Medico\Load staging.Inputs[OLE DB Destination Input].ExternalColumns[apMaterno]"
+                      lineageId="Package\Load Medico\Get Medicos.Outputs[OLE DB Source Output].Columns[apMaterno]" />
+                    <inputColumn
+                      refId="Package\Load Medico\Load staging.Inputs[OLE DB Destination Input].Columns[nombres]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="nombres"
+                      externalMetadataColumnId="Package\Load Medico\Load staging.Inputs[OLE DB Destination Input].ExternalColumns[nombres]"
+                      lineageId="Package\Load Medico\Get Medicos.Outputs[OLE DB Source Output].Columns[nombres]" />
+                    <inputColumn
+                      refId="Package\Load Medico\Load staging.Inputs[OLE DB Destination Input].Columns[fechaNacimiento]"
+                      cachedDataType="dbDate"
+                      cachedName="fechaNacimiento"
+                      externalMetadataColumnId="Package\Load Medico\Load staging.Inputs[OLE DB Destination Input].ExternalColumns[fechaNacimiento]"
+                      lineageId="Package\Load Medico\Get Medicos.Outputs[OLE DB Source Output].Columns[fechaNacimiento]" />
+                    <inputColumn
+                      refId="Package\Load Medico\Load staging.Inputs[OLE DB Destination Input].Columns[codDirector]"
+                      cachedDataType="i4"
+                      cachedName="codDirector"
+                      externalMetadataColumnId="Package\Load Medico\Load staging.Inputs[OLE DB Destination Input].ExternalColumns[codDirector]"
+                      lineageId="Package\Load Medico\Get Medicos.Outputs[OLE DB Source Output].Columns[codDirector]" />
+                    <inputColumn
+                      refId="Package\Load Medico\Load staging.Inputs[OLE DB Destination Input].Columns[codMedicoSK]"
+                      cachedDataType="i4"
+                      cachedName="codMedicoSK"
+                      externalMetadataColumnId="Package\Load Medico\Load staging.Inputs[OLE DB Destination Input].ExternalColumns[codMedicoSK]"
+                      lineageId="Package\Load Medico\Lookup.Outputs[Lookup Match Output].Columns[codMedicoSK]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Load Medico\Load staging.Inputs[OLE DB Destination Input].ExternalColumns[codMedicoSK]"
+                      dataType="i4"
+                      name="codMedicoSK" />
+                    <externalMetadataColumn
+                      refId="Package\Load Medico\Load staging.Inputs[OLE DB Destination Input].ExternalColumns[codMedico]"
+                      dataType="i4"
+                      name="codMedico" />
+                    <externalMetadataColumn
+                      refId="Package\Load Medico\Load staging.Inputs[OLE DB Destination Input].ExternalColumns[dni]"
+                      codePage="1252"
+                      dataType="str"
+                      length="20"
+                      name="dni" />
+                    <externalMetadataColumn
+                      refId="Package\Load Medico\Load staging.Inputs[OLE DB Destination Input].ExternalColumns[apPaterno]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="apPaterno" />
+                    <externalMetadataColumn
+                      refId="Package\Load Medico\Load staging.Inputs[OLE DB Destination Input].ExternalColumns[apMaterno]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="apMaterno" />
+                    <externalMetadataColumn
+                      refId="Package\Load Medico\Load staging.Inputs[OLE DB Destination Input].ExternalColumns[nombres]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="nombres" />
+                    <externalMetadataColumn
+                      refId="Package\Load Medico\Load staging.Inputs[OLE DB Destination Input].ExternalColumns[fechaNacimiento]"
+                      dataType="dbDate"
+                      name="fechaNacimiento" />
+                    <externalMetadataColumn
+                      refId="Package\Load Medico\Load staging.Inputs[OLE DB Destination Input].ExternalColumns[codDirector]"
+                      dataType="i4"
+                      name="codDirector" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Load Medico\Load staging.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Load Medico\Load staging.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Medico\Load staging.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load Medico\Load staging.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load Medico\Load staging.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load Medico\Load staging.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load Medico\Lookup"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+              name="Lookup"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from [dbo].[DimMedico]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (select * from [dbo].[DimMedico]) [refTable]
+where [refTable].[codMedico] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">1</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="codMedicoSK" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="codMedico" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="dni" dataType="DT_STR" length="20" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="apPaterno" dataType="DT_STR" length="50" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="apMaterno" dataType="DT_STR" length="50" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="nombres" dataType="DT_STR" length="50" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="fechaNacimiento" dataType="DT_DBDATE" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="codDirector" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\Load Medico\Get Medicos.Outputs[OLE DB Source Output].Columns[codMedico]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load Medico\Lookup.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[Target.MedServicesDW]"
+                  connectionManagerRefId="Package.ConnectionManagers[Target.MedServicesDW]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Load Medico\Lookup.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Load Medico\Lookup.Inputs[Lookup Input].Columns[codMedico]"
+                      cachedDataType="i4"
+                      cachedName="codMedico"
+                      lineageId="Package\Load Medico\Get Medicos.Outputs[OLE DB Source Output].Columns[codMedico]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">codMedico</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Load Medico\Lookup.Outputs[Lookup Match Output]"
+                  errorOrTruncationOperation="Lookup"
+                  exclusionGroup="1"
+                  name="Lookup Match Output"
+                  synchronousInputId="Package\Load Medico\Lookup.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Medico\Lookup.Outputs[Lookup Match Output].Columns[codMedicoSK]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Copy Column"
+                      lineageId="Package\Load Medico\Lookup.Outputs[Lookup Match Output].Columns[codMedicoSK]"
+                      name="codMedicoSK"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">codMedicoSK</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Load Medico\Lookup.Outputs[Lookup No Match Output]"
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="Lookup No Match Output"
+                  synchronousInputId="Package\Load Medico\Lookup.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Load Medico\Lookup.Outputs[Lookup Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Lookup Error Output"
+                  synchronousInputId="Package\Load Medico\Lookup.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Medico\Lookup.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load Medico\Lookup.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load Medico\Lookup.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load Medico\Lookup.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Load Medico.Paths[Lookup Match Output]"
+              endId="Package\Load Medico\Load staging.Inputs[OLE DB Destination Input]"
+              name="Lookup Match Output"
+              startId="Package\Load Medico\Lookup.Outputs[Lookup Match Output]" />
+            <path
+              refId="Package\Load Medico.Paths[Lookup No Match Output]"
+              endId="Package\Load Medico\Load Medico.Inputs[OLE DB Destination Input]"
+              name="Lookup No Match Output"
+              startId="Package\Load Medico\Lookup.Outputs[Lookup No Match Output]" />
+            <path
+              refId="Package\Load Medico.Paths[OLE DB Source Output]"
+              endId="Package\Load Medico\Lookup.Inputs[Lookup Input]"
+              name="OLE DB Source Output"
+              startId="Package\Load Medico\Get Medicos.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Sync Staging"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{581EC871-BCEF-4C7A-B05F-B15611B32C39}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Sync Staging"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{D43339EF-45C0-4514-98A5-AA2CFE492A83}"
+          SQLTask:SqlStatementSource="EXECUTE [dbo].[DW_MergeDimMedico]" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Update config"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{63F28E50-9D49-491E-B5FC-D8B0810A97CB}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Update config"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{D43339EF-45C0-4514-98A5-AA2CFE492A83}"
+          SQLTask:SqlStatementSource="EXECUTE [dbo].[UpdateLastPackageRowVersion] @tableName = 'Medico' ,@lastRowVersion = ?" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="0"
+            SQLTask:DtsVariableName="User::dbts"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{1E9E461E-99C2-4501-84A2-8C0CE8C8AB73}"
+      DTS:From="Package\Get Database RowVersion"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\Get LastRowVersion" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{5A99BD1D-4ABD-460B-8193-B5B3EE108D23}"
+      DTS:From="Package\Get LastRowVersion"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 1"
+      DTS:To="Package\Clean-up staging" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 2]"
+      DTS:CreationName=""
+      DTS:DTSID="{53801FC9-AE20-4AE9-8DB9-167A89B243D8}"
+      DTS:From="Package\Clean-up staging"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 2"
+      DTS:To="Package\Load Medico" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 3]"
+      DTS:CreationName=""
+      DTS:DTSID="{4DC54871-BE0A-4157-B382-3E991B2C1161}"
+      DTS:From="Package\Load Medico"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 3"
+      DTS:To="Package\Sync Staging" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 4]"
+      DTS:CreationName=""
+      DTS:DTSID="{BA04F0F2-27DE-48B9-BCAC-D434CE0D8458}"
+      DTS:From="Package\Sync Staging"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 4"
+      DTS:To="Package\Update config" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--Esta sección CDATA contiene la información de diseño del paquete. Esta sección incluye información como, por ejemplo, las coordenadas (x,y), el ancho y el alto.-->
+<!--Si edita manualmente esta sección y comete un error, puede eliminarlo. -->
+<!--El paquete podrá cargarse normalmente, pero se perderá la información de diseño anterior y el diseñador reorganizará los elementos automáticamente en la superficie de diseño.-->
+<Objects
+  Version="8">
+  <!--Cada uno de los nodos siguientes contiene propiedades que no afectan al comportamiento en tiempo de ejecución.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="166,42"
+          Id="Package\Clean-up staging"
+          TopLeft="352,219.49999828885" />
+        <NodeLayout
+          Size="147,42"
+          Id="Package\Update config"
+          TopLeft="361,440.583330583655" />
+        <NodeLayout
+          Size="213,42"
+          Id="Package\Get Database RowVersion"
+          TopLeft="328,62.166665881044" />
+        <NodeLayout
+          Size="183,42"
+          Id="Package\Get LastRowVersion"
+          TopLeft="343,137.583332068804" />
+        <NodeLayout
+          Size="153,42"
+          Id="Package\Load Medico"
+          TopLeft="359,293.249997788419" />
+        <NodeLayout
+          Size="144,42"
+          Id="Package\Sync Staging"
+          TopLeft="365,362.083330680513" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="434.5,104.166665881044">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,33.41666618776"
+              Start="0,0"
+              End="0,25.91666618776">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,25.91666618776" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 1]"
+          TopLeft="434.75,179.583332068804">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,39.916666220046"
+              Start="0,0"
+              End="0,32.416666220046">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,32.416666220046" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 2]"
+          TopLeft="435.25,261.49999828885">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,31.749999499569"
+              Start="0,0"
+              End="0,24.249999499569">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,24.249999499569" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 3]"
+          TopLeft="436.25,335.249997788419">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,26.8333328920939"
+              Start="0,0"
+              End="0,19.3333328920939">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,19.3333328920939" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 4]"
+          TopLeft="435.75,404.083330680513">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,36.499999903142"
+              Start="0,0"
+              End="0,28.999999903142">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,28.999999903142" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Load Medico">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="127,42"
+          Id="Package\Load Medico\Lookup"
+          TopLeft="379,310.54166492054" />
+        <NodeLayout
+          Size="139,42"
+          Id="Package\Load Medico\Load Medico"
+          TopLeft="540,410.958331302015" />
+        <NodeLayout
+          Size="141,42"
+          Id="Package\Load Medico\Get Medicos"
+          TopLeft="366,238.874998813495" />
+        <NodeLayout
+          Size="139,42"
+          Id="Package\Load Medico\Load staging"
+          TopLeft="208,414.958331172872" />
+        <EdgeLayout
+          Id="Package\Load Medico.Paths[OLE DB Source Output]"
+          TopLeft="439.5,280.874998813495">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,29.6666661070449"
+              Start="0,0"
+              End="0,22.1666661070449">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,22.1666661070449" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Load Medico.Paths[Lookup No Match Output]"
+          TopLeft="462.333333333333,352.54166492054">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="147.166666666667,58.416666381475"
+              Start="0,0"
+              End="147.166666666667,50.916666381475">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,19.8027474213786" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,19.8027474213786"
+                    Point2="0,23.8027474213786"
+                    Point3="4,23.8027474213786" />
+                  <mssgle:LineSegment
+                    End="143.166666666667,23.8027474213786" />
+                  <mssgle:CubicBezierSegment
+                    Point1="143.166666666667,23.8027474213786"
+                    Point2="147.166666666667,23.8027474213786"
+                    Point3="147.166666666667,27.8027474213786" />
+                  <mssgle:LineSegment
+                    End="147.166666666667,50.916666381475" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="17.7769466145833,28.8027474213786,111.6127734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Load Medico.Paths[Lookup Match Output]"
+          TopLeft="422.666666666667,352.54166492054">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-145.166666666667,62.416666252332"
+              Start="0,0"
+              End="-145.166666666667,54.916666252332">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,21.4326073998616" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,21.4326073998616"
+                    Point2="0,25.4326073998616"
+                    Point3="-4,25.4326073998616" />
+                  <mssgle:LineSegment
+                    End="-141.166666666667,25.4326073998616" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-141.166666666667,25.4326073998616"
+                    Point2="-145.166666666667,25.4326073998616"
+                    Point3="-145.166666666667,29.4326073998616" />
+                  <mssgle:LineSegment
+                    End="-145.166666666667,54.916666252332" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-120.774720052083,30.4326073998616,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load Medico\Lookup">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[dbo].[DimMedico]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load Medico\Load Medico">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load Medico\Get Medicos">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load Medico\Load staging">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

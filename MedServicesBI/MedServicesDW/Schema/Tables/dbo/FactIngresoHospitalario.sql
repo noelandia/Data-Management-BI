@@ -13,7 +13,7 @@
 	[codMedicoSK][int] NOT NULL, --Claves foraneas hacia las dimensiones
 	[codHistSK] [int] NOT NULL, -- fk a dimPaciente
 	[ingresoDateKey] [int] NOT NULL, --Clave foránea DimDate
-	[salidaDateKey] [int] NOT NULL, --Clave foránea DimDate
+	[salidaDateKey] [int] NULL, --Clave foránea DimDate
 	
 	CONSTRAINT [PK_FactIngresoHospital] PRIMARY KEY CLUSTERED (idIngresoSK ASC)
 	WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, 

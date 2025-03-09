@@ -1,4 +1,4 @@
-﻿CREATE PROCEDURE [dbo].[GethospitalChangesByRowVersion] 
+﻿CREATE PROCEDURE [dbo].[GetHospitalChangesByRowVersion] 
 (
    @startRow BIGINT,
    @endRow  BIGINT 
@@ -9,7 +9,9 @@ BEGIN
 		   h.nombre,
 		   h.ciudad,
 		   h.telefono,
-		   d.codDirector
+		   d.codDirector,
+		   d.fecInicio,
+		   d.fecFin
      FROM servicios.hospital h 
   INNER JOIN servicios.director d 
    ON h.codHospital = d.codHospital

@@ -6,7 +6,7 @@
 	[apMaterno] [varchar](50),
 	[nombres] [varchar](50) NOT NULL,
 	[fechaNacimiento] [date],
-	[codDirector] [int] NOT NULL,
+	[codDirector] [int] NULL,
 	CONSTRAINT [PK_DimMedico] PRIMARY KEY (codMedicoSK)
 )
 GO
