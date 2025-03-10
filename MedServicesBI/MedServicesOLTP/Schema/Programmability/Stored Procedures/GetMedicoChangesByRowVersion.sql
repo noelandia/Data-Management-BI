@@ -13,7 +13,7 @@ BEGIN
 		m.fechaNacimiento,
 		d.codDirector
 	FROM servicios.medico m
-	INNER JOIN servicios.director d ON d.codMedico = m.codMedico
+	LEFT JOIN servicios.director d ON d.codMedico = m.codMedico
 	WHERE (m.[rowversion] > CONVERT(ROWVERSION,@startRow) AND m.[rowversion] <= CONVERT(ROWVERSION,@endRow))
 	OR (d.[rowversion] > CONVERT(ROWVERSION,@startRow) AND d.[rowversion] <= CONVERT(ROWVERSION,@endRow))
 END
