@@ -6,5 +6,8 @@ MedServicesBI/MedServicesDW/bin
 MedServicesBI/MedServicesETL/bin/
 MedServicesBI/MedServicesETL/obj/
 #MedServicesBI/MedServicesETL/*.dtsx
+MedServicesBI/MedServicesOLAP/obj
+MedServicesBI/MedServicesOLAP/*.bim.layout
+MedServicesBI/MedServicesOLAP/*.bim_*
 *.dbmdl
 *.jfm
