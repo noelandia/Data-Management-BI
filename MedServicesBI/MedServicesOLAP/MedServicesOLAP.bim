@@ -18,8 +18,6 @@
         },
         "credential": {
           "AuthenticationKind": "UsernamePassword",
-          "kind": "SQL",
-          "path": "localhost;MedServicesDW",
           "Username": "sa",
           "EncryptConnection": false
         }
@@ -509,18 +507,422 @@
         ]
       },
       {
-        "name": "FactVisitaMedica",
+        "name": "DimDate",
+        "columns": [
+          {
+            "name": "DateKey",
+            "dataType": "int64",
+            "sourceColumn": "DateKey"
+          },
+          {
+            "name": "FullDate",
+            "dataType": "dateTime",
+            "sourceColumn": "FullDate"
+          },
+          {
+            "name": "DayNumberOfWeek",
+            "dataType": "int64",
+            "sourceColumn": "DayNumberOfWeek"
+          },
+          {
+            "name": "DayNameOfWeek",
+            "dataType": "string",
+            "sourceColumn": "DayNameOfWeek"
+          },
+          {
+            "name": "DayNumberOfMonth",
+            "dataType": "int64",
+            "sourceColumn": "DayNumberOfMonth"
+          },
+          {
+            "name": "DayNumberOfYear",
+            "dataType": "int64",
+            "sourceColumn": "DayNumberOfYear"
+          },
+          {
+            "name": "WeekNumberOfYear",
+            "dataType": "int64",
+            "sourceColumn": "WeekNumberOfYear"
+          },
+          {
+            "name": "MonthName",
+            "dataType": "string",
+            "sourceColumn": "MonthName"
+          },
+          {
+            "name": "MonthNumberOfYear",
+            "dataType": "int64",
+            "sourceColumn": "MonthNumberOfYear"
+          },
+          {
+            "name": "CalendarQuarter",
+            "dataType": "int64",
+            "sourceColumn": "CalendarQuarter"
+          },
+          {
+            "name": "CalendarYear",
+            "dataType": "int64",
+            "sourceColumn": "CalendarYear"
+          },
+          {
+            "name": "CalendarSemester",
+            "dataType": "int64",
+            "sourceColumn": "CalendarSemester"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Partition",
+            "dataView": "full",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = #\"SQL/localhost;MedServicesDW\",",
+                "    dbo_DimDate = Source{[Schema=\"dbo\",Item=\"DimDate\"]}[Data]",
+                "in",
+                "    dbo_DimDate"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "DimHospital",
+        "columns": [
+          {
+            "name": "codHospitalSK",
+            "dataType": "int64",
+            "sourceColumn": "codHospitalSK"
+          },
+          {
+            "name": "codHospital",
+            "dataType": "int64",
+            "sourceColumn": "codHospital"
+          },
+          {
+            "name": "nombre",
+            "dataType": "string",
+            "sourceColumn": "nombre"
+          },
+          {
+            "name": "ciudad",
+            "dataType": "string",
+            "sourceColumn": "ciudad"
+          },
+          {
+            "name": "telefono",
+            "dataType": "int64",
+            "sourceColumn": "telefono"
+          },
+          {
+            "name": "codDirector",
+            "dataType": "int64",
+            "sourceColumn": "codDirector"
+          },
+          {
+            "name": "fecInicioDir",
+            "dataType": "dateTime",
+            "sourceColumn": "fecInicioDir"
+          },
+          {
+            "name": "fecFinDir",
+            "dataType": "dateTime",
+            "sourceColumn": "fecFinDir"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Partition",
+            "dataView": "full",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = #\"SQL/localhost;MedServicesDW\",",
+                "    dbo_DimHospital = Source{[Schema=\"dbo\",Item=\"DimHospital\"]}[Data]",
+                "in",
+                "    dbo_DimHospital"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "DimPaciente",
+        "columns": [
+          {
+            "name": "codHistSK",
+            "dataType": "int64",
+            "sourceColumn": "codHistSK"
+          },
+          {
+            "name": "codHist",
+            "dataType": "int64",
+            "sourceColumn": "codHist"
+          },
+          {
+            "name": "dni",
+            "dataType": "string",
+            "sourceColumn": "dni"
+          },
+          {
+            "name": "apPaterno",
+            "dataType": "string",
+            "sourceColumn": "apPaterno"
+          },
+          {
+            "name": "apMaterno",
+            "dataType": "string",
+            "sourceColumn": "apMaterno"
+          },
+          {
+            "name": "nombres",
+            "dataType": "string",
+            "sourceColumn": "nombres"
+          },
+          {
+            "name": "fecNacimiento",
+            "dataType": "dateTime",
+            "sourceColumn": "fecNacimiento"
+          },
+          {
+            "name": "nroSeguro",
+            "dataType": "string",
+            "sourceColumn": "nroSeguro"
+          },
+          {
+            "name": "nroCelular",
+            "dataType": "int64",
+            "sourceColumn": "nroCelular"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Partition",
+            "dataView": "full",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = #\"SQL/localhost;MedServicesDW\",",
+                "    dbo_DimPaciente = Source{[Schema=\"dbo\",Item=\"DimPaciente\"]}[Data]",
+                "in",
+                "    dbo_DimPaciente"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "DimMedico",
+        "columns": [
+          {
+            "name": "codMedicoSK",
+            "dataType": "int64",
+            "sourceColumn": "codMedicoSK"
+          },
+          {
+            "name": "codMedico",
+            "dataType": "int64",
+            "sourceColumn": "codMedico"
+          },
+          {
+            "name": "dni",
+            "dataType": "string",
+            "sourceColumn": "dni"
+          },
+          {
+            "name": "apPaterno",
+            "dataType": "string",
+            "sourceColumn": "apPaterno"
+          },
+          {
+            "name": "apMaterno",
+            "dataType": "string",
+            "sourceColumn": "apMaterno"
+          },
+          {
+            "name": "nombres",
+            "dataType": "string",
+            "sourceColumn": "nombres"
+          },
+          {
+            "name": "fechaNacimiento",
+            "dataType": "dateTime",
+            "sourceColumn": "fechaNacimiento"
+          },
+          {
+            "name": "codDirector",
+            "dataType": "int64",
+            "sourceColumn": "codDirector"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Partition",
+            "dataView": "full",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = #\"SQL/localhost;MedServicesDW\",",
+                "    dbo_DimMedico = Source{[Schema=\"dbo\",Item=\"DimMedico\"]}[Data]",
+                "in",
+                "    dbo_DimMedico"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "DimServicio",
+        "columns": [
+          {
+            "name": "idServicioSK",
+            "dataType": "int64",
+            "sourceColumn": "idServicioSK"
+          },
+          {
+            "name": "idServicio",
+            "dataType": "int64",
+            "sourceColumn": "idServicio"
+          },
+          {
+            "name": "nombre",
+            "dataType": "string",
+            "sourceColumn": "nombre"
+          },
+          {
+            "name": "acronimo",
+            "dataType": "string",
+            "sourceColumn": "acronimo"
+          },
+          {
+            "name": "comentario",
+            "dataType": "string",
+            "sourceColumn": "comentario"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Partition",
+            "dataView": "full",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = #\"SQL/localhost;MedServicesDW\",",
+                "    dbo_DimServicio = Source{[Schema=\"dbo\",Item=\"DimServicio\"]}[Data]",
+                "in",
+                "    dbo_DimServicio"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "FactIngresoHospitalario 1",
+        "columns": [
+          {
+            "name": "idIngresoSK",
+            "dataType": "int64",
+            "sourceColumn": "idIngresoSK"
+          },
+          {
+            "name": "idIngreso",
+            "dataType": "int64",
+            "sourceColumn": "idIngreso"
+          },
+          {
+            "name": "fechaIngreso",
+            "dataType": "dateTime",
+            "sourceColumn": "fechaIngreso"
+          },
+          {
+            "name": "fechaSalida",
+            "dataType": "dateTime",
+            "sourceColumn": "fechaSalida"
+          },
+          {
+            "name": "codCama",
+            "dataType": "int64",
+            "sourceColumn": "codCama"
+          },
+          {
+            "name": "estadoCama",
+            "dataType": "string",
+            "sourceColumn": "estadoCama"
+          },
+          {
+            "name": "nroHabitacion",
+            "dataType": "string",
+            "sourceColumn": "nroHabitacion"
+          },
+          {
+            "name": "idVisitaSK",
+            "dataType": "int64",
+            "sourceColumn": "idVisitaSK"
+          },
+          {
+            "name": "codHospitalSK",
+            "dataType": "int64",
+            "sourceColumn": "codHospitalSK"
+          },
+          {
+            "name": "idServicioSK",
+            "dataType": "int64",
+            "sourceColumn": "idServicioSK"
+          },
+          {
+            "name": "codMedicoSK",
+            "dataType": "int64",
+            "sourceColumn": "codMedicoSK"
+          },
+          {
+            "name": "codHistSK",
+            "dataType": "int64",
+            "sourceColumn": "codHistSK"
+          },
+          {
+            "name": "ingresoDateKey",
+            "dataType": "int64",
+            "sourceColumn": "ingresoDateKey"
+          },
+          {
+            "name": "salidaDateKey",
+            "dataType": "int64",
+            "sourceColumn": "salidaDateKey"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Partition",
+            "dataView": "full",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = #\"SQL/localhost;MedServicesDW\",",
+                "    dbo_FactIngresoHospitalario = Source{[Schema=\"dbo\",Item=\"FactIngresoHospitalario\"]}[Data]",
+                "in",
+                "    dbo_FactIngresoHospitalario"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "FactVisitaMedica 1",
         "columns": [
           {
             "name": "idVisitaSK",
             "dataType": "int64",
-            "isHidden": true,
             "sourceColumn": "idVisitaSK"
           },
           {
             "name": "idVisita",
             "dataType": "int64",
-            "isHidden": true,
             "sourceColumn": "idVisita"
           },
           {
@@ -541,31 +943,26 @@
           {
             "name": "codHistSK",
             "dataType": "int64",
-            "isHidden": true,
             "sourceColumn": "codHistSK"
           },
           {
             "name": "codHospitalSK",
             "dataType": "int64",
-            "isHidden": true,
             "sourceColumn": "codHospitalSK"
           },
           {
             "name": "idServicioSK",
             "dataType": "int64",
-            "isHidden": true,
             "sourceColumn": "idServicioSK"
           },
           {
             "name": "codMedicoSK",
             "dataType": "int64",
-            "isHidden": true,
             "sourceColumn": "codMedicoSK"
           },
           {
             "name": "fechaHoraDateKey",
             "dataType": "int64",
-            "isHidden": true,
             "sourceColumn": "fechaHoraDateKey"
           }
         ],
@@ -584,6 +981,81 @@
               ]
             }
           }
+        ],
+        "measures": [
+          {
+            "name": "FrecuenciaDiagnosticos",
+            "expression": [
+              "",
+              "CALCULATE(",
+              "    COUNTROWS(FactVisitaMedica),",
+              "    NOT(ISBLANK(FactVisitaMedica[diagnostico]))",
+              ")"
+            ]
+          },
+          {
+            "name": "TotalTratamientos",
+            "expression": [
+              "",
+              "CALCULATE(",
+              "    COUNTROWS(FactVisitaMedica),",
+              "    NOT(ISBLANK(FactVisitaMedica[tratamiento]))",
+              ")"
+            ]
+          },
+          {
+            "name": "DiagnosticoMasFrecuente",
+            "expression": [
+              "",
+              "VAR TablaFrecuencia =",
+              "    ADDCOLUMNS(",
+              "        VALUES(FactVisitaMedica[diagnostico]),",
+              "        \"Frecuencia\", CALCULATE(COUNTROWS(FactVisitaMedica))",
+              "    )",
+              "VAR TopDiagnostico =",
+              "    TOPN(1, TablaFrecuencia, [Frecuencia], DESC)",
+              "RETURN",
+              "    CONCATENATEX(TopDiagnostico, FactVisitaMedica[diagnostico], \", \")"
+            ]
+          },
+          {
+            "name": "DiagnosticosRecurrentes",
+            "expression": [
+              "",
+              "COUNTROWS(",
+              "    FILTER(",
+              "        VALUES(FactVisitaMedica[diagnostico]),",
+              "        CALCULATE(COUNTROWS(FactVisitaMedica)) > 1",
+              "    )",
+              ")"
+            ]
+          },
+          {
+            "name": "TratamientoMasFrecuente",
+            "expression": [
+              "",
+              "VAR TablaFrecuenciaTrat =",
+              "    ADDCOLUMNS(",
+              "        VALUES(FactVisitaMedica[tratamiento]),",
+              "        \"Frecuencia\", CALCULATE(COUNTROWS(FactVisitaMedica))",
+              "    )",
+              "VAR TopTratamiento =",
+              "    TOPN(1, TablaFrecuenciaTrat, [Frecuencia], DESC)",
+              "RETURN",
+              "    CONCATENATEX(TopTratamiento, FactVisitaMedica[tratamiento], \", \")",
+              "\t",
+              "\tDiagnosticoMenosFrecuente:=",
+              "VAR TablaFrecuencia =",
+              "    ADDCOLUMNS(",
+              "        VALUES(FactVisitaMedica[diagnostico]),",
+              "        \"Frecuencia\", CALCULATE(COUNTROWS(FactVisitaMedica))",
+              "    )",
+              "VAR BottomDiagnostico =",
+              "    TOPN(1, TablaFrecuencia, [Frecuencia], ASC)",
+              "RETURN",
+              "    CONCATENATEX(BottomDiagnostico, FactVisitaMedica[diagnostico], \", \")"
+            ]
+          }
         ]
       }
     ],
@@ -595,13 +1067,6 @@
         "toTable": "Fecha",
         "toColumn": "DateKey",
         "isActive": false
-      },
-      {
-        "name": "eaa77577-a5b3-4e65-84e8-bea12f968ccb",
-        "fromTable": "FactVisitaMedica",
-        "fromColumn": "fechaHoraDateKey",
-        "toTable": "Fecha",
-        "toColumn": "DateKey"
       },
       {
         "name": "c73d895b-590b-4b6d-95f9-749291d6c6e9",
@@ -618,22 +1083,8 @@
         "toColumn": "codMedicoSK"
       },
       {
-        "name": "92b7953a-a810-4d15-9571-272d75ab1e73",
-        "fromTable": "FactVisitaMedica",
-        "fromColumn": "codMedicoSK",
-        "toTable": "Medico",
-        "toColumn": "codMedicoSK"
-      },
-      {
         "name": "f78a21ad-b715-4a53-9b57-fefc7f1d0d21",
         "fromTable": "FactIngresoHospitalario",
-        "fromColumn": "codHistSK",
-        "toTable": "Paciente",
-        "toColumn": "codHistSK"
-      },
-      {
-        "name": "73a2d901-f56c-42d4-8799-62ca793161e1",
-        "fromTable": "FactVisitaMedica",
         "fromColumn": "codHistSK",
         "toTable": "Paciente",
         "toColumn": "codHistSK"
@@ -646,33 +1097,11 @@
         "toColumn": "idServicioSK"
       },
       {
-        "name": "df703797-339e-4e87-a815-d83c6fa133c8",
-        "fromTable": "FactVisitaMedica",
-        "fromColumn": "idServicioSK",
-        "toTable": "Servicio",
-        "toColumn": "idServicioSK"
-      },
-      {
-        "name": "0645f5a2-a085-490d-8d13-139643b2bc36",
-        "fromTable": "FactIngresoHospitalario",
-        "fromColumn": "idVisitaSK",
-        "toTable": "FactVisitaMedica",
-        "toColumn": "idVisitaSK",
-        "isActive": false
-      },
-      {
         "name": "eca6d6f2-1c8f-4a06-8b2d-2f21bb355af5",
         "fromTable": "FactIngresoHospitalario",
         "fromColumn": "ingresoDateKey",
         "toTable": "Fecha",
         "toColumn": "DateKey"
-      },
-      {
-        "name": "bca16a14-f65d-4f0c-bc2c-141a4f524f67",
-        "fromTable": "FactVisitaMedica",
-        "fromColumn": "codHospitalSK",
-        "toTable": "Hospital",
-        "toColumn": "codHospitalSK"
       }
     ],
     "annotations": [
