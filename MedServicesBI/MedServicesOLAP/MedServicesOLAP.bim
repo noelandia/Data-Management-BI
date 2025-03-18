@@ -505,6 +505,14 @@
           {
             "name": "TotalCamasPorServicio",
             "expression": " CALCULATE(COUNTROWS(FactIngresoHospitalario),ALLEXCEPT(FactIngresoHospitalario, FactIngresoHospitalario[codHospitalSK], FactIngresoHospitalario[idServicioSK]))"
+          },
+          {
+            "name": "CantServiciosporHospital",
+            "expression": "DISTINCTCOUNT(FactIngresoHospitalario[idServicioSK])"
+          },
+          {
+            "name": "CantMedicosporHospital",
+            "expression": "DISTINCTCOUNT(FactIngresoHospitalario[codMedicoSK])"
           }
         ]
       },
