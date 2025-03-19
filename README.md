@@ -11,13 +11,18 @@ Implementación del sistema de registro de atención hospitalaria, para el proy
 - **Polanco Maldonado Ana Luisa** – [@Anitapm25](https://github.com/Anitapm25)
 - **Soria Añez Carlos Alfredo** – [@alfabcd8](https://github.com/alfabcd8)
 
+*Nota: Los commits realizados por los integrantes del grupo se pueden verificar mediante el comando:*
+```bash
+git log.
+```
+*Esto debido a que existen commits que no estaban directamente relacionados al usuario de GitHub.*
 
 ---
 
 ## 🛠️ Herramientas y Tecnologías Utilizadas
 - Bases de Datos: SQL Server
 - Control de Versiones: Git y GitHub
-- Herramientas: Visual Studio Community 2022, SQL Server Management Studio 20, Power BI
+- Herramientas: Visual Studio Community 2022, SQL Server Management Studio 20, Power BI Desktop
 - Librerías: Microsoft DataTools IntegrationServices, Microsoft DataTools ReportingServices
 
 ---
@@ -32,6 +37,8 @@ Asegúrate de tener instalados los siguientes programas:
 - [Power BI Desktop](https://www.microsoft.com/es-es/power-platform/products/power-bi/desktop)
 - [SQL Server 2022](https://www.microsoft.com/en-us/sql-server/sql-server-downloads)
 
+*Se recomienda instalar el proyecto en equipos con memoria RAM mínima de 16 GB*
+
 ### Clonar el repositorio
 ```bash
 git clone https://github.com/noelandia/Data-Management-BI.git
@@ -41,10 +48,11 @@ git clone https://github.com/noelandia/Data-Management-BI.git
 Al momento de abrir la solución, se solicitará la introducción de una contraseña que es utilizada en el proyecto de Integración de Datos.
 La contraseña es `MedServices`.
 
-Una vez abierta la solución, en el mismo aparecerán tres proyectos:
+Una vez abierta la solución, en el mismo aparecerán cuatro proyectos:
 - **MedServicesOLTP**: Proyecto de Base de Datos Estructural
 - **MedServicesDW**: Proyecto de Base de Datos Analítica
 - **MedServicesETL**: Proyecto de Integración de Datos
+- **MedServicesOLAP**: Proyecto tabular de Analysis Services
 
 ### Instalar proyecto de Base de Datos Estructural
 Crea una nueva base de datos en SQL Server con el nombre `MedServicesOLTP`, da clic derecho sobre el proyecto `MedServicesOLTP` y selecciona la opción `Publicar`.
@@ -62,12 +70,12 @@ Despliega el proyecto `MedServicesETL`, busca la carpeta Paquetes SSIS y ejecuta
 6. **FactIngresoHospitalario.dtsx**
 
 ### Instalar proyecto tabular de Analysis Services
-Se debe actualizar el modelo tabular de Analysis Services con el proyecto `MedServicesDW`, con los siguientes pasos:
+Se debe actualizar el modelo tabular de Analysis Services `MedServicesOLAP` con el proyecto `MedServicesDW`, con los siguientes pasos:
 1. Abrir el modelo tabular MedServicesOLAP.bim.
 2. En las herramientas de Analysis Services, seleccionar la opción `Procesar todo`.
-3. En la ventana emergente, seleccionar la conexión a la base de datos `MedServicesDW` mediante localhost, con el usuario `sa` y su contraseña, dar clic en `Conectar`.
+3. En la ventana emergente, seleccionar la conexión a la base de datos `MedServicesDW` mediante `localhost`, con el usuario `sa` y su contraseña, dar clic en `Conectar`.
 4. Una vez terminado el proceso, dar clic derecho sobre el proyecto tabular `MedServicesOLAP` y seleccionar la opción `Implementar`.
-5. Establecer la conexión a la base de datos `MedServicesDW` mediante localhost, con el usuario `sa` y su contraseña, dar clic en `Conectar`.
+5. Establecer la conexión a la base de datos `MedServicesDW` mediante `localhost`, con el usuario `sa` y su contraseña, dar clic en `Conectar`.
 6. Importar el modelo tabular a Power BI mediante la opción `Obtener datos` y seleccionar `Analysis Services` y seleccionar el modelo `MedServicesOLAP`.
 
 ---
