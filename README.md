@@ -9,7 +9,7 @@ Implementación del sistema de registro de atención hospitalaria, para el proy
 - **Hurtado Cabrera Rodny Pablo** – [@usuario-github](https://github.com/usuario-github)
 - **Olguín Ledezma Roberto Carlos** – [@usuarioGitHub](https://github.com/usuario)
 - **Polanco Maldonado Ana Luisa** – [@Anitapm25](https://github.com/Anitapm25)
-- **Soria Carlos Alfredo** – [@alfabcd8](https://github.com/alfabcd8)
+- **Soria Añez Carlos Alfredo** – [@alfabcd8](https://github.com/alfabcd8)
 
 
 ---
@@ -17,7 +17,7 @@ Implementación del sistema de registro de atención hospitalaria, para el proy
 ## 🛠️ Herramientas y Tecnologías Utilizadas
 - Bases de Datos: SQL Server
 - Control de Versiones: Git y GitHub
-- Herramientas: Visual Studio Community 2022, SQL Server Management Studio 20
+- Herramientas: Visual Studio Community 2022, SQL Server Management Studio 20, Power BI
 - Librerías: Microsoft DataTools IntegrationServices, Microsoft DataTools ReportingServices
 
 ---
@@ -29,7 +29,8 @@ Asegúrate de tener instalados los siguientes programas:
 - [Git](https://git-scm.com/)
 - [Visual Studio Community 2022](https://visualstudio.microsoft.com/)
 - [SQL Server Management Studio 20](https://docs.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms?view=sql-server-ver15)
-- SQL Server 2022
+- [Power BI Desktop](https://www.microsoft.com/es-es/power-platform/products/power-bi/desktop)
+- [SQL Server 2022](https://www.microsoft.com/en-us/sql-server/sql-server-downloads)
 
 ### Clonar el repositorio
 ```bash
@@ -59,6 +60,15 @@ Despliega el proyecto `MedServicesETL`, busca la carpeta Paquetes SSIS y ejecuta
 4. **DimServicio.dtsx**
 5. **FactVisitaMedica.dtsx**
 6. **FactIngresoHospitalario.dtsx**
+
+### Instalar proyecto tabular de Analysis Services
+Se debe actualizar el modelo tabular de Analysis Services con el proyecto `MedServicesDW`, con los siguientes pasos:
+1. Abrir el modelo tabular MedServicesOLAP.bim.
+2. En las herramientas de Analysis Services, seleccionar la opción `Procesar todo`.
+3. En la ventana emergente, seleccionar la conexión a la base de datos `MedServicesDW` mediante localhost, con el usuario `sa` y su contraseña, dar clic en `Conectar`.
+4. Una vez terminado el proceso, dar clic derecho sobre el proyecto tabular `MedServicesOLAP` y seleccionar la opción `Implementar`.
+5. Establecer la conexión a la base de datos `MedServicesDW` mediante localhost, con el usuario `sa` y su contraseña, dar clic en `Conectar`.
+6. Importar el modelo tabular a Power BI mediante la opción `Obtener datos` y seleccionar `Analysis Services` y seleccionar el modelo `MedServicesOLAP`.
 
 ---
 
