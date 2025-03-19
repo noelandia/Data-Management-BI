@@ -608,6 +608,10 @@
           {
             "name": "TotalPacientesConEnfermedadesCronicas",
             "expression": " SUM(FactVisitaMedica[enfermedadCronicas])"
+          },
+          {
+            "name": "TotalVisitasServicio",
+            "expression": "COUNT(FactVisitaMedica[idServicioSK])"
           }
         ]
       }
